@@ -2,7 +2,7 @@
 
 #things i want to look for:
 
-Asset              -     used tech     :                explanation <br />
+Asset          ____-     used tech     :                explanation <br />
 web Technologies   - python-Wappalyzer : Determine the technologies and framework used in the website's development<br />
 Domain Information - whois             : IP address, registration information, and DNS records.<br />
 Open Ports         - python-nmap       : open ports on the target system to understand its potential points of entry.<br />
