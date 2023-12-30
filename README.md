@@ -58,6 +58,19 @@ it contains the list of parameters per url
 
 ### COOKIES
 it contain a list of cookies per domain
+|      column name        |                                              definition                                                        |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------|
+|`VAR..` id               | a unique number to identify the cookie                                                                         |
+|`VAR..` cookie           | the cookie                                                                                                     |
+|`VAR..` variable         | the variable been found in the cookie                                                                          |
+|`TABLE` domain           | id of the related domain                                                                                       |
+
+### 
+
+
+
+
+
 
 
 
