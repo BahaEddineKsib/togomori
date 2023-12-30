@@ -56,7 +56,9 @@ it contains the list of parameters per url
 |`LIST.` variables        | the variables been found in the parameters                                                                     |
 |`FILE.` body             | a variable that points to a file contains response body in html                                                |
 
-###
+### COOKIES
+it contain a list of cookies per domain
+
 
 
 
