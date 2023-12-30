@@ -15,3 +15,9 @@
 |urls parameters    | requests/wordlists| look for url's parameters|
 |http scenario recrd| mitmweb           | record a scenario of requests that being send after an action|
 |html inputs        | web scraping      | locate all html inputs in a web page|
+
+## Possible Tables 
+
+| Table name | columns |
+|:-----------|:--------|
+|site        |* M * b         |
