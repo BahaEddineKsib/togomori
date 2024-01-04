@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/BahaEddineKsib/togomori/assets/61380052/bff23465-a24a-4750-b9e4-bc511a6bdb61" width="270">
+</p>
+
 # TOGOMORI
 Togomori is a comprehensive solution for *web applications reconnaissance* designed to simplify the process of *information gathering* and *data visualization*. 
 It comprises three main components: 
