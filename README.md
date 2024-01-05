@@ -108,14 +108,109 @@ it contains a http requests and the related response.
 |`FILE.` request          | a variable that points to a file contains the https request                                                    |
 |`FILE.` response         | a variable that points to a file contains the https response                                                   |
 
+---------------------------------------------------------------------------------------------------------------------
+## JSON STRUCTURE
+*beta model v0*
+```json
+{
+  "WORKSHOP": [
+    {
+      "id": 1,
+      "name": "ReconForEXAMPLE",
+      "path": "/home/xib/wkshp1",
+      "domains": [
+        {
+          "id": 101,
+          "tag": "main",
+          "domain": "www.example.com",
+          "techs": ["Python", "Django"],
+          "whois": "whois_output.txt",
+          "ip": "192.168.1.1",
+          "ports": {"80": "HTTP", "443": "HTTPS"},
+          "server": "nmap_output.txt",
+          "robots": "robots.txt",
+          "jsfiles": ["file1.js", "file2.js"],
+          "urls": [
+            {
+              "id": 1001,
+              "url": "/page1",
+              "params": [
+                {
+                  "id": 2001,
+                  "param": "id",
+                  "type": "query",
+                  "variables": ["var1", "var2"],
+                  "body": "response_body.html"
+                }
+              ]
+            }
+          ],
+          "cookies": [
+            {
+              "id": 3001,
+              "cookie": "session_token=xyz",
+              "variable": "session",
+              "domain": 101
+            }
+          ]
+        }
+      ],
+      "https_captures": [
+        {
+          "id": 5001,
+          "name": "LoginCapture",
+          "transactions": [
+            {
+              "id": 6001,
+              "request": "login_request.txt",
+              "response": "login_response.txt"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+}
 
+```
+## FEATURES
+* **ItAffects** : this column to determinate the feature affects which table(s).
+* **TYPE** :
+  * *CRUD* : crud is basic feature ( create, read, update, delete ) an object.
 
+|    Command        |      description        |   type  |   ItAffects       |
+|-------------------|-------------------------|:-------:|:-----------------:|
+|setWorkshop        | set a workshop          |   ---   |        ---        |
+|addWorkshop        | add a worshop           |  `CRUD` |   *worshops*      |
+|displayWorkshop    | display a worshop       |  `CRUD` |   *worshops*      |
+|updateWorkshop     | update a worshop        |  `CRUD` |   *worshops*      |
+|deleteWorkshop     | delete a worshop        |  `CRUD` |   *worshops*      |
+|addDomain          | add a domain            |  `CRUD` |    *domains*      |
+|displayDomain      | display a domain        |  `CRUD` |    *domains*      |
+|updateDomain       | update a domain         |  `CRUD` |    *domains*      |
+|deleteDomain       | delete a domain         |  `CRUD` |    *domains*      |
+|addUrl             | add a url               |  `CRUD` |      *urls*       |
+|displayUrl         | display a url           |  `CRUD` |      *urls*       |
+|updateUrl          | update a url            |  `CRUD` |      *urls*       |
+|deleteUrl          | delete a url            |  `CRUD` |      *urls*       |
+|addParameter       | add a parameter         |  `CRUD` |    *parameters*   |
+|displayParameter   | display a parameter     |  `CRUD` |    *parameters*   |
+|updateParameter    | update a parameter      |  `CRUD` |    *parameters*   |
+|deleteParameter    | delete a parameter      |  `CRUD` |    *parameters*   |
+|addCookie          | add a cookie            |  `CRUD` |     *cookies*     |
+|displayCookie      | display a cookie        |  `CRUD` |     *cookies*     |
+|updateCookie       | update a cookie         |  `CRUD` |     *cookies*     |
+|deleteCookie       | delete a cookie         |  `CRUD` |     *cookies*     |
+|addCapture         | add a capture           |  `CRUD` |     *captures*    |
+|displayCapture     | display a capture       |  `CRUD` |     *captures*    |
+|updateCapture      | update a capture        |  `CRUD` |     *captures*    |
+|deleteCapture      | delete a capture        |  `CRUD` |     *captures*    |
+|addTransaction     | add a transaction       |  `CRUD` |   *transactions*  |
+|displayTransaction | display a transaction   |  `CRUD` |   *transactions*  |
+|updateTransaction  | update a transaction    |  `CRUD` |   *transactions*  |
+|deleteTransaction  | delete a transaction    |  `CRUD` |   *transactions*  |
 
-
-
-
-
-
+  * *CRAFT* : craft is a more complex feature than a simple crud that requires more sophisticated functions.
 
 
 
