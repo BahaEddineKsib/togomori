@@ -13,6 +13,12 @@ It comprises three main components:
   Grafana can serve as the visualization and interpretation hub of the system. It offers an interface that transforms the raw data obtained by the JSON Database into clear and customized views. These views are personalized, tailored to individual needs, and serve to provide a comprehensive and intelligible perspective on the target. By presenting the data in a visually compelling manner, the Grafana interface empowers users to gain deeper insights into their findings.
 
 ------------------------------------------------------------------------------------------------------------------
+## Users
+* An `organization` can use TOGOMORI to effectivly map their external attack surface. and monitor the information they are putting in public from their web applications
+* A `Penetration Tester` can use TOGOMORI to gather information in `Black-box` web pentesting Mission.
+* A `Bug Bounty Hunter` can use Togomori to get a clear view about the target and tag what assets are in or out of the scope.
+
+------------------------------------------------------------------------------------------------------------------
 ## things i want to look for
 
 |Asset              | used tech         |                               explanation                                   |
@@ -32,6 +38,14 @@ It comprises three main components:
 
 ---------------------------------------------------------------------------------------------------------------------
 ## Possible Tables/classes
+### WORKSHOP
+it contains informations about specific mission.
+|      column name        |                                              definition                                                        |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------|
+|`VAR..` id               | a unique number to identify the workshop                                                                       |
+|`VAR..` name             | Workshop's name                                                                                                |
+|`TABLE` domains          | domains table                                                                                                  |
+|`TABLE` https_captures   | HTTPS_CAPTURES table                                                                                           |
 ### DOMAINS
 it contain information about a domain/sub-domain.
 |      column name        |                                              definition                                                        |
@@ -46,8 +60,8 @@ it contain information about a domain/sub-domain.
 |`FILE.` server           | a variable that points to a file contains the output of nmap scan to exploit the OS                            |
 |`FILE.` robots           | a variable that points to a file contains the robots.txt                                                       |
 |`LIST.` jsfiles `FILE`   | a list of variables they point to javascript files                                                             |
-|`TABLE` urls             | one to many relation with URLS table                                                                           |
-|`TABLE` cookies          | one to many relation with COOKIES table                                                                        |
+|`TABLE` urls             | URLS table                                                                                                     |
+|`TABLE` cookies          | COOKIES table                                                                                                  |
 
 ### URLS
 it contain the list of urls per domain
@@ -78,7 +92,23 @@ it contain a list of cookies per domain
 |`VAR..` variable         | the variable been found in the cookie                                                                          |
 |`TABLE` domain           | id of the related domain                                                                                       |
 
-### 
+### HTTPS_CAPTURES
+it contains a list of https transaction , tagged with a specific name.
+|      column name        |                                              definition                                                        |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------|
+|`VAR..` id               | a unique number to identify the capture                                                                        |
+|`VAR..` name             | capture's name                                                                                                 |
+|`TABLE` transactions     | TRANSACTIONS table                                                                                             |
+
+### TRANSACTIONS
+it contains a http requests and the related response.
+|      column name        |                                              definition                                                        |
+|`VAR..` id               | a unique number to identify the transaction                                                                    |
+|`FILE.` request          | a variable that points to a file contains the https request                                                    |
+|`FILE.` response         | a variable that points to a file contains the https response                                                   |
+
+
+
 
 
 
