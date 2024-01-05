@@ -103,6 +103,7 @@ it contains a list of https transaction , tagged with a specific name.
 ### TRANSACTIONS
 it contains a http requests and the related response.
 |      column name        |                                              definition                                                        |
+|:------------------------|:---------------------------------------------------------------------------------------------------------------|
 |`VAR..` id               | a unique number to identify the transaction                                                                    |
 |`FILE.` request          | a variable that points to a file contains the https request                                                    |
 |`FILE.` response         | a variable that points to a file contains the https response                                                   |
