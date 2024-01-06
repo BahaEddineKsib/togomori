@@ -185,10 +185,10 @@ it contains a http requests and the related response.
 |displayWorkshop    | display a worshop       |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
 |updateWorkshop     | update a worshop        |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
 |deleteWorkshop     | delete a worshop        |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
-|addDomain          | add a domain            |  `CRUD` |    *domains*      |
-|displayDomain      | display a domain        |  `CRUD` |    *domains*      |
-|updateDomain       | update a domain         |  `CRUD` |    *domains*      |
-|deleteDomain       | delete a domain         |  `CRUD` |    *domains*      |
+|addDomain          | add a domain            |  `CRUD` |    *domains*      |[#4](https://github.com/BahaEddineKsib/togomori/issues/4)
+|displayDomain      | display a domain        |  `CRUD` |    *domains*      |[#4](https://github.com/BahaEddineKsib/togomori/issues/4)
+|updateDomain       | update a domain         |  `CRUD` |    *domains*      |[#4](https://github.com/BahaEddineKsib/togomori/issues/4)
+|deleteDomain       | delete a domain         |  `CRUD` |    *domains*      |[#4](https://github.com/BahaEddineKsib/togomori/issues/4)
 |addUrl             | add a url               |  `CRUD` |      *urls*       |
 |displayUrl         | display a url           |  `CRUD` |      *urls*       |
 |updateUrl          | update a url            |  `CRUD` |      *urls*       |
