@@ -178,13 +178,13 @@ it contains a http requests and the related response.
 * **TYPE** :
   * *CRUD* : crud is basic feature ( create, read, update, delete ) an object.
 
-|    Command        |      description        |   type  |   ItAffects       |
-|-------------------|-------------------------|:-------:|:-----------------:|
-|setWorkshop        | set a workshop          |   ---   |        ---        |
-|addWorkshop        | add a worshop           |  `CRUD` |   *worshops*      |
-|displayWorkshop    | display a worshop       |  `CRUD` |   *worshops*      |
-|updateWorkshop     | update a worshop        |  `CRUD` |   *worshops*      |
-|deleteWorkshop     | delete a worshop        |  `CRUD` |   *worshops*      |
+|    Command        |      description        |   type  |   ItAffects       |RELATED ISSUE
+|-------------------|-------------------------|:-------:|:-----------------:|:------------:
+|setWorkshop        | set a workshop          |   ---   |        ---        |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
+|addWorkshop        | add a worshop           |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
+|displayWorkshop    | display a worshop       |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
+|updateWorkshop     | update a worshop        |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
+|deleteWorkshop     | delete a worshop        |  `CRUD` |   *worshops*      |[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
 |addDomain          | add a domain            |  `CRUD` |    *domains*      |
 |displayDomain      | display a domain        |  `CRUD` |    *domains*      |
 |updateDomain       | update a domain         |  `CRUD` |    *domains*      |
@@ -217,7 +217,7 @@ it contains a http requests and the related response.
 
 
 
-[#3]
+[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
 
 
 
