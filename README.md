@@ -211,16 +211,3 @@ it contains a http requests and the related response.
 |deleteTransaction  | delete a transaction    |  `CRUD` |   *transactions*  |
 
   * *CRAFT* : craft is a more complex feature than a simple crud that requires more sophisticated functions.
-
-
-
-
-
-
-[#3](https://github.com/BahaEddineKsib/togomori/issues/3)
-
-
-
-
-
-
