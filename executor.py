@@ -1,3 +1,5 @@
+from commands.addWorkshop import AddWorkshop as aw
+
 def execute(IN):
 	command = ''
 	if IN != '':
@@ -10,8 +12,10 @@ def execute(IN):
 			print('EXECUTING set Workshop..')
 			
 		case "addworkshop" | "addw" | "aw":
-			print('EXECUTING add workshop..')
+
+			aw.execute(IN)
     
+
 		case "displayworkshop" | "displayw" | "dw":
 			print('EXECUTING display workshop..')
     
