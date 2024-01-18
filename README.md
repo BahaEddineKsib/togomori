@@ -44,7 +44,7 @@ it contains informations about specific mission.
 |      column name        |                                              definition                                                        |
 |:------------------------|:---------------------------------------------------------------------------------------------------------------|
 |`VAR..` id               | a unique number to identify the workshop                                                                       |
-|`VAR..` name             | Workshop's name                                                                                                |
+|`VAR..` path             | Workshop's path                                                                                                |
 |`TABLE` domains          | domains table                                                                                                  |
 |`TABLE` https_captures   | HTTPS_CAPTURES table                                                                                           |
 ### DOMAINS
