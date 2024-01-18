@@ -35,6 +35,7 @@ It comprises three main components:
 |http scenario recrd| mitmweb           | record a scenario of requests that being send after an action               |
 |html inputs        | web scraping      | locate all html inputs in a web page                                        |
 |cookies            | cookie jar/records| get websites cookies                                                        |
+* selenium library
 
 ---------------------------------------------------------------------------------------------------------------------
 ## Possible Tables/classes
@@ -211,3 +212,4 @@ it contains a http requests and the related response.
 |deleteTransaction  | delete a transaction    |  `CRUD` |   *transactions*  |[#9](https://github.com/BahaEddineKsib/togomori/issues/9)
 
   * *CRAFT* : craft is a more complex feature than a simple crud that requires more sophisticated functions.
+[.](https://github.com/BahaEddineKsib/togomori/blob/main/README.md#things-i-want-to-look-for)
