@@ -13,6 +13,7 @@ class AddWorkshop:
 			AddWorkshop.help()
 		else:
 			wrk = Workshop(id,path)
+			print("\nWORKSHOP:")
 			wrk.display()
 			S_return = c.saveIt(save,wrk.save)
 

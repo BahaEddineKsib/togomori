@@ -1,7 +1,7 @@
 
 
 
-# DRYFFC : DON'T REPEAT YOURSELF FOR COMMANDS
+# DRYFFC : DON'T REPEAT YOURSELF FUNCTIONS FOR COMMANDS
 
 
 
@@ -13,7 +13,10 @@ def option(op,value,IN):
 			else:
 				return "UserNeedsHelp"
 		else:
-			return True
+			if(IN.split().index(op)+1 == len(IN.split()) or IN.split()[IN.split().index(op)+1][0] == '-'):
+				return True
+			else:
+				return "UserNeedsHelp"
 	else:
 		return False
 	
@@ -30,8 +33,8 @@ def saveIt(save, save_function):
 			s = input("\nsave it (y/n) ?")
 			stay = False if s in ['y','n'] else True
 		if(s=='n'):
-			print("THIS OBJECT WON'T BE SAVED")
+			print("❌: THIS OBJECT WON'T BE SAVED")
 			return False
 		else:
 			return save_function()
-	
+

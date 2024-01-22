@@ -28,8 +28,22 @@ class Workshop:
 			print("❌: This Workshop ID , already exist")
 		
 	def display(self):
-		print("\nWORKSHOP:")
 		print(self.toJson())
+	
+	@staticmethod
+	def search(id):
+		paths_file = open(os.getcwd()+'/data/paths', 'r')
+		paths = paths_file.readlines()
+		for path in paths:
+			path=path[0:len(path)-1:1]
+			if(os.path.exists(path+'/'+id)):
+				json_file = open(path+'/'+id+'/'+id, 'r')
+				json_data = json.load(json_file)
+				paths_file.close()
+			
+				return Workshop(json_data['id'],json_data['path'])
+		return "WorkshopNotFound"
+
 
 
 def check_workshop_uniqeness(id):
