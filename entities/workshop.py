@@ -9,44 +9,58 @@ class Workshop:
 		self.id  = id
 		self.path= path
 	
-	def toJSON(self):
-		return json.dumps(wrkshp.__dict__)
+	def toJson(self):
+		return json.dumps(self.__dict__,indent=4)
 	
 	def save(self):
 		if(check_workshop_uniqeness(self.id)):
+			if(savePath(self.path)):
+				workshopDirectory = self.path+'/'+self.id
+				workshopJsonFile  = workshopDirectory+'/'+self.id
+				os.mkdir(workshopDirectory)
+				os.mknod(workshopJsonFile)
+				saveJson(workshopJsonFile, self.toJson())
+				print("✅:",self.id,"is Added")
+			else:
+				print("❌: this path doesn't exist")
 			
-			savePath(self.path)
 		else:
-			print("This Workshop ID , already exist")
+			print("❌: This Workshop ID , already exist")
 		
 	def display(self):
-		print("WORKSHOP:")
-		print("\t id  : ",self.id)
-		print("\t path: ",self.path)
+		print("\nWORKSHOP:")
+		print(self.toJson())
 
 
 def check_workshop_uniqeness(id):
 	paths_file = open(os.getcwd()+'/data/paths', 'r')
 	paths = paths_file.readlines()
 	for path in paths:
-		if(os.path.exists(path+''+id)):
+		path=path[0:len(path)-1:1]
+		if(os.path.exists(path+'/'+id)):
 			paths_file.close()
 			return False
 	paths_file.close()
 	return True
 
 def savePath(path):
-	paths_file = open(os.getcwd()+'/data/paths', 'r')
-	paths = paths_file.readlines()
-	pathIsSaved = False
-	for line in paths:
-		print("\nline: ",line)
-		if path+'\n' == line:
-			pathIsSaved = True
-			break 
-	paths_file.close()
+	if(os.path.exists(path)):
+		paths_file = open(os.getcwd()+'/data/paths', 'r')
+		paths = paths_file.readlines()
+		pathIsSaved = False
+		for line in paths:
+			if path+'\n' == line:
+				pathIsSaved = True
+				break
+		paths_file.close()
 	
-	if(not pathIsSaved):
-		paths_file = open(os.getcwd()+'/data/paths', 'a')
-		paths_file.writelines(path+'\n')
-	
+		if(not pathIsSaved):
+			paths_file = open(os.getcwd()+'/data/paths', 'a')
+			paths_file.writelines(path+'\n')
+		return True
+	else:
+		return False
+
+def saveJson(path, jsonObj):
+		jsonObj_file = open(path, 'a')
+		jsonObj_file.writelines(jsonObj+'\n')

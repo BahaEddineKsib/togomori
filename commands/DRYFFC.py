@@ -27,7 +27,7 @@ def saveIt(save, save_function):
 	else:
 		stay = True
 		while stay :
-			s = input("save it (y/n) ?")
+			s = input("\nsave it (y/n) ?")
 			stay = False if s in ['y','n'] else True
 		if(s=='n'):
 			print("THIS OBJECT WON'T BE SAVED")
