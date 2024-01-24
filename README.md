@@ -7,7 +7,7 @@ Togomori is a comprehensive solution for *web applications reconnaissance* desig
 It comprises three main components: 
 * Command-line Application:<br>
   At the core of Togomori is a Python-based command-line application. It is equipped with features, These features serve as the workhorse for gathering information from various sources and give the freedom to hackers to work simultaneously on **Manual/automated** functionalities.
-* JSON Data/APIs:<br>
+* JSON files/ Flask APIs:<br>
   Within the Command-line Application, an integrated storing system takes charge of managing the data collected. This system organize and structure the information into JSON format. By the help of **Flask** we can enable easy retrieval, and sharing JSONs as an **APIs**.
 * Grafana Interface:<br>
   Grafana can serve as the visualization and interpretation hub of the system. It offers an interface that transforms the raw data obtained by the JSON Database into clear and customized views. These views are personalized, tailored to individual needs, and serve to provide a comprehensive and intelligible perspective on the target. By presenting the data in a visually compelling manner, the Grafana interface empowers users to gain deeper insights into their findings.
