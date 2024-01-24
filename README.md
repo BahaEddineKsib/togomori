@@ -3,7 +3,7 @@
 </p>
 
 # TOGOMORI
-Togomori is a comprehensive solution for *web applications reconnaissance* designed to simplify the process of *information gathering* and *data visualization*. 
+Togomori is a comprehensive solution for *web applications reconnaissance* designed to help on the process of *information gathering* and *data visualization*. 
 It comprises three main components: 
 * Command-line Application:<br>
   At the core of Togomori is a Python-based command-line application. It is equipped with features, These features serve as the workhorse for gathering information from various sources and give the freedom to hackers to work simultaneously on **Manual/automated** functionalities.
