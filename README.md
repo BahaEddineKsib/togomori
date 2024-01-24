@@ -212,4 +212,31 @@ it contains a http requests and the related response.
 |deleteTransaction  | delete a transaction    |  `CRUD` |   *transactions*  |[#9](https://github.com/BahaEddineKsib/togomori/issues/9)
 
   * *CRAFT* : craft is a more complex feature than a simple crud that requires more sophisticated functions.
-[.](https://github.com/BahaEddineKsib/togomori/blob/main/README.md#things-i-want-to-look-for)
+
+|         Command        |                           description                                   |   type  |   ItAffects       |RELATED ISSUE
+|------------------------|-------------------------------------------------------------------------|:-------:|:-----------------:|:------------:
+|getTechnologies         |Determine the technologies and framework used in the domain development  | `CRAFT` |           *domains*               |
+|whois                   |IP address, registration information, and DNS records.                   | `CRAFT` |           *-------*               |
+|getPorts                |open ports on the target system and potential points of entry.           | `CRAFT` |           *domains*               |
+|getSubdomains           |Identify subdomains associated with the target website.                  | `CRAFT` | *domains* - *urls* - *parameters* |
+|getServerDetails        |server hosting the website, including the operating system and version.  | `CRAFT` |           *domains*               |
+|getRobots               |Examine robots.txt to get hidden resources and potential sensitive data  | `CRAFT` | *domains* - *urls* - *parameters* |
+|getJavascripts          |Examine the website and fetch its js files                               | `CRAFT` |           *domains*               |
+|getUrls                 |look for urls per sub-domain                                             | `CRAFT` |     *urls* - *parameters*         |
+|getParameters           |look for url's parameters                                                | `CRAFT` |             *urls*                |
+|captureHttpTransactions |record a scenario of requests that being send after an action            | `CRAFT` |              *ALL*                |
+|getHtmlInputs           |locate all html inputs in a web page                                     | `CRAFT` |            undefined              |
+|getCookies              |get websites cookies                                                     | `CRAFT` |            *captures*             |
+
+
+
+
+
+
+
+
+
+
+
+
+
