@@ -231,12 +231,7 @@ it contains a http requests and the related response.
 
 ---------------------------------------------------------------------------------------------------------------------
 ## Grafana interface
-This command try to 
-  * 
-
-
- these are a group of commands that execute                                         
-
+  * *beta idea* still under development
 
 
 
