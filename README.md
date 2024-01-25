@@ -213,7 +213,7 @@ it contains a http requests and the related response.
 |updateTransaction  | update a transaction    |  `CRUD` |   *transactions*  |[#9](https://github.com/BahaEddineKsib/togomori/issues/9)
 |deleteTransaction  | delete a transaction    |  `CRUD` |   *transactions*  |[#9](https://github.com/BahaEddineKsib/togomori/issues/9)
 
-  * *CRAFT* : craft is a more complex feature than a simple crud that requires more sophisticated functions.
+  * *Automation command* / *CRAFT* : craft is a more complex feature than a simple crud that requires more sophisticated functions.
 
 |         Command        |                           description                                   |   type  |   ItAffects       |RELATED ISSUE
 |------------------------|-------------------------------------------------------------------------|:-------:|:-----------------:|:------------:
