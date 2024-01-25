@@ -174,6 +174,8 @@ it contains a http requests and the related response.
 }
 
 ```
+
+---------------------------------------------------------------------------------------------------------------------
 ## FEATURES
 * **ItAffects** : this column to determinate the feature affects which table(s).
 * **TYPE** :
@@ -223,18 +225,17 @@ it contains a http requests and the related response.
 |getRobots               |Examine robots.txt to get hidden resources and potential sensitive data  | `CRAFT` | *domains* - *urls* - *parameters* |
 |getJavascripts          |Examine the website and fetch its js files                               | `CRAFT` |           *domains*               |
 |getUrls                 |look for urls per sub-domain                                             | `CRAFT` |     *urls* - *parameters*         |
-|getParameters           |look for url's parameters                                                | `CRAFT` |             *urls*                |
 |captureHttpTransactions |record a scenario of requests that being send after an action            | `CRAFT` |              *ALL*                |
 |getHtmlInputs           |locate all html inputs in a web page                                     | `CRAFT` |            undefined              |
 |getCookies              |get websites cookies                                                     | `CRAFT` |            *captures*             |
 
+---------------------------------------------------------------------------------------------------------------------
+## Grafana interface
+This command try to 
+  * 
 
 
-
-
-
-
-
+ these are a group of commands that execute                                         
 
 
 
