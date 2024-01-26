@@ -1,6 +1,6 @@
 from entities.workshop import Workshop
 from commands import DRYFFC as c
-
+import json
 class DisplayWorkshop:
 	@staticmethod
 	def execute(IN):
@@ -20,7 +20,9 @@ class DisplayWorkshop:
 				else:
 					print("❌: Workshop Not Found")
 			if(all):
-				print("to develop tomorrow")
+				print("\n✔️WORKSHOP:")
+				for wrk in Workshop.getAllWorkshops():
+					print("\t•"+wrk["id"])
 			
 	@staticmethod
 	def help():
