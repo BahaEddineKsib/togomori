@@ -4,77 +4,43 @@ import os
 
 	
 class Workshop:
-	default_path=os.getcwd()+"/data"
-	def __init__(self, id, path):
+	def __init__(self, id):
 		self.id  = id
-		self.path= path
 	
 	def toJson(self):
-		return json.dumps(self.__dict__,indent=4)
+		return json.dumps(self.__dict__)
 	
 	def save(self):
-		if(check_workshop_uniqeness(self.id)):
-			if(savePath(self.path)):
-				workshopDirectory = self.path+'/'+self.id
-				workshopJsonFile  = workshopDirectory+'/'+self.id
-				os.mkdir(workshopDirectory)
-				os.mknod(workshopJsonFile)
-				saveJson(workshopJsonFile, self.toJson())
-				print("✅:",self.id,"is Added")
-			else:
-				print("❌: this path doesn't exist")
+		if(Workshop.search(self.id) == "WorkshopNotFound"):
+		
+			listObj = Workshop.getAllWorkshops()
+			listObj.append(self.__dict__)
 			
+			json_data = {"workshops": listObj}
+			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
+				json.dump(json_data, workshops_file)
+				
+			print("✅:",self.id,"is Added")
 		else:
 			print("❌: This Workshop ID , already exist")
 		
+	
 	def display(self):
 		print(self.toJson())
 	
+	
+	@staticmethod
+	def getAllWorkshops():
+		listObj = []
+		with open(os.getcwd()+'/data/workshops.json', 'r') as workshops_file:
+			listObj = json.load(workshops_file)
+		
+		return listObj.get("workshops", [])
+	
+	
 	@staticmethod
 	def search(id):
-		paths_file = open(os.getcwd()+'/data/paths', 'r')
-		paths = paths_file.readlines()
-		for path in paths:
-			path=path[0:len(path)-1:1]
-			if(os.path.exists(path+'/'+id)):
-				json_file = open(path+'/'+id+'/'+id, 'r')
-				json_data = json.load(json_file)
-				paths_file.close()
-			
-				return Workshop(json_data['id'],json_data['path'])
+		for wrk in Workshop.getAllWorkshops():
+			if(id == wrk['id']):
+				return Workshop(wrk['id'])
 		return "WorkshopNotFound"
-
-
-
-def check_workshop_uniqeness(id):
-	paths_file = open(os.getcwd()+'/data/paths', 'r')
-	paths = paths_file.readlines()
-	for path in paths:
-		path=path[0:len(path)-1:1]
-		if(os.path.exists(path+'/'+id)):
-			paths_file.close()
-			return False
-	paths_file.close()
-	return True
-
-def savePath(path):
-	if(os.path.exists(path)):
-		paths_file = open(os.getcwd()+'/data/paths', 'r')
-		paths = paths_file.readlines()
-		pathIsSaved = False
-		for line in paths:
-			if path+'\n' == line:
-				pathIsSaved = True
-				break
-		paths_file.close()
-	
-		if(not pathIsSaved):
-			paths_file = open(os.getcwd()+'/data/paths', 'a')
-			paths_file.writelines(path+'\n')
-		return True
-	else:
-		return False
-
-def saveJson(path, jsonObj):
-		jsonObj_file = open(path, 'a')
-		jsonObj_file.writelines(jsonObj+'\n')

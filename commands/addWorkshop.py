@@ -6,13 +6,12 @@ class AddWorkshop:
 	def execute(IN):
 		IN   = c.short_command(IN,"aw")
 		id   = c.option("aw",True,IN)
-		path = c.option("-f",True,IN) if c.option("-f",True,IN) else Workshop.default_path
 		save = c.option("-s",False,IN)
 		
-		if("UserNeedsHelp" in [id,path]):
+		if("UserNeedsHelp" in [id,save]):
 			AddWorkshop.help()
 		else:
-			wrk = Workshop(id,path)
+			wrk = Workshop(id)
 			print("\nWORKSHOP:")
 			wrk.display()
 			S_return = c.saveIt(save,wrk.save)
