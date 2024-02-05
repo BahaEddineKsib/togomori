@@ -20,7 +20,7 @@ class DisplayWorkshop:
 				else:
 					print("❌: Workshop Not Found")
 			if(all):
-				print("\n✔️WORKSHOP:")
+				print("\n✔️WORKSHOPS:")
 				for wrk in Workshop.getAllWorkshops():
 					print("\t•"+wrk["id"])
 			
