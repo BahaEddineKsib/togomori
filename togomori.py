@@ -1,5 +1,6 @@
 from executor import execute
 import readline
+import GlobalVars as TopG
 
 
 
@@ -11,7 +12,6 @@ print('╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻\n'
 
 run = True
 while run:
-	IN =  input("\n┌─🕵️"
-	           +"\n└─conan> ")
+	IN =  input("\n┌─🕵️ ["+ TopG.CURRENT_WORKSHOP+"]"
+	           +"\n└─>>> ")
 	run = execute(IN)
-	
