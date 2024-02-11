@@ -10,7 +10,7 @@ def execute(IN):
 		
 	match command:
 
-		# Workshop
+		# Workshop!
 		case "setworkshop" | "setw" | "sw":
 			
 			sw.execute(IN)

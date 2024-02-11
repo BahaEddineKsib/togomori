@@ -18,7 +18,7 @@ class SetWorkshop:
 				TopG.CURRENT_WORKSHOP=id
 			else:
 				print("❌: Workshop Not Found")
-			
+
 	@staticmethod
 	def help():
 		print("help -SetWorkshop")
