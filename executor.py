@@ -2,6 +2,7 @@ from commands.addWorkshop     import AddWorkshop     as aw
 from commands.displayWorkshop import DisplayWorkshop as dw
 from commands.setWorkshop     import SetWorkshop     as sw
 from commands.unsetWorkshop   import UnsetWorkshop   as usw
+from commands.deleteWorkshop  import DeleteWorkshop  as delw
 def execute(IN):
 	command = ''
 	if IN != '':
@@ -31,7 +32,8 @@ def execute(IN):
 			print('EXECUTING update workshop..')
     
 		case "deleteworkshop" | "deletew" | "delw":
-			print('EXECUTING delete workshop..')
+			
+			delw.execute(IN)
 
 		# Domain
 		case "adddomain" | "addd" | "ad":

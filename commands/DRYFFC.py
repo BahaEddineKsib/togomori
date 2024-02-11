@@ -38,3 +38,15 @@ def saveIt(save, save_function):
 		else:
 			return save_function()
 
+def questionToExecute(for_sure, func, arguments, question):
+	if(for_sure):
+		return func(**arguments)
+	else:
+		ask=True
+		while ask:
+			y_n = input(question)
+			ask = False if y_n in ['yes','no','y','n'] else True
+		if(y_n == 'y'):
+			return func(**arguments)
+
+

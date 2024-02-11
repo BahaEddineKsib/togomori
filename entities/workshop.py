@@ -1,6 +1,6 @@
 import json
 import os
-
+import GlobalVars as TopG
 
 
 class Workshop:
@@ -29,6 +29,23 @@ class Workshop:
 
 
 	@staticmethod
+	def deleteById(id):
+		
+		if(id == TopG.CURRENT_WORKSHOP):
+			return "WorkshopIsSet"
+		elif(Workshop.search(id) == "WorkshopNotFound"):
+			return "WorkshopNotFound"
+		else:
+			wlist = Workshop.getAllWorkshops()
+			wlist = [w for w in wlist if w["id"] != id]
+
+			json_data = {"workshops": wlist}
+			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
+				json.dump(json_data, workshops_file)
+
+			return "WorkshopDeleted"
+
+	@staticmethod
 	def getAllWorkshops():
 		listObj = []
 		with open(os.getcwd()+'/data/workshops.json', 'r') as workshops_file:
@@ -42,10 +59,3 @@ class Workshop:
 			if(id == wrk['id']):
 				return Workshop(wrk['id'])
 		return "WorkshopNotFound"
-
-
-
-
-
-
-	#yeeyy
