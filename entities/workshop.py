@@ -20,9 +20,9 @@ class Workshop:
 			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
 				json.dump(json_data, workshops_file)
 				
-			print("✅:",self.id,"is Added")
+			return "WorkshopAdded"
 		else:
-			print("❌: This Workshop ID , already exist")
+			return "WorkshopExist"
 	
 	def display(self):
 		print(self.toJson())
