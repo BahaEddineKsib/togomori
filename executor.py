@@ -1,9 +1,9 @@
-from commands.addWorkshop     import AddWorkshop     as aw
-from commands.displayWorkshop import DisplayWorkshop as dw
-from commands.setWorkshop     import SetWorkshop     as sw
-from commands.unsetWorkshop   import UnsetWorkshop   as usw
-from commands.deleteWorkshop  import DeleteWorkshop  as delw
-from commands.updateWorkshop  import UpdateWorkshop  as uw
+from commands.setWorkshop                    import SetWorkshop     as sw
+from commands.unsetWorkshop                  import UnsetWorkshop   as usw
+from commands.CRUDs.workshop.addWorkshop     import AddWorkshop     as aw
+from commands.CRUDs.workshop.displayWorkshop import DisplayWorkshop as dw
+from commands.CRUDs.workshop.deleteWorkshop  import DeleteWorkshop  as delw
+from commands.CRUDs.workshop.updateWorkshop  import UpdateWorkshop  as uw
 def execute(IN):
 	command = ''
 	if IN != '':
