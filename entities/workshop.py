@@ -46,6 +46,21 @@ class Workshop:
 			return "WorkshopDeleted"
 
 	@staticmethod
+	def updateId(id,newId):
+		wrk = Workshop.search(id)
+		if(wrk == "WorkshopNotFound"):
+			return "WorkshopNotFound"
+		elif(Workshop.search(newId) != "WorkshopNotFound"):
+			return "NewWorkshopIdExist"
+		else:
+			cw = TopG.CURRENT_WORKSHOP
+			TopG.CURRENT_WORKSHOP = newId if cw == id else cw
+			Workshop.deleteById(id)
+			wrk['id'] = newId
+			Workshop(**wrk).save()
+			return "WorkshopUpdated"
+
+	@staticmethod
 	def getAllWorkshops():
 		listObj = []
 		with open(os.getcwd()+'/data/workshops.json', 'r') as workshops_file:
@@ -57,5 +72,5 @@ class Workshop:
 	def search(id):
 		for wrk in Workshop.getAllWorkshops():
 			if(id == wrk['id']):
-				return Workshop(wrk['id'])
+				return wrk
 		return "WorkshopNotFound"

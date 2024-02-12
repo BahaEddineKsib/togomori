@@ -3,6 +3,7 @@ from commands.displayWorkshop import DisplayWorkshop as dw
 from commands.setWorkshop     import SetWorkshop     as sw
 from commands.unsetWorkshop   import UnsetWorkshop   as usw
 from commands.deleteWorkshop  import DeleteWorkshop  as delw
+from commands.updateWorkshop  import UpdateWorkshop  as uw
 def execute(IN):
 	command = ''
 	if IN != '':
@@ -29,7 +30,8 @@ def execute(IN):
 			dw.execute(IN)
     
 		case "updateworkshop" | "updatew" | "uw":
-			print('EXECUTING update workshop..')
+			
+			uw.execute(IN)
     
 		case "deleteworkshop" | "deletew" | "delw":
 			
