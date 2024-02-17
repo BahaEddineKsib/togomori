@@ -1,22 +1,34 @@
 import json
 import os
 import GlobalVars as TopG
-
-
+import entities.domain as D
+import pprint
 class Workshop:
-	def __init__(self, id):
-		self.id  = id
+	def __init__(self, id, domains:[D.Domain] = []):
+		self.id      = id
+		self.domains = domains
 
 	def toJson(self):
-		return json.dumps(self.__dict__)
+		jsnWorkshop = self.__dict__
+		jsnWorkshop['domains'] = [ dmn.toJson() for dmn in self.domains]
+		return jsnWorkshop
+	
+	@staticmethod
+	def jsonToWorkshop(wrk):
+		Wor = Workshop(**wrk)
+		Wor.domains = [D.Domain.jsonToDomain(dmn) for dmn in Wor.domains]
+		return Wor
+
 
 	def save(self):
 		if(Workshop.search(self.id) == "WorkshopNotFound"):
 
-			listObj = Workshop.getAllWorkshops()
-			listObj.append(self.__dict__)
-	                
-			json_data = {"workshops": listObj}
+			wrkList = Workshop.getAllWorkshops()
+			
+			wrkList.append(self)
+
+			jsnList = [w.toJson() for w in wrkList]
+			json_data = {"workshops": jsnList}
 			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
 				json.dump(json_data, workshops_file)
 				
@@ -25,21 +37,22 @@ class Workshop:
 			return "WorkshopExist"
 	
 	def display(self):
-		print(self.toJson())
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(self.toJson())
 
 
 	@staticmethod
-	def deleteById(id):
+	def deleteById(id, temporary_delete=0):
 		
-		if(id == TopG.CURRENT_WORKSHOP):
+		if(id == TopG.CURRENT_WORKSHOP and temporary_delete == 0 ):
 			return "WorkshopIsSet"
 		elif(Workshop.search(id) == "WorkshopNotFound"):
 			return "WorkshopNotFound"
 		else:
-			wlist = Workshop.getAllWorkshops()
-			wlist = [w for w in wlist if w["id"] != id]
+			wrkList = Workshop.getAllWorkshops()
+			jsnList = [w.__dict__ for w in wrkList if w.id != id]
 
-			json_data = {"workshops": wlist}
+			json_data = {"workshops": jsnList}
 			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
 				json.dump(json_data, workshops_file)
 
@@ -55,22 +68,32 @@ class Workshop:
 		else:
 			cw = TopG.CURRENT_WORKSHOP
 			TopG.CURRENT_WORKSHOP = newId if cw == id else cw
-			Workshop.deleteById(id)
-			wrk['id'] = newId
-			Workshop(**wrk).save()
+			Workshop.deleteById(id, temporary_delete=1)
+			wrk.id = newId
+			for dmn in wrk.domains:
+				dmn.workshop_id = newId
+			wrk.save()
 			return "WorkshopUpdated"
+
+	def update(self):
+		Workshop.deleteById(self.id, temporary_delete=1)
+		self.save()
 
 	@staticmethod
 	def getAllWorkshops():
 		listObj = []
 		with open(os.getcwd()+'/data/workshops.json', 'r') as workshops_file:
 			listObj = json.load(workshops_file)
-		
-		return listObj.get("workshops", [])
+
+		wrkList = []
+		for wrk in listObj.get("workshops", []):
+			wrkList.append(Workshop.jsonToWorkshop(wrk))
+
+		return wrkList
 	
 	@staticmethod
 	def search(id):
 		for wrk in Workshop.getAllWorkshops():
-			if(id == wrk['id']):
+			if(id == wrk.id):
 				return wrk
 		return "WorkshopNotFound"

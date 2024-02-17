@@ -1,1 +1,1 @@
-{"workshops": [{"id": "pizza_hot"}, {"id": "wazza"}, {"id": "jumia"}]}
+{"workshops": [{"id": "w", "domains": [{"workshop_id": "w", "domain_text": "ww", "tag": "main", "techs_list": [], "whois_file": "", "ip": "", "ports_map": {}, "server_file": "", "robots_txt_file": "", "js_files_list": []}, {"workshop_id": "w", "domain_text": "maa", "tag": "main", "techs_list": [], "whois_file": "", "ip": "", "ports_map": {}, "server_file": "", "robots_txt_file": "", "js_files_list": []}]}]}

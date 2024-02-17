@@ -4,6 +4,7 @@ from commands.CRUDs.workshop.addWorkshop     import AddWorkshop     as aw
 from commands.CRUDs.workshop.displayWorkshop import DisplayWorkshop as dw
 from commands.CRUDs.workshop.deleteWorkshop  import DeleteWorkshop  as delw
 from commands.CRUDs.workshop.updateWorkshop  import UpdateWorkshop  as uw
+from commands.CRUDs.domain.addDomain         import AddDomain       as ad
 def execute(IN):
 	command = ''
 	if IN != '':
@@ -39,7 +40,8 @@ def execute(IN):
 
 		# Domain
 		case "adddomain" | "addd" | "ad":
-			print('EXECUTING add domain..')
+			
+			ad.execute(IN)
     
 		case "displaydomain" | "displayd" | "dd":
 			print('EXECUTING display domain..')

@@ -22,7 +22,7 @@ class DisplayWorkshop:
 			if(all):
 				print("\n✔️WORKSHOPS:")
 				for wrk in Workshop.getAllWorkshops():
-					print("\t•"+wrk["id"])
+					print("\t•"+wrk.id)
 			
 	@staticmethod
 	def help():

@@ -10,7 +10,7 @@ class UpdateWorkshop:
 		for_sure = c.option("-s",False,IN)
 		
 		if("UserNeedsHelp" in [old_id,new_id,for_sure] or (not new_id)):
-			DeleteWorkshop.help()
+			UpdateWorkshop.help()
 		else:
 			result = c.questionToExecute(for_sure,Workshop.updateId,{'id':old_id,'newId':new_id },"update workshop ["+old_id+"] to ["+new_id+"] ? (y/n)")
 			if(result == "WorkshopNotFound"):
