@@ -2,11 +2,11 @@ import json
 import os
 import GlobalVars as TopG
 import entities.workshop as W
-
+import pprint
 class Domain:
 	def __init__(self, workshop_id,
 			   domain_text     ="", 
-			   tag             ="main",
+			   tag             ="",
 			   techs_list      =[],
 			   whois_file      ="",
 			   ip              ="", 
@@ -39,23 +39,14 @@ class Domain:
 			return "WorkshopNotFound"
 		elif(Domain.searchInWorkshop(self.domain_text,wrk) != "DomainNotFound"):
 			return "DomainExist"
-		elif(Domain.getMain(wrk) != "NoMainDomain"):
-			return "MainDomainExist"
 		else:
 			wrk.domains.append(self)
 			wrk.update()
 			return "DomainAdded"
 
 	def display(self):
-		print(self.toJson())
-	
-	@staticmethod
-	def getMain(wrk):
-		mDom = [ wd for wd in wrk.domains if wd.tag == "main"]
-		if(mDom):
-			return mDom[0]
-		else:
-			return "NoMainDomain"
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(self.toJson())
 
 	@staticmethod
 	def getDomainsByWorkshop(wrk):

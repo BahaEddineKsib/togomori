@@ -5,6 +5,7 @@ from commands.CRUDs.workshop.displayWorkshop import DisplayWorkshop as dw
 from commands.CRUDs.workshop.deleteWorkshop  import DeleteWorkshop  as delw
 from commands.CRUDs.workshop.updateWorkshop  import UpdateWorkshop  as uw
 from commands.CRUDs.domain.addDomain         import AddDomain       as ad
+import os
 def execute(IN):
 	command = ''
 	if IN != '':
@@ -119,6 +120,9 @@ def execute(IN):
 		#quitting
 		case "quit" | "q":
 			return False
+		#clear
+		case "clear" | "c":
+			os.system('clear')
 		#Invalid Command
 		case _:
 			print('Invalid Command')
