@@ -6,7 +6,7 @@ import pprint
 class Domain:
 	def __init__(self, workshop_id,
 			   domain_text     ="", 
-			   tag             ="",
+			   tags            =[],
 			   techs_list      =[],
 			   whois_file      ="",
 			   ip              ="", 
@@ -16,7 +16,7 @@ class Domain:
 			   js_files_list   =[]):
 		self.workshop_id     = workshop_id
 		self.domain_text     = domain_text
-		self.tag             = tag
+		self.tags            = tags
 		self.techs_list      = techs_list
 		self.whois_file      = whois_file
 		self.ip              = ip 

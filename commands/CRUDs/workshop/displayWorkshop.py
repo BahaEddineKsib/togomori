@@ -5,9 +5,9 @@ class DisplayWorkshop:
 	@staticmethod
 	def execute(IN):
 		IN  = c.short_command(IN,"dw")
-		dw  = c.option("dw",False,IN)
-		id  = c.option("-w",True,IN)
-		all = c.option("-A",False,IN)
+		dw  = c.option("dw",False,False, IN)
+		id  = c.option("-w",True, False, IN)
+		all = c.option("-A",False,False, IN)
 		
 		if("UserNeedsHelp" in [dw,id,all] or (not id and not all)):
 			DisplayWorkshop.help()

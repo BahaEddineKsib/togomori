@@ -5,11 +5,23 @@
 
 
 
-def option(op,value,IN):
+def option(op,value,MultiValues,IN):
 	if(op in IN.split()):
 		if(value):
 			if(IN.split().index(op)+1 <= len(IN.split())-1 and IN.split()[IN.split().index(op)+1][0] != '-'):
-				return IN.split()[IN.split().index(op)+1]
+				if(not MultiValues):
+					return IN.split()[IN.split().index(op)+1]
+				else:
+					val="  "
+					valList=[]
+					count=1
+					while(IN.split().index(op)+count < len(IN.split()) and IN.split()[IN.split().index(op)+count][0]!= '-'):
+						print("DEBUG count:"+str(count))
+						val=IN.split()[IN.split().index(op)+count]
+						valList.append(val)
+						count += 1
+					return valList
+
 			else:
 				return "UserNeedsHelp"
 		else:

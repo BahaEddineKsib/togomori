@@ -8,7 +8,7 @@ class UnsetWorkshop:
 	@staticmethod
 	def execute(IN):
 		IN  = c.short_command(IN,"usw")
-		unset  = c.option("usw",False,IN)
+		unset  = c.option("usw",False,False,IN)
 		
 		if("UserNeedsHelp" in [unset]):
 			UnsetWorkshop.help()

@@ -8,23 +8,23 @@ class AddDomain:
 	@staticmethod
 	def execute(IN):
 		IN       = c.short_command(IN,"ad")
-		ad       = c.option("ad",    False,IN)
-		domain   = c.option("-d",    True, IN)
-		w_id     = c.option("-w",    True, IN)
-		tag      = c.option("--tag", True,IN)
-		for_sure = c.option("-s",    False,IN)
+		ad       = c.option("ad",    False,False,IN)
+		domain   = c.option("-d",    True, False,IN)
+		w_id     = c.option("-w",    True, False,IN)
+		tags     = c.option("--tag", True, True, IN)
+		for_sure = c.option("-s",    False,False, IN)
 		
 
 
-		if("UserNeedsHelp" in [ad, domain, for_sure, tag] or (not domain)):
+		if("UserNeedsHelp" in [ad, domain, for_sure, tags] or (not domain)):
 			AddDomain.help()
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 
 		else:
 			w_id = TopG.CURRENT_WORKSHOP if not w_id else w_id
-			tag  = "" if not tag else tag
-			dmn = Domain(workshop_id=w_id, domain_text=domain, tag=tag)
+			tags  = [] if not tags else tags
+			dmn = Domain(workshop_id=w_id, domain_text=domain, tags=tags)
 			print("\ndomain:")
 			dmn.display()
 			result = c.questionToExecute(for_sure,dmn.save,{},"Save domain ["+domain+"] ?")

@@ -4,9 +4,9 @@ from commands import DRYFFC as c
 class AddWorkshop:
 	@staticmethod
 	def execute(IN):
-		IN   = c.short_command(IN,"aw")
-		id   = c.option("aw",True,IN)
-		for_sure = c.option("-s",False,IN)
+		IN       = c.short_command(IN,"aw")
+		id       = c.option("aw",True  ,False,IN)
+		for_sure = c.option("-s",False, False,IN)
 		
 		if("UserNeedsHelp" in [id,for_sure]):
 			AddWorkshop.help()

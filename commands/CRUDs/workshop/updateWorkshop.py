@@ -5,9 +5,9 @@ class UpdateWorkshop:
 	@staticmethod
 	def execute(IN):
 		IN       = c.short_command(IN,"uw")
-		old_id   = c.option("uw",True,IN)
-		new_id   = c.option("-i",True,IN)
-		for_sure = c.option("-s",False,IN)
+		old_id   = c.option("uw",True, False,IN)
+		new_id   = c.option("-i",True, False,IN)
+		for_sure = c.option("-s",False,False,IN)
 		
 		if("UserNeedsHelp" in [old_id,new_id,for_sure] or (not new_id)):
 			UpdateWorkshop.help()

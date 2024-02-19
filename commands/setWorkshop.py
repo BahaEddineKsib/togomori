@@ -8,7 +8,7 @@ class SetWorkshop:
 	@staticmethod
 	def execute(IN):
 		IN  = c.short_command(IN,"sw")
-		id  = c.option("sw",True,IN)
+		id  = c.option("sw",True, False,IN)
 		
 		if("UserNeedsHelp" in [id]):
 			SetWorkshop.help()
