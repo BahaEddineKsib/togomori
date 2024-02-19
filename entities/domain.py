@@ -44,9 +44,21 @@ class Domain:
 			wrk.update()
 			return "DomainAdded"
 
-	def display(self):
+	def display(self,toDisplay=['ALL']):
+		dmn={}
+		if "ALL" in toDisplay or "workshop_id" in toDisplay:     dmn["workshop_id"]     =self.workshop_id
+		if "ALL" in toDisplay or "domain_text" in toDisplay:     dmn["domain_text"]     =self.domain_text 
+		if "ALL" in toDisplay or "tags" in toDisplay:            dmn["tags"]            =self.tags 
+		if "ALL" in toDisplay or "techs_list" in toDisplay:      dmn["techs_list"]      =self.techs_list 
+		if "ALL" in toDisplay or "whois_file" in toDisplay:      dmn["whois_file"]      =self.whois_file 
+		if "ALL" in toDisplay or "ip" in toDisplay:              dmn["ip"]              =self.ip 
+		if "ALL" in toDisplay or "ports_map" in toDisplay:       dmn["ports_map"]       =self.ports_map 
+		if "ALL" in toDisplay or "server_file" in toDisplay:     dmn["server_file"]     =self.server_file 
+		if "ALL" in toDisplay or "robots_txt_file" in toDisplay: dmn["robots_txt_file"] =self.robots_txt_file 
+		if "ALL" in toDisplay or "js_files_list" in toDisplay:   dmn["js_files_list"]   =self.js_files_list 
+
 		pp = pprint.PrettyPrinter(indent=4)
-		pp.pprint(self.toJson())
+		pp.pprint(dmn)
 
 	@staticmethod
 	def getDomainsByWorkshop(wrk):
@@ -57,3 +69,37 @@ class Domain:
 			if(dmn.domain_text==domain_text):
 				return dmn
 		return "DomainNotFound"
+
+	@staticmethod
+	def searchBy(      workshop_id,
+		           domain_text     =False, 
+			   tags            =False,
+			   techs_list      =False,
+			   whois_file      =False,
+			   ip              =False, 
+			   ports_map       =False,
+			   server_file     =False,
+			   robots_txt_file =False,
+			   js_files_list   =False):
+		
+		domainsList=[]
+
+		domainsList= domainsList if not workshop_id else Domain.getDomainsByWorkshop(W.Workshop.search(workshop_id))
+		domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		domainsList= domainsList if not tags        else [d for d in domainsList if any(tag  in d.tags              for tag  in tags)]
+		domainsList= domainsList if not ports_map   else [d for d in domainsList if any(port in d.ports_map.items() for port in ports_map.items())]
+		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		return domainsList
+
+
+
+
+
+
+
+

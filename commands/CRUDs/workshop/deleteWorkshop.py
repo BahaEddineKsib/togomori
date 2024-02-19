@@ -4,9 +4,9 @@ from commands import DRYFFC as c
 class DeleteWorkshop:
 	@staticmethod
 	def execute(IN):
-		IN   = c.short_command(IN,"delw")
-		id   = c.option("delw",True,IN)
-		for_sure = c.option("-s",False,IN)
+		IN       = c.short_command(IN,"delw")
+		id       = c.option("delw",True, False,IN)
+		for_sure = c.option("-s",  False,False,IN)
 		
 		if("UserNeedsHelp" in [id,for_sure]):
 			DeleteWorkshop.help()
