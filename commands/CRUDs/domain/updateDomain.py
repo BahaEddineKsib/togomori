@@ -4,13 +4,14 @@ from commands          import DRYFFC as c
 import GlobalVars as TopG
 
 
-class AddDomain:
+class UpdateDomain:
 	@staticmethod
 	def execute(IN):
-		IN         = c.short_command(IN,"ad")
-		ad         = c.option("ad",           False,False,IN)
+		IN         = c.short_command(IN,"ud")
+		ud         = c.option("ud",           True, False,IN)
 		domain     = c.option("-d",           True, False,IN)
 		w_id       = c.option("-w",           True, False,IN)
+		new_w_id   = c.option("--w",          True, False,IN)
 		tags       = c.option("--tag",        True, True, IN)
 		techs      = c.option("--tech",       True, True, IN)
 		whois_file = c.option("--whois-file", True, False,IN)
@@ -23,7 +24,7 @@ class AddDomain:
 		
 
 
-		if("UserNeedsHelp" in [ ad,
+		if("UserNeedsHelp" in [ ud,
 					domain,
 					for_sure,
 					tags,
@@ -33,18 +34,26 @@ class AddDomain:
 					ports_map,
 					server_file,
 					robots_file,
-					js_files] or (not domain)):
+					js_files,
+					w_id,
+					new_w_id]):
 			AddDomain.help()
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
-		elif(ports_map and not c.canBeMap(ports_map)):
+		elif(ports_map and not c.canBeMap(ports_map, updating=True)):
 			print("❌Ports format: <[PORT_NAME]:[PORT]>")
 		else:
-			toDisplay  = ["domain_text"]
+			toDisplay  = []
 			cw         = TopG.CURRENT_WORKSHOP
 			if not w_id:        w_id        = cw 
+
+	
+			if not new_w_id:    new_w_id    = ""
 			else: toDisplay.append("workshop_id")
-			
+
+			if not domain:      domain      = ""
+			else: toDisplay.append("domain_text")
+
 			if not tags:        tags        = [] 
 			else: toDisplay.append("tags")
 			
@@ -58,7 +67,7 @@ class AddDomain:
 			else: toDisplay.append("ip")
 			
 			if not ports_map:   ports_map   = {} 
-			else: toDisplay.append("ports_map"); ports_map = c.listToMap(ports_map)
+			else: toDisplay.append("ports_map"); ports_map = c.listToMap(ports_map,updating=True)
 			
 			if not server_file: server_file = "" 
 			else: toDisplay.append("server_file")
@@ -69,7 +78,7 @@ class AddDomain:
 			if not js_files:    js_files    = [] 
 			else: toDisplay.append("js_files_list")
 
-			dmn   = Domain( workshop_id     =w_id,
+			dmn   = Domain( workshop_id     =new_w_id,
 					domain_text     =domain,
 					tags            =tags,
 					techs_list      =techs,
@@ -81,23 +90,20 @@ class AddDomain:
 					js_files_list   = js_files)
 			print("\ndomain:")
 			dmn.display(toDisplay)
-			result = c.questionToExecute(for_sure,dmn.save,{},"Save domain ["+domain+"] ?")
-			if(result == "WorkshopNotFound"):
+			result = c.questionToExecute(for_sure,Domain.update,{'domain_text':ud, 'workshop_id':w_id, 'new_dmn':dmn},"Update domain ["+ud+"] ?")
+			if(result ==   "NewWorkshopNotFound"):
+				print("❌ Workshop ["+new_w_id+"] Not Found.")
+			elif(result == "OldWorkshopNotFound"):
 				print("❌ Workshop ["+w_id+"] Not Found.")
+			elif(result == "DomainNotFound"):
+				print("❌ Domain ["+ud+"] Not Found.")
 			elif(result == "DomainExist"):
 				print("❌ Domain ["+domain+"] already exist.")
-			elif(result == "DomainAdded"):
-				print("✅ Domain ["+domain+"] is Added.")
+			elif(result == "DomainUpdated"):
+				print("✅ Domain ["+ud+"] is Updated.")
 
 	@staticmethod	
 	def help():
 		print("help -AddDomain")
 
 
-
-
-
-
-
-#TESTING COMMAND
-#ad -d www.disc2.study -s --tag in-soup focus fromManual --tech react java --whois-file /whois/discord --ip 192.168.0.1 --port https:448 ssh:25 --server-file /nmap/scan --robots-file /disc/robots.txt --js-file /js1 /js2 /js3

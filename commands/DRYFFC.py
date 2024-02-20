@@ -59,14 +59,25 @@ def questionToExecute(for_sure, func, arguments, question):
 			ask = False if y_n in ['yes','no','y','n'] else True
 		if(y_n == 'y'):
 			return func(**arguments)
-def canBeMap(LP):
-	for l in LP:
+def canBeMap(LP,updating=False):
+	
+	testingList = LP.copy()
+	if updating:
+		if testingList[0] == '+' or testingList[0] == '_':
+			testingList .pop(0)
+
+	for l in testingList:
 		if not re.match(r'^\w+:\d+$', l):
 			return False
 	return True
 
 
-def listToMap(LP):
+def listToMap(LP, updating=False):
+
+	if(updating):
+		if(LP[0] == '+' or LP[0] == '_'):
+			LP[0] += ':0'
+
 	Map={}
 	for l in LP:
 		Map[l.split(':')[0]] = int(l.split(':')[1])

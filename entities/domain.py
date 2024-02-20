@@ -56,6 +56,65 @@ class Domain:
 			wrk.update()
 			return "DomainDeleted"
 
+	@staticmethod
+	def update(domain_text, workshop_id, new_dmn):
+		old_wrk = W.Workshop.search(workshop_id)
+		new_wrk = W.Workshop.search(new_dmn.workshop_id)        if new_dmn.workshop_id           else ""
+		old_dmn = Domain.searchInWorkshop(domain_text, old_wrk) if old_wrk != "WorkshopNotFound" else ""
+
+		if( old_wrk == "WorkshopNotFound" ):
+			return "OldWorkshopNotFound"
+		elif(old_dmn == "DomainNotFound"):
+			return "DomainNotFound"
+		elif(new_wrk == "WorkshopNotFound"):
+			return "NewWorkshopNotFound"
+		elif(new_wrk and Domain.searchInWorkshop(new_dmn.domain_text, new_wrk) != "DomainNotFound"):
+			return "DomainExist"
+		else:
+			old_dmn.domain_text	= new_dmn.domain_text	  if new_dmn.domain_text	else old_dmn.domain_text
+			old_dmn.whois_file	= new_dmn.whois_file	  if new_dmn.whois_file		else old_dmn.whois_file
+			old_dmn.ip		= new_dmn.ip		  if new_dmn.ip			else old_dmn.ip
+			old_dmn.server_file	= new_dmn.server_file	  if new_dmn.server_file	else old_dmn.server_file
+			old_dmn.robots_txt_file = new_dmn.robots_txt_file if new_dmn.robots_txt_file	else old_dmn.robots_txt_file
+			old_dmn.workshop_id     = new_dmn.workshop_id     if new_wrk                    else old_dmn.workshop_id
+			if new_dmn.js_files_list:	
+				if(  '+' == new_dmn.js_files_list[0]	):
+					old_dmn.js_files_list += new_dmn.js_files_list; old_dmn.js_files_list.remove('+')
+				elif('_' == new_dmn.js_files_list[0]	):
+					old_dmn.js_files_list = [ d for d in old_dmn.js_files_list if d not in new_dmn.js_files_list ]
+				else:
+					old_dmn.js_files_list  = new_dmn.js_files_list
+
+			if new_dmn.tags:	
+				if(  '+' == new_dmn.tags[0]	):
+					old_dmn.tags+= new_dmn.tags; old_dmn.tags.remove('+')
+				elif('_' == new_dmn.tags[0]	):
+					old_dmn.tags= [ d for d in old_dmn.tags if d not in new_dmn.tags]
+				else:
+					old_dmn.tags= new_dmn.tags
+
+			if new_dmn.techs_list:	
+				if(  '+' == new_dmn.techs_list[0]	):
+					old_dmn.techs_list+= new_dmn.techs_list; old_dmn.techs_list.remove('+')
+				elif('_' == new_dmn.techs_list[0]	):
+					old_dmn.techs_list= [ d for d in old_dmn.techs_list if d not in new_dmn.techs_list]
+				else:
+					old_dmn.techs_list= new_dmn.techs_list
+			if new_dmn.ports_map:	
+				if(  '+' == next(iter(new_dmn.ports_map.keys()))	):
+					old_dmn.ports_map.update(new_dmn.ports_map); del old_dmn.ports_map['+']
+				elif('_' == next(iter(new_dmn.ports_map.keys()))):
+					old_dmn.ports_map.update(new_dmn.ports_map);
+					for key in  new_dmn.ports_map.keys():
+						del old_dmn.ports_map[key]
+				else:
+					old_dmn.ports_map= new_dmn.ports_map
+
+			Domain.delete(domain_text,workshop_id)
+			old_dmn.save()
+			return "DomainUpdated"
+
+
 	def display(self,toDisplay=['ALL']):
 		dmn={}
 		if "ALL" in toDisplay or "workshop_id" in toDisplay:     dmn["workshop_id"]     =self.workshop_id

@@ -73,7 +73,7 @@ class DisplayDomain:
 			
 			if not ports_map:   ports_map   = {} 
 			else:toDisplay.append("ports_map"); ports_map = c.listToMap(ports_map)
-			if "ports_map " in  show:toDisplay.append("ports_map")
+			if "ports_map" in  show:toDisplay.append("ports_map")
 
 			
 			if not server_file: server_file = "" 
