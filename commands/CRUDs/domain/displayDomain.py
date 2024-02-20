@@ -36,7 +36,7 @@ class DisplayDomain:
 					js_files,
 					show,
 					all] or (not domain and not all)):
-			AddDomain.help()
+			DisplayDomain.help()
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 		elif(ports_map and not c.canBeMap(ports_map)):
@@ -90,7 +90,7 @@ class DisplayDomain:
 			else:toDisplay.append("js_files_list")
 			if "js_files_list" in  show:toDisplay.append("js_files_list")
 
-
+			if "all" in show : toDisplay.append("ALL")
 			dmn   = Domain( workshop_id     =w_id,
 					domain_text     =domain,
 					tags            =tags,

@@ -84,16 +84,16 @@ class Domain:
 		
 		domainsList=[]
 
-		domainsList= domainsList if not workshop_id else Domain.getDomainsByWorkshop(W.Workshop.search(workshop_id))
-		domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
-		domainsList= domainsList if not tags        else [d for d in domainsList if any(tag  in d.tags              for tag  in tags)]
-		domainsList= domainsList if not ports_map   else [d for d in domainsList if any(port in d.ports_map.items() for port in ports_map.items())]
-		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
-		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
-		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
-		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
-		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
-		#domainsList= domainsList if not domain_text else [d for d in domainsList if d.domain_text == domain_text]
+		domainsList= domainsList if not workshop_id	else Domain.getDomainsByWorkshop(W.Workshop.search(workshop_id))
+		domainsList= domainsList if not domain_text	else [d for d in domainsList if d.domain_text == domain_text]
+		domainsList= domainsList if not tags		else [d for d in domainsList if any(tag  in d.tags              for tag  in tags)]
+		domainsList= domainsList if not ports_map	else [d for d in domainsList if any(port in d.ports_map.items() for port in ports_map.items())]
+		domainsList= domainsList if not techs_list	else [d for d in domainsList if any(tech in d.techs_list        for tech in techs_list)]
+		domainsList= domainsList if not whois_file	else [d for d in domainsList if d.whois_file == whois_file]
+		domainsList= domainsList if not ip		else [d for d in domainsList if d.ip == ip]
+		domainsList= domainsList if not server_file     else [d for d in domainsList if d.server_file == server_file]
+		domainsList= domainsList if not robots_txt_file else [d for d in domainsList if d.robots_txt_file== robots_txt_file]
+		domainsList= domainsList if not js_files_list   else [d for d in domainsList if any(js_file in d.js_files_list  for js_file in js_files_list)]
 		return domainsList
 
 
