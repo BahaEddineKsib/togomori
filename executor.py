@@ -6,6 +6,7 @@ from commands.CRUDs.workshop.deleteWorkshop  import DeleteWorkshop  as delw
 from commands.CRUDs.workshop.updateWorkshop  import UpdateWorkshop  as uw
 from commands.CRUDs.domain.addDomain         import AddDomain       as ad
 from commands.CRUDs.domain.displayDomain     import DisplayDomain   as dd
+from commands.CRUDs.domain.deleteDomain      import DeleteDomain    as deld
 import os
 def execute(IN):
 	command = ''
@@ -52,7 +53,7 @@ def execute(IN):
 			print('EXECUTING update domain..')
     
 		case "deletedomain" | "deleted" | "deld":
-			print('EXECUTING delete domain..')
+			deld.execute(IN)
 
 		# URL
 		case "addurl" | "addu" | "au":

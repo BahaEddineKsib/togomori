@@ -43,6 +43,18 @@ class Domain:
 			wrk.domains.append(self)
 			wrk.update()
 			return "DomainAdded"
+	
+	@staticmethod
+	def delete(domain_text,workshop_id):
+		wrk = W.Workshop.search(workshop_id)
+		if( wrk == "WorkshopNotFound"):
+			return "WorkshopNotFound"
+		elif(Domain.searchInWorkshop(domain_text,wrk) == "DomainNotFound"):
+			return "DomainNotFound"
+		else:
+			wrk.domains = [d for d in wrk.domains if d.domain_text != domain_text]
+			wrk.update()
+			return "DomainDeleted"
 
 	def display(self,toDisplay=['ALL']):
 		dmn={}

@@ -1,1 +1,1 @@
-{"workshops": [{"id": "dis", "domains": [{"workshop_id": "dis", "domain_text": "www.disc.study", "tags": ["in-soup", "focus", "fromManual"], "techs_list": ["react", "java"], "whois_file": "/whois/discord", "ip": "192.168.0.1", "ports_map": {"https": 448, "ssh": 25}, "server_file": "/nmap/scan", "robots_txt_file": "/disc/robots.txt", "js_files_list": ["/js1", "/js2", "/js3"]}]}]}
+{"workshops": [{"id": "dis", "domains": []}]}
