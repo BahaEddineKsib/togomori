@@ -14,6 +14,7 @@ class UnsetWorkshop:
 			UnsetWorkshop.help()
 		else:
 			TopG.CURRENT_WORKSHOP=""
+			TopG.CURRENT_DOMAIN  =""
 			
 	@staticmethod
 	def help():

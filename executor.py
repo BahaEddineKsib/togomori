@@ -9,6 +9,7 @@ from commands.CRUDs.domain.displayDomain     import DisplayDomain   as dd
 from commands.CRUDs.domain.deleteDomain      import DeleteDomain    as deld
 from commands.CRUDs.domain.updateDomain      import UpdateDomain    as ud
 from commands.CRUDs.domain.setDomain	     import SetDomain	    as sd
+from commands.CRUDs.domain.unsetDomain	     import UnsetDomain     as usd
 import os
 def execute(IN):
 	command = ''
@@ -59,6 +60,9 @@ def execute(IN):
 		
 		case "setdomain" | "setd" | "sd":
 			sd.execute(IN)
+
+		case "unsetdomain" | "unsetd"| "usd":
+			usd.execute(IN)
 
 		# URL
 		case "addurl" | "addu" | "au":
