@@ -12,6 +12,8 @@ print('╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻\n'
 
 run = True
 while run:
-	IN =  input("\n┌─🕵️ ["+ TopG.CURRENT_WORKSHOP+"]"
+	CW = "["+ TopG.CURRENT_WORKSHOP+"]" if TopG.CURRENT_WORKSHOP else ""
+	CD = "["+ TopG.CURRENT_DOMAIN  +"]" if TopG.CURRENT_DOMAIN   else ""
+	IN =  input("\n┌─"+CW+""+CD+"🕵"
 	           +"\n└─>>> ")
 	run = execute(IN)

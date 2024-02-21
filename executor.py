@@ -1,5 +1,5 @@
-from commands.setWorkshop                    import SetWorkshop     as sw
-from commands.unsetWorkshop                  import UnsetWorkshop   as usw
+from commands.CRUDs.workshop.setWorkshop     import SetWorkshop     as sw
+from commands.CRUDs.workshop.unsetWorkshop   import UnsetWorkshop   as usw
 from commands.CRUDs.workshop.addWorkshop     import AddWorkshop     as aw
 from commands.CRUDs.workshop.displayWorkshop import DisplayWorkshop as dw
 from commands.CRUDs.workshop.deleteWorkshop  import DeleteWorkshop  as delw
@@ -8,6 +8,7 @@ from commands.CRUDs.domain.addDomain         import AddDomain       as ad
 from commands.CRUDs.domain.displayDomain     import DisplayDomain   as dd
 from commands.CRUDs.domain.deleteDomain      import DeleteDomain    as deld
 from commands.CRUDs.domain.updateDomain      import UpdateDomain    as ud
+from commands.CRUDs.domain.setDomain	     import SetDomain	    as sd
 import os
 def execute(IN):
 	command = ''
@@ -55,6 +56,9 @@ def execute(IN):
     
 		case "deletedomain" | "deleted" | "deld":
 			deld.execute(IN)
+		
+		case "setdomain" | "setd" | "sd":
+			sd.execute(IN)
 
 		# URL
 		case "addurl" | "addu" | "au":

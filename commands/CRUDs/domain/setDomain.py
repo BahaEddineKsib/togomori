@@ -1,0 +1,31 @@
+from entities.domain   import Domain
+from entities.workshop import Workshop
+from commands.CRUDs    import DRY as c
+import json
+import GlobalVars as TopG
+
+
+class SetDomain:
+	@staticmethod
+	def execute(IN):
+		IN      = c.short_command(IN,"sd")
+		domain  = c.option("sd",True, False,IN)
+		
+		if("UserNeedsHelp" in [domain]):
+			SetDomain.help()
+		else:
+			if( TopG.CURRENT_WORKSHOP != ""):
+				wrk = Workshop.search(TopG.CURRENT_WORKSHOP)
+				dmn = Domain.searchInWorkshop(domain,wrk)
+				if(dmn == "DomainNotFound"):
+					print("❌ Domain ["+domain+"] Not Found.")
+				else:
+					TopG.CURRENT_DOMAIN = domain
+					
+			else:
+				print("❌: Can't set Domain without setting a workshop.")
+
+	@staticmethod
+	def help():
+		print("help -SetWorkshop")
+

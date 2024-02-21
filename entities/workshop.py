@@ -50,7 +50,7 @@ class Workshop:
 			return "WorkshopNotFound"
 		else:
 			wrkList = Workshop.getAllWorkshops()
-			jsnList = [w.__dict__ for w in wrkList if w.id != id]
+			jsnList = [w.toJson() for w in wrkList if w.id != id]
 
 			json_data = {"workshops": jsnList}
 			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:

@@ -1,6 +1,6 @@
 from entities.workshop import Workshop
 from entities.domain   import Domain
-from commands          import DRYFFC as c
+from commands.CRUDs    import DRY as c
 import GlobalVars as TopG
 
 

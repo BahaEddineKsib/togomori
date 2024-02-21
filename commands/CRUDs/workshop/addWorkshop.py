@@ -1,5 +1,5 @@
 from entities.workshop import Workshop
-from commands import DRYFFC as c
+from commands.CRUDs    import DRY as c
 
 class AddWorkshop:
 	@staticmethod
