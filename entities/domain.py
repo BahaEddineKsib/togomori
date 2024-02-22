@@ -3,27 +3,34 @@ import os
 import GlobalVars as TopG
 import entities.workshop as W
 import pprint
+import tldextract as domain_parts
 class Domain:
 	def __init__(self, workshop_id,
 			   domain     ="", 
-			   tags            =[],
+			   sub        ="",
+			   main       ="",
+			   tld        ="",
+			   tags       =[],
 			   techs      =[],
-			   whois_file      ="",
-			   ip              ="", 
-			   ports       ={},
-			   server_file     ="",
-			   robots_file ="",
+			   whois_file ="",
+			   ip         ="", 
+			   ports      ={},
+			   server_file="",
+			   robots_file="",
 			   js_files   =[]):
 		self.workshop_id     = workshop_id
-		self.domain     = domain
+		self.domain	     = domain
+		self.sub	     = domain_parts.extract(domain).subdomain if sub  !="" else ""
+		self.main	     = domain_parts.extract(domain).domain    if main !="" else ""
+		self.tld	     = domain_parts.extract(domain).suffix    if tld  !="" else ""
 		self.tags            = tags
-		self.techs      = techs
+		self.techs           = techs
 		self.whois_file      = whois_file
 		self.ip              = ip 
-		self.ports       = ports
+		self.ports           = ports
 		self.server_file     = server_file
-		self.robots_file = robots_file
-		self.js_files   = js_files
+		self.robots_file     = robots_file
+		self.js_files        = js_files
 
 	def toJson(self):
 		return self.__dict__
@@ -117,16 +124,19 @@ class Domain:
 
 	def display(self,toDisplay=['ALL']):
 		dmn={}
-		if "ALL" in toDisplay or "workshop_id" in toDisplay:     dmn["workshop_id"]     =self.workshop_id
-		if "ALL" in toDisplay or "domain" in toDisplay:     dmn["domain"]     =self.domain 
-		if "ALL" in toDisplay or "tags" in toDisplay:            dmn["tags"]            =self.tags 
-		if "ALL" in toDisplay or "techs" in toDisplay:      dmn["techs"]      =self.techs 
-		if "ALL" in toDisplay or "whois_file" in toDisplay:      dmn["whois_file"]      =self.whois_file 
-		if "ALL" in toDisplay or "ip" in toDisplay:              dmn["ip"]              =self.ip 
-		if "ALL" in toDisplay or "ports" in toDisplay:       dmn["ports"]       =self.ports 
-		if "ALL" in toDisplay or "server_file" in toDisplay:     dmn["server_file"]     =self.server_file 
-		if "ALL" in toDisplay or "robots_file" in toDisplay: dmn["robots_file"] =self.robots_file 
-		if "ALL" in toDisplay or "js_files" in toDisplay:   dmn["js_files"]   =self.js_files 
+		if "ALL" in toDisplay or "workshop_id"	in toDisplay:dmn["workshop_id"] =self.workshop_id
+		if "ALL" in toDisplay or "domain"	in toDisplay:dmn["domain"]	=self.domain
+		if "ALL" in toDisplay or "sub"		in toDisplay:dmn["sub"]		=self.sub
+		if "ALL" in toDisplay or "main"		in toDisplay:dmn["main"]	=self.main
+		if "ALL" in toDisplay or "tld"		in toDisplay:dmn["tld"]		=self.tld
+		if "ALL" in toDisplay or "tags"		in toDisplay:dmn["tags"]        =self.tags 
+		if "ALL" in toDisplay or "techs"	in toDisplay:dmn["techs"]	=self.techs 
+		if "ALL" in toDisplay or "whois_file"	in toDisplay:dmn["whois_file"]  =self.whois_file 
+		if "ALL" in toDisplay or "ip"		in toDisplay:dmn["ip"]          =self.ip 
+		if "ALL" in toDisplay or "ports"	in toDisplay:dmn["ports"]       =self.ports 
+		if "ALL" in toDisplay or "server_file"	in toDisplay:dmn["server_file"] =self.server_file 
+		if "ALL" in toDisplay or "robots_file"	in toDisplay:dmn["robots_file"] =self.robots_file 
+		if "ALL" in toDisplay or "js_files"	in toDisplay:dmn["js_files"]	=self.js_files 
 
 		pp = pprint.PrettyPrinter(indent=4)
 		pp.pprint(dmn)
@@ -143,28 +153,34 @@ class Domain:
 
 	@staticmethod
 	def searchBy(      workshop_id,
-		           domain     =False, 
-			   tags            =False,
-			   techs      =False,
-			   whois_file      =False,
-			   ip              =False, 
-			   ports       =False,
-			   server_file     =False,
-			   robots_file =False,
-			   js_files   =False):
+		           domain	=False,
+			   sub		=False,
+			   main		=False,
+			   tld		=False,
+			   tags		=False,
+			   techs	=False,
+			   whois_file   =False,
+			   ip           =False, 
+			   ports	=False,
+			   server_file  =False,
+			   robots_file	=False,
+			   js_files	=False):
 		
 		domainsList=[]
 
 		domainsList= domainsList if not workshop_id	else Domain.getDomainsByWorkshop(W.Workshop.search(workshop_id))
-		domainsList= domainsList if not domain	else [d for d in domainsList if d.domain == domain]
+		domainsList= domainsList if not domain		else [d for d in domainsList if d.domain == domain]
+		domainsList= domainsList if not sub		else [d for d in domainsList if d.sub == sub]
+		domainsList= domainsList if not main		else [d for d in domainsList if d.main == main]
+		domainsList= domainsList if not tld		else [d for d in domainsList if d.tld == tld]
 		domainsList= domainsList if not tags		else [d for d in domainsList if any(tag  in d.tags              for tag  in tags)]
-		domainsList= domainsList if not ports	else [d for d in domainsList if any(port in d.ports.items() for port in ports.items())]
-		domainsList= domainsList if not techs	else [d for d in domainsList if any(tech in d.techs        for tech in techs)]
+		domainsList= domainsList if not ports		else [d for d in domainsList if any(port in d.ports.items() for port in ports.items())]
+		domainsList= domainsList if not techs		else [d for d in domainsList if any(tech in d.techs        for tech in techs)]
 		domainsList= domainsList if not whois_file	else [d for d in domainsList if d.whois_file == whois_file]
 		domainsList= domainsList if not ip		else [d for d in domainsList if d.ip == ip]
 		domainsList= domainsList if not server_file     else [d for d in domainsList if d.server_file == server_file]
-		domainsList= domainsList if not robots_file else [d for d in domainsList if d.robots_file== robots_file]
-		domainsList= domainsList if not js_files   else [d for d in domainsList if any(js_file in d.js_files  for js_file in js_files)]
+		domainsList= domainsList if not robots_file	else [d for d in domainsList if d.robots_file== robots_file]
+		domainsList= domainsList if not js_files	else [d for d in domainsList if any(js_file in d.js_files  for js_file in js_files)]
 		return domainsList
 
 

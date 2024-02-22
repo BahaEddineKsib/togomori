@@ -8,19 +8,22 @@ class DisplayDomain:
 	@staticmethod
 	def execute(IN):
 		IN         = c.short_command(IN,"dd")
-		ad         = c.option("dd",           False,False,IN)
-		domain     = c.option("-d",           True, False,IN)
-		w_id       = c.option("-w",           True, False,IN)
-		tags       = c.option("--tag",        True, True, IN)
-		techs      = c.option("--tech",       True, True, IN)
+		ad         = c.option("dd",      False,False,IN)
+		domain     = c.option("-d",      True, False,IN)
+		sub	   = c.option("--sub",   True, False,IN)
+		main       = c.option("--main",  True, False,IN)
+		tld        = c.option("--tld",   True, False,IN)
+		w_id       = c.option("-w",      True, False,IN)
+		tags       = c.option("--tag",   True, True, IN)
+		techs      = c.option("--tech",  True, True, IN)
 		whois_file = c.option("--whois", True, False,IN)
-		ip         = c.option("--ip",         True, False,IN)
-		ports_map  = c.option("--port",       True, True, IN)
+		ip         = c.option("--ip",    True, False,IN)
+		ports_map  = c.option("--port",  True, True, IN)
 		server_file= c.option("--server",True, False,IN)
 		robots_file= c.option("--robots",True, False,IN)
-		js_files   = c.option("--js",    True, True, IN)
-		show       = c.option("--show",       True, True, IN)
-		all        = c.option("-a",           False,False,IN)
+		js_files   = c.option("--js",	 True, True, IN)
+		show       = c.option("--show",  True, True, IN)
+		all        = c.option("-a",      False,False,IN)
 
 
 		if("UserNeedsHelp" in [ ad,
@@ -49,6 +52,19 @@ class DisplayDomain:
 			if not w_id:        w_id        = cw 
 			else:toDisplay.append("workshop_id")
 			if "workshop_id" in  show:toDisplay.append("workshop_id")
+
+			if not sub:	    sub         = ""
+			#else:toDisplay.append("sub")
+			if "sub" in show:toDisplay.append("sub")
+
+			if not main:	    main         = ""
+			#else:toDisplay.append("main")
+			if "main" in show:toDisplay.append("main")
+
+			if not tld:	    tld          = ""
+			#else:toDisplay.append("main")
+			if "main" in show:toDisplay.append("main")
+
 
 			
 			if not tags:        tags        = [] 
@@ -108,15 +124,18 @@ class DisplayDomain:
 				else:
 					domainsList = Domain.getDomainsByWorkshop(wrk)
 					
-					domainsList = Domain.searchBy(  workshop_id     =w_id,
+					domainsList = Domain.searchBy(  workshop_id=w_id,
 									domain     =domain,
-									tags            =tags,
+									sub        =sub,
+									main       =main,
+									tld	   =tld,
+									tags	   =tags,
 									techs      =techs,
-									whois_file      =whois_file,
-									ip              =ip,
-									ports       =ports_map,
-									server_file     =server_file,
-									robots_file =robots_file,
+									whois_file =whois_file,
+									ip	   =ip,
+									ports	   =ports_map,
+									server_file=server_file,
+									robots_file=robots_file,
 									js_files   = js_files)
 					for d in domainsList:
 						d.display(toDisplay)
