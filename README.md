@@ -52,18 +52,20 @@ it contains informations about specific mission.
 it contain information about a domain/sub-domain.
 |      column name        |                                              definition                                                        |
 |:------------------------|:---------------------------------------------------------------------------------------------------------------|
-|`VAR..` id               | a unique number to identify the domain                                                                         |
-|`VAR..` tag              | a unique tag , ***main*** for the main domain ex:www.exemple.com , ***sub*** for sub-domains ex:ftp.exemple.com|
-|`VAR..` domain           | the domain                                                                                                     |
-|`LIST.` techs            | a list of frameworks and technologies been used in the domain                                                  |
-|`FILE.` whois            | a variable that points to a file contains the output of whois                                                  |
-|`VAR..` ip               | ip address                                                                                                     |
-|`MAP..` ports            | a map list contains the port:protocol                                                                          |
-|`FILE.` server           | a variable that points to a file contains the output of nmap scan to exploit the OS                            |
-|`FILE.` robots           | a variable that points to a file contains the robots.txt                                                       |
-|`LIST.` jsfiles `FILE`   | a list of variables they point to javascript files                                                             |
-|`TABLE` urls             | URLS table                                                                                                     |
-|`TABLE` cookies          | COOKIES table                                                                                                  |
+|`VAR..` domain           | ex: www.google.com                                                                                                                                                                        |
+|`VAR..` sub              | the subdomain ex: www                                                                                                                                                                     |
+|`VAR..` main             | the domain name ex: google                                                                                                                                                                |
+|`VAR..` tld              | the top level domain ex: com                                                                                                                                                              |
+|`VAR..` tags             | tags to identify a domain with something , for example you can tag a domain "out-of-scope" or in-scope so you can include or exclude a domain from an automation test or filtering by tag |
+|`LIST.` techs            | a list of frameworks and technologies been used in the domain                                                                                                                             |
+|`FILE.` whois_file       | a variable that points to a file contains the output of whois                                                                                                                             |
+|`VAR..` ip               | ip address                                                                                                                                                                                |
+|`MAP..` ports            | a map list contains the port:protocol                                                                                                                                                     |
+|`FILE.` server_file      | a variable that points to a file contains the output of nmap scan to exploit the OS                                                                                                       |
+|`FILE.` robots-file      | a variable that points to a file contains the robots.txt                                                                                                                                  |
+|`LIST.` js_files `FILE`  | a list of variables they point to javascript files                                                                                                                                        |
+|`TABLE` urls             | URLS table                                                                                                                                                                                |
+|`TABLE` cookies          | COOKIES table                                                                                                                                                                             |
 
 ### URLS
 it contain the list of urls per domain
