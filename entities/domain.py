@@ -5,25 +5,25 @@ import entities.workshop as W
 import pprint
 class Domain:
 	def __init__(self, workshop_id,
-			   domain_text     ="", 
+			   domain     ="", 
 			   tags            =[],
-			   techs_list      =[],
+			   techs      =[],
 			   whois_file      ="",
 			   ip              ="", 
-			   ports_map       ={},
+			   ports       ={},
 			   server_file     ="",
-			   robots_txt_file ="",
-			   js_files_list   =[]):
+			   robots_file ="",
+			   js_files   =[]):
 		self.workshop_id     = workshop_id
-		self.domain_text     = domain_text
+		self.domain     = domain
 		self.tags            = tags
-		self.techs_list      = techs_list
+		self.techs      = techs
 		self.whois_file      = whois_file
 		self.ip              = ip 
-		self.ports_map       = ports_map
+		self.ports       = ports
 		self.server_file     = server_file
-		self.robots_txt_file = robots_txt_file
-		self.js_files_list   = js_files_list
+		self.robots_file = robots_file
+		self.js_files   = js_files
 
 	def toJson(self):
 		return self.__dict__
@@ -37,7 +37,7 @@ class Domain:
 		wrk = W.Workshop.search(self.workshop_id)
 		if( wrk == "WorkshopNotFound" ):
 			return "WorkshopNotFound"
-		elif(Domain.searchInWorkshop(self.domain_text,wrk) != "DomainNotFound"):
+		elif(Domain.searchInWorkshop(self.domain,wrk) != "DomainNotFound"):
 			return "DomainExist"
 		else:
 			wrk.domains.append(self)
@@ -45,22 +45,22 @@ class Domain:
 			return "DomainAdded"
 	
 	@staticmethod
-	def delete(domain_text,workshop_id):
+	def delete(domain,workshop_id):
 		wrk = W.Workshop.search(workshop_id)
 		if( wrk == "WorkshopNotFound"):
 			return "WorkshopNotFound"
-		elif(Domain.searchInWorkshop(domain_text,wrk) == "DomainNotFound"):
+		elif(Domain.searchInWorkshop(domain,wrk) == "DomainNotFound"):
 			return "DomainNotFound"
 		else:
-			wrk.domains = [d for d in wrk.domains if d.domain_text != domain_text]
+			wrk.domains = [d for d in wrk.domains if d.domain != domain]
 			wrk.update()
 			return "DomainDeleted"
 
 	@staticmethod
-	def update(domain_text, workshop_id, new_dmn):
+	def update(domain, workshop_id, new_dmn):
 		old_wrk = W.Workshop.search(workshop_id)
 		new_wrk = W.Workshop.search(new_dmn.workshop_id)        if new_dmn.workshop_id           else ""
-		old_dmn = Domain.searchInWorkshop(domain_text, old_wrk) if old_wrk != "WorkshopNotFound" else ""
+		old_dmn = Domain.searchInWorkshop(domain, old_wrk) if old_wrk != "WorkshopNotFound" else ""
 
 		if( old_wrk == "WorkshopNotFound" ):
 			return "OldWorkshopNotFound"
@@ -68,22 +68,22 @@ class Domain:
 			return "DomainNotFound"
 		elif(new_wrk == "WorkshopNotFound"):
 			return "NewWorkshopNotFound"
-		elif(new_wrk and Domain.searchInWorkshop(new_dmn.domain_text, new_wrk) != "DomainNotFound"):
+		elif(new_wrk and Domain.searchInWorkshop(new_dmn.domain, new_wrk) != "DomainNotFound"):
 			return "DomainExist"
 		else:
-			old_dmn.domain_text	= new_dmn.domain_text	  if new_dmn.domain_text	else old_dmn.domain_text
+			old_dmn.domain	= new_dmn.domain	  if new_dmn.domain	else old_dmn.domain
 			old_dmn.whois_file	= new_dmn.whois_file	  if new_dmn.whois_file		else old_dmn.whois_file
 			old_dmn.ip		= new_dmn.ip		  if new_dmn.ip			else old_dmn.ip
 			old_dmn.server_file	= new_dmn.server_file	  if new_dmn.server_file	else old_dmn.server_file
-			old_dmn.robots_txt_file = new_dmn.robots_txt_file if new_dmn.robots_txt_file	else old_dmn.robots_txt_file
+			old_dmn.robots_file = new_dmn.robots_file if new_dmn.robots_file	else old_dmn.robots_file
 			old_dmn.workshop_id     = new_dmn.workshop_id     if new_wrk                    else old_dmn.workshop_id
-			if new_dmn.js_files_list:	
-				if(  '+' == new_dmn.js_files_list[0]	):
-					old_dmn.js_files_list += new_dmn.js_files_list; old_dmn.js_files_list.remove('+')
-				elif('_' == new_dmn.js_files_list[0]	):
-					old_dmn.js_files_list = [ d for d in old_dmn.js_files_list if d not in new_dmn.js_files_list ]
+			if new_dmn.js_files:	
+				if(  '+' == new_dmn.js_files[0]	):
+					old_dmn.js_files += new_dmn.js_files; old_dmn.js_files.remove('+')
+				elif('_' == new_dmn.js_files[0]	):
+					old_dmn.js_files = [ d for d in old_dmn.js_files if d not in new_dmn.js_files ]
 				else:
-					old_dmn.js_files_list  = new_dmn.js_files_list
+					old_dmn.js_files  = new_dmn.js_files
 
 			if new_dmn.tags:	
 				if(  '+' == new_dmn.tags[0]	):
@@ -93,24 +93,24 @@ class Domain:
 				else:
 					old_dmn.tags= new_dmn.tags
 
-			if new_dmn.techs_list:	
-				if(  '+' == new_dmn.techs_list[0]	):
-					old_dmn.techs_list+= new_dmn.techs_list; old_dmn.techs_list.remove('+')
-				elif('_' == new_dmn.techs_list[0]	):
-					old_dmn.techs_list= [ d for d in old_dmn.techs_list if d not in new_dmn.techs_list]
+			if new_dmn.techs:	
+				if(  '+' == new_dmn.techs[0]	):
+					old_dmn.techs+= new_dmn.techs; old_dmn.techs.remove('+')
+				elif('_' == new_dmn.techs[0]	):
+					old_dmn.techs= [ d for d in old_dmn.techs if d not in new_dmn.techs]
 				else:
-					old_dmn.techs_list= new_dmn.techs_list
-			if new_dmn.ports_map:	
-				if(  '+' == next(iter(new_dmn.ports_map.keys()))	):
-					old_dmn.ports_map.update(new_dmn.ports_map); del old_dmn.ports_map['+']
-				elif('_' == next(iter(new_dmn.ports_map.keys()))):
-					old_dmn.ports_map.update(new_dmn.ports_map);
-					for key in  new_dmn.ports_map.keys():
-						del old_dmn.ports_map[key]
+					old_dmn.techs= new_dmn.techs
+			if new_dmn.ports:	
+				if(  '+' == next(iter(new_dmn.ports.keys()))	):
+					old_dmn.ports.update(new_dmn.ports); del old_dmn.ports['+']
+				elif('_' == next(iter(new_dmn.ports.keys()))):
+					old_dmn.ports.update(new_dmn.ports);
+					for key in  new_dmn.ports.keys():
+						del old_dmn.ports[key]
 				else:
-					old_dmn.ports_map= new_dmn.ports_map
+					old_dmn.ports= new_dmn.ports
 
-			Domain.delete(domain_text,workshop_id)
+			Domain.delete(domain,workshop_id)
 			old_dmn.save()
 			return "DomainUpdated"
 
@@ -118,15 +118,15 @@ class Domain:
 	def display(self,toDisplay=['ALL']):
 		dmn={}
 		if "ALL" in toDisplay or "workshop_id" in toDisplay:     dmn["workshop_id"]     =self.workshop_id
-		if "ALL" in toDisplay or "domain_text" in toDisplay:     dmn["domain_text"]     =self.domain_text 
+		if "ALL" in toDisplay or "domain" in toDisplay:     dmn["domain"]     =self.domain 
 		if "ALL" in toDisplay or "tags" in toDisplay:            dmn["tags"]            =self.tags 
-		if "ALL" in toDisplay or "techs_list" in toDisplay:      dmn["techs_list"]      =self.techs_list 
+		if "ALL" in toDisplay or "techs" in toDisplay:      dmn["techs"]      =self.techs 
 		if "ALL" in toDisplay or "whois_file" in toDisplay:      dmn["whois_file"]      =self.whois_file 
 		if "ALL" in toDisplay or "ip" in toDisplay:              dmn["ip"]              =self.ip 
-		if "ALL" in toDisplay or "ports_map" in toDisplay:       dmn["ports_map"]       =self.ports_map 
+		if "ALL" in toDisplay or "ports" in toDisplay:       dmn["ports"]       =self.ports 
 		if "ALL" in toDisplay or "server_file" in toDisplay:     dmn["server_file"]     =self.server_file 
-		if "ALL" in toDisplay or "robots_txt_file" in toDisplay: dmn["robots_txt_file"] =self.robots_txt_file 
-		if "ALL" in toDisplay or "js_files_list" in toDisplay:   dmn["js_files_list"]   =self.js_files_list 
+		if "ALL" in toDisplay or "robots_file" in toDisplay: dmn["robots_file"] =self.robots_file 
+		if "ALL" in toDisplay or "js_files" in toDisplay:   dmn["js_files"]   =self.js_files 
 
 		pp = pprint.PrettyPrinter(indent=4)
 		pp.pprint(dmn)
@@ -135,36 +135,36 @@ class Domain:
 	def getDomainsByWorkshop(wrk):
 		return wrk.domains
 	@staticmethod
-	def searchInWorkshop(domain_text,wrk):
+	def searchInWorkshop(domain,wrk):
 		for dmn in wrk.domains:
-			if(dmn.domain_text==domain_text):
+			if(dmn.domain==domain):
 				return dmn
 		return "DomainNotFound"
 
 	@staticmethod
 	def searchBy(      workshop_id,
-		           domain_text     =False, 
+		           domain     =False, 
 			   tags            =False,
-			   techs_list      =False,
+			   techs      =False,
 			   whois_file      =False,
 			   ip              =False, 
-			   ports_map       =False,
+			   ports       =False,
 			   server_file     =False,
-			   robots_txt_file =False,
-			   js_files_list   =False):
+			   robots_file =False,
+			   js_files   =False):
 		
 		domainsList=[]
 
 		domainsList= domainsList if not workshop_id	else Domain.getDomainsByWorkshop(W.Workshop.search(workshop_id))
-		domainsList= domainsList if not domain_text	else [d for d in domainsList if d.domain_text == domain_text]
+		domainsList= domainsList if not domain	else [d for d in domainsList if d.domain == domain]
 		domainsList= domainsList if not tags		else [d for d in domainsList if any(tag  in d.tags              for tag  in tags)]
-		domainsList= domainsList if not ports_map	else [d for d in domainsList if any(port in d.ports_map.items() for port in ports_map.items())]
-		domainsList= domainsList if not techs_list	else [d for d in domainsList if any(tech in d.techs_list        for tech in techs_list)]
+		domainsList= domainsList if not ports	else [d for d in domainsList if any(port in d.ports.items() for port in ports.items())]
+		domainsList= domainsList if not techs	else [d for d in domainsList if any(tech in d.techs        for tech in techs)]
 		domainsList= domainsList if not whois_file	else [d for d in domainsList if d.whois_file == whois_file]
 		domainsList= domainsList if not ip		else [d for d in domainsList if d.ip == ip]
 		domainsList= domainsList if not server_file     else [d for d in domainsList if d.server_file == server_file]
-		domainsList= domainsList if not robots_txt_file else [d for d in domainsList if d.robots_txt_file== robots_txt_file]
-		domainsList= domainsList if not js_files_list   else [d for d in domainsList if any(js_file in d.js_files_list  for js_file in js_files_list)]
+		domainsList= domainsList if not robots_file else [d for d in domainsList if d.robots_file== robots_file]
+		domainsList= domainsList if not js_files   else [d for d in domainsList if any(js_file in d.js_files  for js_file in js_files)]
 		return domainsList
 
 

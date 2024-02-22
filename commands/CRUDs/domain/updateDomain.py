@@ -14,12 +14,12 @@ class UpdateDomain:
 		new_w_id   = c.option("--w",          True, False,IN)
 		tags       = c.option("--tag",        True, True, IN)
 		techs      = c.option("--tech",       True, True, IN)
-		whois_file = c.option("--whois-file", True, False,IN)
+		whois_file = c.option("--whois", True, False,IN)
 		ip         = c.option("--ip",         True, False,IN)
 		ports_map  = c.option("--port",       True, True, IN)
-		server_file= c.option("--server-file",True, False,IN)
-		robots_file= c.option("--robots-file",True, False,IN)
-		js_files   = c.option("--js-file",    True, True, IN)
+		server_file= c.option("--server",True, False,IN)
+		robots_file= c.option("--robots",True, False,IN)
+		js_files   = c.option("--js",    True, True, IN)
 		for_sure   = c.option("-s",           False,False,IN)
 		
 
@@ -52,13 +52,13 @@ class UpdateDomain:
 			else: toDisplay.append("workshop_id")
 
 			if not domain:      domain      = ""
-			else: toDisplay.append("domain_text")
+			else: toDisplay.append("domain")
 
 			if not tags:        tags        = [] 
 			else: toDisplay.append("tags")
 			
 			if not techs:       techs       = [] 
-			else: toDisplay.append("techs_list")
+			else: toDisplay.append("techs")
 			
 			if not whois_file:  whois_file  = "" 
 			else: toDisplay.append("whois_file")
@@ -67,30 +67,30 @@ class UpdateDomain:
 			else: toDisplay.append("ip")
 			
 			if not ports_map:   ports_map   = {} 
-			else: toDisplay.append("ports_map"); ports_map = c.listToMap(ports_map,updating=True)
+			else: toDisplay.append("ports"); ports_map = c.listToMap(ports_map,updating=True)
 			
 			if not server_file: server_file = "" 
 			else: toDisplay.append("server_file")
 			
 			if not robots_file: robots_file = "" 
-			else: toDisplay.append("robots_txt_file")
+			else: toDisplay.append("robots_file")
 			
 			if not js_files:    js_files    = [] 
-			else: toDisplay.append("js_files_list")
+			else: toDisplay.append("js_files")
 
 			dmn   = Domain( workshop_id     =new_w_id,
-					domain_text     =domain,
+					domain     =domain,
 					tags            =tags,
-					techs_list      =techs,
+					techs      =techs,
 					whois_file      =whois_file,
 					ip              =ip,
-					ports_map       =ports_map,
+					ports       =ports_map,
 					server_file     =server_file,
-					robots_txt_file =robots_file,
-					js_files_list   = js_files)
+					robots_file =robots_file,
+					js_files   = js_files)
 			print("\ndomain:")
 			dmn.display(toDisplay)
-			result = c.questionToExecute(for_sure,Domain.update,{'domain_text':ud, 'workshop_id':w_id, 'new_dmn':dmn},"Update domain ["+ud+"] ?")
+			result = c.questionToExecute(for_sure,Domain.update,{'domain':ud, 'workshop_id':w_id, 'new_dmn':dmn},"Update domain ["+ud+"] ?")
 			if(result ==   "NewWorkshopNotFound"):
 				print("❌ Workshop ["+new_w_id+"] Not Found.")
 			elif(result == "OldWorkshopNotFound"):

@@ -13,12 +13,12 @@ class DisplayDomain:
 		w_id       = c.option("-w",           True, False,IN)
 		tags       = c.option("--tag",        True, True, IN)
 		techs      = c.option("--tech",       True, True, IN)
-		whois_file = c.option("--whois-file", True, False,IN)
+		whois_file = c.option("--whois", True, False,IN)
 		ip         = c.option("--ip",         True, False,IN)
 		ports_map  = c.option("--port",       True, True, IN)
-		server_file= c.option("--server-file",True, False,IN)
-		robots_file= c.option("--robots-file",True, False,IN)
-		js_files   = c.option("--js-file",    True, True, IN)
+		server_file= c.option("--server",True, False,IN)
+		robots_file= c.option("--robots",True, False,IN)
+		js_files   = c.option("--js",    True, True, IN)
 		show       = c.option("--show",       True, True, IN)
 		all        = c.option("-a",           False,False,IN)
 
@@ -42,7 +42,7 @@ class DisplayDomain:
 		elif(ports_map and not c.canBeMap(ports_map)):
 			print("❌Ports format: <[PORT_NAME]:[PORT]>")
 		else:
-			toDisplay  = ["domain_text"]
+			toDisplay  = ["domain"]
 			show       = [] if not show else show
 			
 			cw         = TopG.CURRENT_WORKSHOP
@@ -57,8 +57,8 @@ class DisplayDomain:
 
 			
 			if not techs:       techs       = [] 
-			else:toDisplay.append("techs_list")
-			if "techs_list" in  show:toDisplay.append("techs_list")
+			else:toDisplay.append("techs")
+			if "techs" in  show:toDisplay.append("techs")
 
 			
 			if not whois_file:  whois_file  = "" 
@@ -72,8 +72,8 @@ class DisplayDomain:
 
 			
 			if not ports_map:   ports_map   = {} 
-			else:toDisplay.append("ports_map"); ports_map = c.listToMap(ports_map)
-			if "ports_map" in  show:toDisplay.append("ports_map")
+			else:toDisplay.append("ports"); ports_map = c.listToMap(ports_map)
+			if "ports_map" in  show:toDisplay.append("ports")
 
 			
 			if not server_file: server_file = "" 
@@ -82,25 +82,25 @@ class DisplayDomain:
 
 			
 			if not robots_file: robots_file = "" 
-			else:toDisplay.append("robots_txt_file")
-			if "robots_txt_file" in  show:toDisplay.append("robots_txt_file")
+			else:toDisplay.append("robots_file")
+			if "robots_file" in  show:toDisplay.append("robots_file")
 
 			
 			if not js_files:    js_files    = [] 
-			else:toDisplay.append("js_files_list")
-			if "js_files_list" in  show:toDisplay.append("js_files_list")
+			else:toDisplay.append("js_files")
+			if "js_files" in  show:toDisplay.append("js_files")
 
 			if "all" in show : toDisplay.append("ALL")
 			dmn   = Domain( workshop_id     =w_id,
-					domain_text     =domain,
+					domain     =domain,
 					tags            =tags,
-					techs_list      =techs,
+					techs      =techs,
 					whois_file      =whois_file,
 					ip              =ip,
-					ports_map       =ports_map,
+					ports       =ports_map,
 					server_file     =server_file,
-					robots_txt_file =robots_file,
-					js_files_list   = js_files)
+					robots_file =robots_file,
+					js_files   = js_files)
 			if(all):
 				wrk = Workshop.search(w_id)
 				if(wrk == "WorkshopNotFound"):
@@ -109,15 +109,15 @@ class DisplayDomain:
 					domainsList = Domain.getDomainsByWorkshop(wrk)
 					
 					domainsList = Domain.searchBy(  workshop_id     =w_id,
-									domain_text     =domain,
+									domain     =domain,
 									tags            =tags,
-									techs_list      =techs,
+									techs      =techs,
 									whois_file      =whois_file,
 									ip              =ip,
-									ports_map       =ports_map,
+									ports       =ports_map,
 									server_file     =server_file,
-									robots_txt_file =robots_file,
-									js_files_list   = js_files)
+									robots_file =robots_file,
+									js_files   = js_files)
 					for d in domainsList:
 						d.display(toDisplay)
 

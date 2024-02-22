@@ -22,7 +22,7 @@ class DeleteDomain:
 			cw         = TopG.CURRENT_WORKSHOP
 			if not w_id:        w_id        = cw 
 
-			result = c.questionToExecute(for_sure,Domain.delete,{'domain_text':deld, 'workshop_id':w_id},"Delete domain ["+deld+"] ?")
+			result = c.questionToExecute(for_sure,Domain.delete,{'domain':deld, 'workshop_id':w_id},"Delete domain ["+deld+"] ?")
 			
 			if(result == "WorkshopNotFound"):
 				print("❌ Workshop ["+w_id+"] Not Found.")
