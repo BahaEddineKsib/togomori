@@ -29,7 +29,7 @@ class Workshop:
 
 			jsnList = [w.toJson() for w in wrkList]
 			json_data = {"workshops": jsnList}
-			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
+			with open(TopG.JSON_DATABASE, 'w') as workshops_file:
 				json.dump(json_data, workshops_file)
 				
 			return "WorkshopAdded"
@@ -53,7 +53,7 @@ class Workshop:
 			jsnList = [w.toJson() for w in wrkList if w.id != id]
 
 			json_data = {"workshops": jsnList}
-			with open(os.getcwd()+'/data/workshops.json', 'w') as workshops_file:
+			with open(TopG.JSON_DATABASE, 'w') as workshops_file:
 				json.dump(json_data, workshops_file)
 
 			return "WorkshopDeleted"
@@ -82,7 +82,7 @@ class Workshop:
 	@staticmethod
 	def getAllWorkshops():
 		listObj = []
-		with open(os.getcwd()+'/data/workshops.json', 'r') as workshops_file:
+		with open(TopG.JSON_DATABASE, 'r') as workshops_file:
 			listObj = json.load(workshops_file)
 
 		wrkList = []
