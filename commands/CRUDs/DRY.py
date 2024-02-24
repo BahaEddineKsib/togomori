@@ -1,5 +1,5 @@
 import re
-
+from urllib.parse import urlparse
 
 # DRYFFC : DON'T REPEAT YOURSELF FUNCTIONS FOR COMMANDS
 
@@ -82,5 +82,23 @@ def listToMap(LP, updating=False):
 	for l in LP:
 		Map[l.split(':')[0]] = int(l.split(':')[1])
 	return Map
+
+def segmentUrl(url):
+
+	if( len(url.split("://")) == 1 ):
+		url = "https://"+url
+	elif( url.split("://")[0] == ''):
+		url = "https"+url
+
+	parsed_url = urlparse(url)
+
+	result={}
+	result['domain'] = parsed_url.netloc
+	if(not result['domain'] or len(result['domain'].split('.')) == 1):
+		return False
+	result['path'] = parsed_url.path
+	if(not result['path']):
+		return False
+	return result
 
 

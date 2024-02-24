@@ -10,6 +10,7 @@ from commands.CRUDs.domain.deleteDomain      import DeleteDomain    as deld
 from commands.CRUDs.domain.updateDomain      import UpdateDomain    as ud
 from commands.CRUDs.domain.setDomain	     import SetDomain	    as sd
 from commands.CRUDs.domain.unsetDomain	     import UnsetDomain     as usd
+from commands.CRUDs.path.addPath	     import AddPath         as ap
 import os
 def execute(IN):
 	command = ''
@@ -64,9 +65,9 @@ def execute(IN):
 		case "unsetdomain" | "unsetd"| "usd":
 			usd.execute(IN)
 
-		# URL
-		case "addurl" | "addu" | "au":
-			print('EXECUTING add URL..')
+		# PATH
+		case "addpath" | "addp" | "ap":
+			ap.execute(IN)
     
 		case "displayurl" | "displayu" | "du":
 			print('EXECUTING display URL..')

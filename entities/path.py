@@ -1,63 +1,48 @@
-import json
-import os
-import pprint
-import GlobalVars	 as TopG
 import entities.workshop as W
-import entities.path	 as P
-import tldextract	 as domain_parts
-class Domain:
-	def __init__(self, workshop_id,
-			   domain	  ="", 
-			   sub		  ="",
-			   main		  ="",
-			   tld		  ="",
-			   tags		  =[],
-			   techs	  =[],
-			   whois_file	  ="",
-			   ip		  ="", 
-			   ports	  ={},
-			   server_file	  ="",
-			   robots_file	  ="",
-			   js_files	  =[],
-			   paths:[P.Path] =[]):
+import entities.domain   as D
 
-		self.workshop_id= workshop_id
-		self.domain	= domain
-		self.sub	= domain_parts.extract(domain).subdomain if sub  =="" else sub
-		self.main	= domain_parts.extract(domain).domain    if main =="" else main
-		self.tld	= domain_parts.extract(domain).suffix    if tld  =="" else tld
-		self.tags       = tags
-		self.techs      = techs
-		self.whois_file = whois_file
-		self.ip         = ip 
-		self.ports      = ports
-		self.server_file= server_file
-		self.robots_file= robots_file
-		self.js_files   = js_files
-		self.paths	= paths
-
+class Path:
+	def __init__(self, domain="", path="",variables=[]):
+		self.domain		= domain
+		self.path		= path
+		self.variables		= variables
+	
 	def toJson(self):
-		jsnDmn       = self.__dict__
-		jsnDmn['paths'] = [pp.toJson() for pp in self.paths]
-		return jsnDmn
+		jsnPath	= self.__dict__
+		return jsnPath
 
 	@staticmethod
-	def jsonToDomain(dmn):
-		Dom	  = Domain(**dmn)
-		Dom.paths = [P.Path.jsonToPath(pp) for pp in dmn['paths']]
-		return Dom
+	def jsonToPath(pth):
+		return Path(**pth)
 
-	def save(self):
-		wrk = W.Workshop.search(self.workshop_id)
-		if( wrk == "WorkshopNotFound" ):
+	def save(self,workshop_id):
+		wrk = W.Workshop.search(workshop_id)
+		dmn = D.Domain.searchInWorkshop(self.domain,wrk) if wrk != "WorkshopNotFound" else ""
+		if(  wrk == "WorkshopNotFound" ):
 			return "WorkshopNotFound"
-		elif(Domain.searchInWorkshop(self.domain,wrk) != "DomainNotFound"):
-			return "DomainExist"
+		elif(dmn == "DomainNotFound"):
+			return "DomainNotFound"
+		elif(Path.searchInDomain(self.path, dmn)  != "PathNotFound"):
+			return "PathExist"
 		else:
-			wrk.domains.append(self)
-			wrk.update()
-			return "DomainAdded"
+
+			dmn.paths.append(self)
+			dmn.update()
+			return "PathAdded"
+	def display(self):
+		print(self.domain+self.path)
+		print(' '*len(self.domain) + '~'*len(self.path))
 	
+
+	@staticmethod
+	def searchInDomain(path,dmn):
+		for pth in dmn.paths:
+			if(pth.path==path):
+				return pth
+		return "PathNotFound"
+
+
+	'''
 	@staticmethod
 	def delete(domain,workshop_id):
 		wrk = W.Workshop.search(workshop_id)
@@ -85,13 +70,12 @@ class Domain:
 		elif(new_wrk and Domain.searchInWorkshop(new_dmn.domain, new_wrk) != "DomainNotFound"):
 			return "DomainExist"
 		else:
-			old_dmn.paths		= new_dmn.paths		if new_dmn.paths	else old_dmn.paths
-			old_dmn.domain		= new_dmn.domain	if new_dmn.domain	else old_dmn.domain
-			old_dmn.whois_file	= new_dmn.whois_file	if new_dmn.whois_file	else old_dmn.whois_file
-			old_dmn.ip		= new_dmn.ip		if new_dmn.ip		else old_dmn.ip
-			old_dmn.server_file	= new_dmn.server_file	if new_dmn.server_file	else old_dmn.server_file
-			old_dmn.robots_file	= new_dmn.robots_file	if new_dmn.robots_file	else old_dmn.robots_file
-			old_dmn.workshop_id     = new_dmn.workshop_id   if new_wrk              else old_dmn.workshop_id
+			old_dmn.domain	= new_dmn.domain	  if new_dmn.domain	else old_dmn.domain
+			old_dmn.whois_file	= new_dmn.whois_file	  if new_dmn.whois_file		else old_dmn.whois_file
+			old_dmn.ip		= new_dmn.ip		  if new_dmn.ip			else old_dmn.ip
+			old_dmn.server_file	= new_dmn.server_file	  if new_dmn.server_file	else old_dmn.server_file
+			old_dmn.robots_file = new_dmn.robots_file if new_dmn.robots_file	else old_dmn.robots_file
+			old_dmn.workshop_id     = new_dmn.workshop_id     if new_wrk                    else old_dmn.workshop_id
 			if new_dmn.js_files:	
 				if(  '+' == new_dmn.js_files[0]	):
 					old_dmn.js_files += new_dmn.js_files; old_dmn.js_files.remove('+')
@@ -129,39 +113,10 @@ class Domain:
 			old_dmn.save()
 			return "DomainUpdated"
 
-	def update(self):
-		Domain.delete(self.domain, self.workshop_id)
-		self.save()
-		return "DomainUpdated"
-
-	def display(self,toDisplay=['ALL']):
-		dmn={}
-		if "ALL" in toDisplay or "workshop_id"	in toDisplay:dmn["workshop_id"] =self.workshop_id
-		if "ALL" in toDisplay or "domain"	in toDisplay:dmn["domain"]	=self.domain
-		if "ALL" in toDisplay or "sub"		in toDisplay:dmn["sub"]		=self.sub
-		if "ALL" in toDisplay or "main"		in toDisplay:dmn["main"]	=self.main
-		if "ALL" in toDisplay or "tld"		in toDisplay:dmn["tld"]		=self.tld
-		if "ALL" in toDisplay or "tags"		in toDisplay:dmn["tags"]        =self.tags 
-		if "ALL" in toDisplay or "techs"	in toDisplay:dmn["techs"]	=self.techs 
-		if "ALL" in toDisplay or "whois_file"	in toDisplay:dmn["whois_file"]  =self.whois_file 
-		if "ALL" in toDisplay or "ip"		in toDisplay:dmn["ip"]          =self.ip 
-		if "ALL" in toDisplay or "ports"	in toDisplay:dmn["ports"]       =self.ports 
-		if "ALL" in toDisplay or "server_file"	in toDisplay:dmn["server_file"] =self.server_file 
-		if "ALL" in toDisplay or "robots_file"	in toDisplay:dmn["robots_file"] =self.robots_file 
-		if "ALL" in toDisplay or "js_files"	in toDisplay:dmn["js_files"]	=self.js_files 
-
-		pp = pprint.PrettyPrinter(indent=4)
-		pp.pprint(dmn)
 
 	@staticmethod
 	def getDomainsByWorkshop(wrk):
 		return wrk.domains
-	@staticmethod
-	def searchInWorkshop(domain,wrk):
-		for dmn in wrk.domains:
-			if(dmn.domain==domain):
-				return dmn
-		return "DomainNotFound"
 
 	@staticmethod
 	def searchBy(      workshop_id,
@@ -194,11 +149,4 @@ class Domain:
 		domainsList= domainsList if not robots_file	else [d for d in domainsList if d.robots_file== robots_file]
 		domainsList= domainsList if not js_files	else [d for d in domainsList if any(js_file in d.js_files  for js_file in js_files)]
 		return domainsList
-
-
-
-
-
-
-
-
+'''
