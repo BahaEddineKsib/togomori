@@ -29,9 +29,10 @@ class Path:
 			dmn.paths.append(self)
 			dmn.update()
 			return "PathAdded"
-	def display(self):
+	def display(self,select=True):
 		print(self.domain+self.path)
-		print(' '*len(self.domain) + '~'*len(self.path))
+		if(select):
+			print(' '*len(self.domain) + '~'*len(self.path))
 	
 
 	@staticmethod
@@ -40,6 +41,31 @@ class Path:
 			if(pth.path==path):
 				return pth
 		return "PathNotFound"
+
+	@staticmethod
+	def getPathsByDomain(domain,workshop_id):
+		wrk = W.Workshop.search(workshop_id)
+		dmn = D.Domain.searchInWorkshop(domain,wrk) if wrk != "WorkshopNotFound" else ""
+		if(  wrk == "WorkshopNotFound" ):
+			return "WorkshopNotFound"
+		elif(dmn == "DomainNotFound"):
+			return "DomainNotFound"
+		else:
+			return dmn.paths
+
+
+	def getPathsByWorkshop(workshop_id):
+		wrk = W.Workshop.search(workshop_id)
+		if(  wrk == "WorkshopNotFound" ):
+			return "WorkshopNotFound"
+		else:
+			paths=[]
+			for dmn in wrk.domains:
+				paths += Path.getPathsByDomain(dmn.domain,workshop_id)
+
+			return paths
+				
+
 
 
 	'''

@@ -10,15 +10,18 @@ class AddWorkshop:
 		
 		if("UserNeedsHelp" in [id,for_sure]):
 			AddWorkshop.help()
+			return "UserNeedsHelp"
 		else:
 			wrk = Workshop(id)
-			print("\nWORKSHOP:")
-			wrk.display()
+			#print("\nWORKSHOP:")
+			#wrk.display()
 			result = c.questionToExecute(for_sure,wrk.save,{},"Save workshop ["+id+"] ?")
 			if(result == "WorkshopExist"):
 				print("❌ Workshop ["+id+"] already exist")
+				return "WorkshopExist"
 			elif(result == "WorkshopAdded"):
 				print("✅ Workshop is ["+id+"] Added")
+				return "WorkshopAdded"
 
 	@staticmethod	
 	def help():

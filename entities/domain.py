@@ -23,9 +23,14 @@ class Domain:
 
 		self.workshop_id= workshop_id
 		self.domain	= domain
-		self.sub	= domain_parts.extract(domain).subdomain if sub  =="" else sub
-		self.main	= domain_parts.extract(domain).domain    if main =="" else main
-		self.tld	= domain_parts.extract(domain).suffix    if tld  =="" else tld
+		if(domain):
+			self.sub	= domain_parts.extract(domain).subdomain if sub  =="" else sub
+			self.main	= domain_parts.extract(domain).domain    if main =="" else main
+			self.tld	= domain_parts.extract(domain).suffix    if tld  =="" else tld
+		else:
+			self.sub = sub
+			self.main= main
+			self.tld = tld
 		self.tags       = tags
 		self.techs      = techs
 		self.whois_file = whois_file
@@ -86,12 +91,16 @@ class Domain:
 			return "DomainExist"
 		else:
 			old_dmn.paths		= new_dmn.paths		if new_dmn.paths	else old_dmn.paths
-			old_dmn.domain		= new_dmn.domain	if new_dmn.domain	else old_dmn.domain
 			old_dmn.whois_file	= new_dmn.whois_file	if new_dmn.whois_file	else old_dmn.whois_file
 			old_dmn.ip		= new_dmn.ip		if new_dmn.ip		else old_dmn.ip
 			old_dmn.server_file	= new_dmn.server_file	if new_dmn.server_file	else old_dmn.server_file
 			old_dmn.robots_file	= new_dmn.robots_file	if new_dmn.robots_file	else old_dmn.robots_file
 			old_dmn.workshop_id     = new_dmn.workshop_id   if new_wrk              else old_dmn.workshop_id
+
+			if new_dmn.domain:
+				old_dmn.domain = new_dmn.domain
+				#for p in old_dmn.paths:
+
 			if new_dmn.js_files:	
 				if(  '+' == new_dmn.js_files[0]	):
 					old_dmn.js_files += new_dmn.js_files; old_dmn.js_files.remove('+')
@@ -134,7 +143,7 @@ class Domain:
 		self.save()
 		return "DomainUpdated"
 
-	def display(self,toDisplay=['ALL']):
+	def display(self,toDisplay=['ALL'], expand=False):
 		dmn={}
 		if "ALL" in toDisplay or "workshop_id"	in toDisplay:dmn["workshop_id"] =self.workshop_id
 		if "ALL" in toDisplay or "domain"	in toDisplay:dmn["domain"]	=self.domain
@@ -149,6 +158,9 @@ class Domain:
 		if "ALL" in toDisplay or "server_file"	in toDisplay:dmn["server_file"] =self.server_file 
 		if "ALL" in toDisplay or "robots_file"	in toDisplay:dmn["robots_file"] =self.robots_file 
 		if "ALL" in toDisplay or "js_files"	in toDisplay:dmn["js_files"]	=self.js_files 
+		if "ALL" in toDisplay or "paths"	in toDisplay:
+			if   expand  : dmn["paths"]= [p.toJson() for p in self.paths]
+			else	     : dmn["paths"]= [p.path     for p in self.paths]
 
 		pp = pprint.PrettyPrinter(indent=4)
 		pp.pprint(dmn)

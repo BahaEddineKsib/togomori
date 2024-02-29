@@ -38,10 +38,16 @@ class UpdateDomain:
 					w_id,
 					new_w_id]):
 			AddDomain.help()
+			return "UserNeedsHelp"
+
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			return "NoWorkshopSetted"
+
 		elif(ports_map and not c.canBeMap(ports_map, updating=True)):
 			print("❌Ports format: <[PORT_NAME]:[PORT]>")
+			return "WrongPortFormat"
+
 		else:
 			toDisplay  = []
 			cw         = TopG.CURRENT_WORKSHOP

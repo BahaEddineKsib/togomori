@@ -18,16 +18,21 @@ class AddPath:
 
 		if("UserNeedsHelp" in [ ap,domain,for_sure]):
 			AddPath.help()
+			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
-		elif(not domain and not c.segmentUrl(ap) and not TopG.CURRENT_DOMAIN):
+			return "NoWorkshopSetted"
+		elif(not domain and c.segmentUrl(ap)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
 			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			return "NoDomainSetted"
 		else:
-			domain = c.segmentUrl(ap)['domain'] if not domain else domain
-			domain = TopG.CURRENT_DOMAIN	    if not domain else domain
-			
-			path   = ap if not c.segmentUrl(ap) else c.segmentUrl(ap)["path"]
+			path   = c.segmentUrl(ap)["path"]
+			if path == 'NoPath' or path == 'InvalidPath':
+				print("❌ Invalid Path. Path should contain at least one / and  start with /")
+				return "InvalidPath"
 
+			domain = c.segmentUrl(ap)['domain'] if not domain		else domain
+			domain = TopG.CURRENT_DOMAIN	    if     domain == "NoDomain" else domain
 			cw   = TopG.CURRENT_WORKSHOP
 			w_id = cw if not w_id else w_id
 			
@@ -44,6 +49,10 @@ class AddPath:
 				print("❌ Path ["+path+"] Already Exist.")
 			elif(result == "PathAdded"):
 				print("✅ Path ["+path+"] is Added.")
+			return result
+
+
+
 	@staticmethod	
 	def help():
 		print("help -AddDomain")

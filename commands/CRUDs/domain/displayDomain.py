@@ -23,7 +23,8 @@ class DisplayDomain:
 		robots_file= c.option("--robots",True, False,IN)
 		js_files   = c.option("--js",	 True, True, IN)
 		show       = c.option("--show",  True, True, IN)
-		all        = c.option("-a",      False,False,IN)
+		expand     = c.option("-x",	 False,False,IN)
+		all        = c.option("-A",      False,False,IN)
 
 
 		if("UserNeedsHelp" in [ ad,
@@ -40,109 +41,81 @@ class DisplayDomain:
 					show,
 					all] or (not domain and not all)):
 			DisplayDomain.help()
+			return "UserNeedsHelp"
+
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			return "NoWorkshopSetted"
 		elif(ports_map and not c.canBeMap(ports_map)):
 			print("❌Ports format: <[PORT_NAME]:[PORT]>")
+			return"WrongPortFormat"
 		else:
-			toDisplay  = ["domain"]
 			show       = [] if not show else show
-			
+			show.append("domain")
 			cw         = TopG.CURRENT_WORKSHOP
 			if not w_id:        w_id        = cw 
-			else:toDisplay.append("workshop_id")
-			if "workshop_id" in  show:toDisplay.append("workshop_id")
-
 			if not sub:	    sub         = ""
-			#else:toDisplay.append("sub")
-			if "sub" in show:toDisplay.append("sub")
-
-			if not main:	    main         = ""
-			#else:toDisplay.append("main")
-			if "main" in show:toDisplay.append("main")
-
-			if not tld:	    tld          = ""
-			#else:toDisplay.append("main")
-			if "main" in show:toDisplay.append("main")
-
-
-			
+			if not main:	    main        = ""
+			if not tld:	    tld         = ""
 			if not tags:        tags        = [] 
-			else:toDisplay.append("tags")
-			if "tags" in  show:toDisplay.append("tags")
-
-			
 			if not techs:       techs       = [] 
-			else:toDisplay.append("techs")
-			if "techs" in  show:toDisplay.append("techs")
-
-			
 			if not whois_file:  whois_file  = "" 
-			else:toDisplay.append("whois_file")
-			if "whois_file" in  show:toDisplay.append("whois_file")
-
-			
 			if not ip:          ip          = "" 
-			else:toDisplay.append("ip")
-			if "ip" in  show:toDisplay.append("ip")
-
-			
 			if not ports_map:   ports_map   = {} 
-			else:toDisplay.append("ports"); ports_map = c.listToMap(ports_map)
-			if "ports_map" in  show:toDisplay.append("ports")
-
-			
 			if not server_file: server_file = "" 
-			else:toDisplay.append("server_file")
-			if "server_file" in  show:toDisplay.append("server_file")
-
-			
 			if not robots_file: robots_file = "" 
-			else:toDisplay.append("robots_file")
-			if "robots_file" in  show:toDisplay.append("robots_file")
-
-			
 			if not js_files:    js_files    = [] 
-			else:toDisplay.append("js_files")
-			if "js_files" in  show:toDisplay.append("js_files")
-
-			if "all" in show : toDisplay.append("ALL")
+			
 			dmn   = Domain( workshop_id     =w_id,
-					domain     =domain,
+					domain		=domain,
 					tags            =tags,
-					techs      =techs,
+					techs		=techs,
 					whois_file      =whois_file,
 					ip              =ip,
-					ports       =ports_map,
+					ports		=ports_map,
 					server_file     =server_file,
-					robots_file =robots_file,
-					js_files   = js_files)
+					robots_file	=robots_file,
+					js_files	= js_files)
+			wrk = Workshop.search(w_id)
+			if(wrk == "WorkshopNotFound"):
+				print("❌ Workshop ["+w_id+"] Not Found.")
+				return "WorkshopNotFound"
+
 			if(all):
-				wrk = Workshop.search(w_id)
-				if(wrk == "WorkshopNotFound"):
-					print("❌ Workshop ["+w_id+"] Not Found.")
+				domainsList = Domain.getDomainsByWorkshop(wrk)
+				
+				domainsList = Domain.searchBy(  workshop_id=w_id,
+								domain     =domain,
+								sub        =sub,
+								main       =main,
+								tld	   =tld,
+								tags	   =tags,
+								techs      =techs,
+								whois_file =whois_file,
+								ip	   =ip,
+								ports	   =ports_map,
+								server_file=server_file,
+								robots_file=robots_file,
+								js_files   = js_files)
+				dd = []
+				for d in domainsList:
+					d.display(show,expand)
+					dd.append(d.domain)
+				return dd
+			elif(domain):
+				d = Domain.searchInWorkshop(domain,wrk)
+				if d == "DomainNotFound":
+					print("No Domain have the name ["+domain+"] in workshop ["+w_id+"]")
+					return "DomainNotFound"
 				else:
-					domainsList = Domain.getDomainsByWorkshop(wrk)
-					
-					domainsList = Domain.searchBy(  workshop_id=w_id,
-									domain     =domain,
-									sub        =sub,
-									main       =main,
-									tld	   =tld,
-									tags	   =tags,
-									techs      =techs,
-									whois_file =whois_file,
-									ip	   =ip,
-									ports	   =ports_map,
-									server_file=server_file,
-									robots_file=robots_file,
-									js_files   = js_files)
-					for d in domainsList:
-						d.display(toDisplay)
+					d.display(show,expand)
+					return d.domain
+				
+
 
 	@staticmethod	
 	def help():
-		print("help -AddDomain")
+		print("help -DisplayDomain")
 
 
 

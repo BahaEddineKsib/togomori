@@ -36,9 +36,13 @@ class Workshop:
 		else:
 			return "WorkshopExist"
 	
-	def display(self):
+	def display(self, expand = False):
 		pp = pprint.PrettyPrinter(indent=4)
-		pp.pprint(self.toJson())
+		if expand:
+			pp.pprint(self.toJson())
+		else:
+			self.domains = [ d.domain for d in self.domains]
+			pp.pprint(self.__dict__)
 
 
 	@staticmethod
@@ -59,16 +63,16 @@ class Workshop:
 			return "WorkshopDeleted"
 
 	@staticmethod
-	def updateId(id,newId):
-		wrk = Workshop.search(id)
+	def updateId(oldId,newId):
+		wrk = Workshop.search(oldId)
 		if(wrk == "WorkshopNotFound"):
 			return "WorkshopNotFound"
 		elif(Workshop.search(newId) != "WorkshopNotFound"):
 			return "NewWorkshopIdExist"
 		else:
 			cw = TopG.CURRENT_WORKSHOP
-			TopG.CURRENT_WORKSHOP = newId if cw == id else cw
-			Workshop.deleteById(id, temporary_delete=1)
+			TopG.CURRENT_WORKSHOP = newId if cw == oldId else cw
+			Workshop.deleteById(oldId, temporary_delete=1)
 			wrk.id = newId
 			for dmn in wrk.domains:
 				dmn.workshop_id = newId

@@ -33,12 +33,16 @@ class AddDomain:
 					ports_map,
 					server_file,
 					robots_file,
-					js_files] or (not domain)):
+					js_files,
+					w_id] or (not domain)):
 			AddDomain.help()
+			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			return "NoWorkshopSetted"
 		elif(ports_map and not c.canBeMap(ports_map)):
 			print("❌Ports format: <[PORT_NAME]:[PORT]>")
+			return "WrongPortFormat"
 		else:
 			toDisplay  = ["domain"]
 			cw         = TopG.CURRENT_WORKSHOP
@@ -84,17 +88,17 @@ class AddDomain:
 			result = c.questionToExecute(for_sure,dmn.save,{},"Save domain ["+domain+"] ?")
 			if(result == "WorkshopNotFound"):
 				print("❌ Workshop ["+w_id+"] Not Found.")
+				return "WorkshopNotFound"
 			elif(result == "DomainExist"):
 				print("❌ Domain ["+domain+"] already exist.")
+				return "DomainExist"
 			elif(result == "DomainAdded"):
 				print("✅ Domain ["+domain+"] is Added.")
+				return "DomainAdded"
 
 	@staticmethod	
 	def help():
 		print("help -AddDomain")
-
-
-
 
 
 

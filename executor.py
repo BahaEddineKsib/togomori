@@ -11,6 +11,7 @@ from commands.CRUDs.domain.updateDomain      import UpdateDomain    as ud
 from commands.CRUDs.domain.setDomain	     import SetDomain	    as sd
 from commands.CRUDs.domain.unsetDomain	     import UnsetDomain     as usd
 from commands.CRUDs.path.addPath	     import AddPath         as ap
+from commands.CRUDs.path.displayPath         import DisplayPath     as dp
 import os
 def execute(IN):
 	command = ''
@@ -20,121 +21,48 @@ def execute(IN):
 	match command:
 
 		# Workshop!
-		case "setworkshop" | "setw" | "sw":
-			
-			sw.execute(IN)
-			
-		case "unsetworkshop" | "unsetw" | "usw":
-
-			usw.execute(IN)
-
-		case "addworkshop" | "addw" | "aw":
-
-			aw.execute(IN)
-    
-
-		case "displayworkshop" | "displayw" | "dw":
-			
-			dw.execute(IN)
-    
-		case "updateworkshop" | "updatew" | "uw":
-			
-			uw.execute(IN)
-    
-		case "deleteworkshop" | "deletew" | "delw":
-			
-			delw.execute(IN)
-
+		case "setworkshop" | "setw" | "sw":		sw.execute(IN)
+		case "unsetworkshop" | "unsetw" | "usw":	usw.execute(IN)
+		case "addworkshop" | "addw" | "aw":		aw.execute(IN)
+		case "displayworkshop" | "displayw" | "dw":	dw.execute(IN)
+		case "updateworkshop" | "updatew" | "uw":	uw.execute(IN)
+		case "deleteworkshop" | "deletew" | "delw":	delw.execute(IN)
 		# Domain
-		case "adddomain" | "addd" | "ad":
-			
-			ad.execute(IN)
-    
-		case "displaydomain" | "displayd" | "dd":
-			dd.execute(IN)
-    
-		case "updatedomain" | "updated" | "ud":
-			ud.execute(IN)
-    
-		case "deletedomain" | "deleted" | "deld":
-			deld.execute(IN)
-		
-		case "setdomain" | "setd" | "sd":
-			sd.execute(IN)
-
-		case "unsetdomain" | "unsetd"| "usd":
-			usd.execute(IN)
-
+		case "adddomain" | "addd" | "ad":		ad.execute(IN)
+		case "displaydomain" | "displayd" | "dd":	dd.execute(IN)
+		case "updatedomain" | "updated" | "ud":		ud.execute(IN)
+		case "deletedomain" | "deleted" | "deld":	deld.execute(IN)
+		case "setdomain" | "setd" | "sd":		sd.execute(IN)
+		case "unsetdomain" | "unsetd"| "usd":		usd.execute(IN)
 		# PATH
-		case "addpath" | "addp" | "ap":
-			ap.execute(IN)
-    
-		case "displayurl" | "displayu" | "du":
-			print('EXECUTING display URL..')
-    
-		case "updateurl" | "updateu" | "uu":
-			print('EXECUTING update URL..')
-    
-		case "deleteurl" | "deleteu" | "delu":
-			print('EXECUTING delete URL..')
-
+		case "addpath" | "addp" | "ap":			ap.execute(IN)
+		case "displaypath" | "displayp" | "dp":		dp.execute(IN)
+		case "updateurl" | "updateu" | "uu":		print('EXECUTING update URL..')
+		case "deleteurl" | "deleteu" | "delu":		print('EXECUTING delete URL..')
 		# Parameter
-		case "addparameter" | "addp" | "ap":
-			print('EXECUTING add parameter..')
-    
-		case "displayparameter" | "displayp" | "dp":
-			print('EXECUTING display parameter..')
-    
-		case "updateparameter" | "updatep" | "up":
-			print('EXECUTING update parameter..')
-    
-		case "deleteparameter" | "deletep" | "delp":
-			print('EXECUTING delete parameter..')
-
+		case "addparameter" | "addp" | "ap":		print('EXECUTING add parameter..')
+		case "displayparameter" | "displayp" | "dp":	print('EXECUTING display parameter..')
+		case "updateparameter" | "updatep" | "up":	print('EXECUTING update parameter..')
+		case "deleteparameter" | "deletep" | "delp":	print('EXECUTING delete parameter..')
 		# Cookie
-		case "addcookie" | "addc" | "ac":
-			print('EXECUTING add cookie..')
-    
-		case "displaycookie" | "displayc" | "dc":
-			print('EXECUTING display cookie..')
-    
-		case "updatecookie" | "updatec" | "uc":
-			print('EXECUTING update cookie..')
-    
-		case "deletecookie" | "deletec" | "delc":
-			print('EXECUTING delete cookie..')
-
+		case "addcookie" | "addc" | "ac":		print('EXECUTING add cookie..')
+		case "displaycookie" | "displayc" | "dc":	print('EXECUTING display cookie..')
+		case "updatecookie" | "updatec" | "uc":		print('EXECUTING update cookie..')
+		case "deletecookie" | "deletec" | "delc":	print('EXECUTING delete cookie..')
 		# Capture
-		case "addcapture" | "addcap" | "acap":
-			print('EXECUTING add capture..')
-    
-		case "displaycapture" | "displaycap" | "dcap":
-			print('EXECUTING display capture..')
-    
-		case "updatecapture" | "updatecap" | "ucap":
-			print('EXECUTING update capture..')
-    
-		case "deletecapture" | "deletecap" | "dcap":
-			print('EXECUTING delete capture..')
-
+		case "addcapture" | "addcap" | "acap":		print('EXECUTING add capture..')
+		case "displaycapture" | "displaycap" | "dcap":	print('EXECUTING display capture..')
+		case "updatecapture" | "updatecap" | "ucap":	print('EXECUTING update capture..')
+		case "deletecapture" | "deletecap" | "dcap":	print('EXECUTING delete capture..')
 		# Transaction
-		case "addtransaction" | "addt" | "at":
-			print('EXECUTING add transaction..')
-    
-		case "displaytransaction" | "displayt" | "dt":
-			print('EXECUTING display transaction..')
-    
-		case "updatetransaction" | "updatet" | "ut":
-			print('EXECUTING update transaction..')
-
-		case "deletetransaction" | "deletet" | "delt":
-			print('EXECUTING delete transaction..')
+		case "addtransaction" | "addt" | "at":		print('EXECUTING add transaction..')
+		case "displaytransaction" | "displayt" | "dt":	print('EXECUTING display transaction..')
+		case "updatetransaction" | "updatet" | "ut":	print('EXECUTING update transaction..')
+		case "deletetransaction" | "deletet" | "delt":	print('EXECUTING delete transaction..')
 		#quitting
-		case "quit" | "q":
-			return False
+		case "quit" | "q":				return False
 		#clear
-		case "clear" | "c":
-			os.system('clear')
+		case "clear" | "c":				os.system('clear')
 		#Invalid Command
 		case _:
 			print('Invalid Command')

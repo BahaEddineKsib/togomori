@@ -11,14 +11,19 @@ class UpdateWorkshop:
 		
 		if("UserNeedsHelp" in [old_id,new_id,for_sure] or (not new_id)):
 			UpdateWorkshop.help()
+			return "UserNeedsHelp"
 		else:
-			result = c.questionToExecute(for_sure,Workshop.updateId,{'id':old_id,'newId':new_id },"update workshop ["+old_id+"] to ["+new_id+"] ? (y/n)")
+			result = c.questionToExecute(for_sure,Workshop.updateId,{'oldId':old_id,'newId':new_id },"update workshop ["+old_id+"] to ["+new_id+"] ? (y/n)")
+
 			if(result == "WorkshopNotFound"):
 				print("❌ Workshop ["+old_id+"] not found")
+				return "WorkshopNotFound"
 			elif(result == "NewWorkshopIdExist"):
 				print("❌ Id ["+new_id+"] already exist.")
+				return "NewWorkshopIdExist"
 			elif(result == "WorkshopUpdated"):
 				print("✅ Workshop ["+old_id+"] is Updated to ["+new_id+"]")
+				return "WorkshopUpdated"
 	@staticmethod
 	def help():
 		print("help -UpdateWorkshop")

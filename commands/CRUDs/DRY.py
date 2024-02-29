@@ -84,21 +84,28 @@ def listToMap(LP, updating=False):
 	return Map
 
 def segmentUrl(url):
-
-	if( len(url.split("://")) == 1 ):
-		url = "https://"+url
-	elif( url.split("://")[0] == ''):
-		url = "https"+url
-
-	parsed_url = urlparse(url)
-
-	result={}
-	result['domain'] = parsed_url.netloc
-	if(not result['domain'] or len(result['domain'].split('.')) == 1):
-		return False
-	result['path'] = parsed_url.path
-	if(not result['path']):
-		return False
-	return result
-
-
+	if url:
+		result = {}
+		if( len(url.split("://")) == 1 ):
+			url = "https://"+url
+		url_no_scheme = url.split("://")[1]
+		if( len(url_no_scheme.split('/')) == 1):
+			if(len(url_no_scheme.split('.')) == 1):
+				return {"domain":"NoDomain","path":"InvalidPath"}
+			else:
+				url = urlparse(url)
+				return {"domain":url.netloc,"path":"NoPath"}
+			
+		else:
+			if(url_no_scheme[0] == '/'):
+				url = urlparse(url)
+				return {"domain":"NoDomain","path":url.path}
+			else:
+				domain = url_no_scheme.split("/")[0]
+				if(len(domain.split('.')) == 1):
+					return {"domain":"NoDomain","path":"InvalidPath"}
+				else:
+					url = urlparse(url)
+					return {"domain":url.netloc,"path":url.path}
+	else:
+		return {"domain":"NoDomain","path":"Nopath"}
