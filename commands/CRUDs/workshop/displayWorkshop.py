@@ -6,29 +6,29 @@ class DisplayWorkshop:
 	def execute(IN):
 		IN	= c.short_command(IN,"dw")
 		dw	= c.option("dw",False,False, IN)
-		id	= c.option("-w",True, False, IN)
-		all	= c.option("-A",False,False, IN)
+		ID	= c.option("-w",True, False, IN)
+		ALL	= c.option("-A",False,False, IN)
 		expand  = c.option("-x",False,False, IN)
 		
-		if("UserNeedsHelp" in [dw,id,all,expand] or (not id and not all)):
+		if("UserNeedsHelp" in [dw,ID,ALL,expand] or (not ID and not ALL)):
 			DisplayWorkshop.help()
 			return "UserNeedsHelp"
 		else:
-			if(id):
-				wrk = Workshop.search(id)
-				if(wrk != "WorkshopNotFound"):
+			if(ID):
+				if( Workshop.exist(ID)):
 					print("\n✔️:WORKSHOP:")
+					wrk = Workshop.get(ID,expand)
 					wrk.display(expand)
-					return wrk.id
+					return wrk.ID
 				else:
 					print("❌: Workshop Not Found")
 					return "WorkshopNotFound"
 			if(all):
 				workshops_ids=[]
 				print("\n✔️WORKSHOPS:")
-				for wrk in Workshop.getAllWorkshops():
-					print("\t•"+wrk.id)
-					workshops_ids.append(wrk.id)
+				for wrk in Workshop.getAll(expand):
+					wrk.display(expand)
+					workshops_ids.append(wrk.ID)
 
 				return workshops_ids
 			

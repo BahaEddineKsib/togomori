@@ -1,21 +1,21 @@
 from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
 import json
-import GlobalVars as TopG
+import GlobalVars as gv
 
 
 class SetWorkshop:
 	@staticmethod
 	def execute(IN):
 		IN  = c.short_command(IN,"sw")
-		id  = c.option("sw",True, False,IN)
+		ID  = c.option("sw",True, False,IN)
 		
-		if("UserNeedsHelp" in [id]):
+		if("UserNeedsHelp" in [ID]):
 			SetWorkshop.help()
 		else:
-			wrkshop = Workshop.search(id)
-			if(wrkshop != "WorkshopNotFound"):
-				TopG.CURRENT_WORKSHOP=id
+			if(Workshop.exist(ID)):
+				gv.CURRENT_WORKSHOP=ID
+				gv.CURRENT_DOMAIN  =""
 			else:
 				print("❌: Workshop Not Found")
 

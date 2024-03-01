@@ -13,7 +13,7 @@ class UpdateWorkshop:
 			UpdateWorkshop.help()
 			return "UserNeedsHelp"
 		else:
-			result = c.questionToExecute(for_sure,Workshop.updateId,{'oldId':old_id,'newId':new_id },"update workshop ["+old_id+"] to ["+new_id+"] ? (y/n)")
+			result = c.questionToExecute(for_sure,Workshop.update,{'oldId':old_id,'newId':new_id },"update workshop ["+old_id+"] to ["+new_id+"] ? (y/n)")
 
 			if(result == "WorkshopNotFound"):
 				print("❌ Workshop ["+old_id+"] not found")

@@ -5,19 +5,21 @@ class DeleteWorkshop:
 	@staticmethod
 	def execute(IN):
 		IN       = c.short_command(IN,"delw")
-		id       = c.option("delw",True, False,IN)
+		ID       = c.option("delw",True, False,IN)
 		for_sure = c.option("-s",  False,False,IN)
 		
-		if("UserNeedsHelp" in [id,for_sure]):
+		if("UserNeedsHelp" in [ID,for_sure]):
 			DeleteWorkshop.help()
+			return "UserNeedsHelp"
 		else:
-			result = c.questionToExecute(for_sure,Workshop.deleteById,{'id':id},"Delete workshop ["+id+"] ?")
+			result = c.questionToExecute(for_sure,Workshop.delete,{'ID':ID},"Delete workshop ["+ID+"] ?")
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+id+"] not found")
+				print("❌ Workshop ["+ID+"] not found")
 			elif(result == "WorkshopIsSet"):
-				print("❌ Workshop ["+id+"] is set - can't delete workshop when setted as current workshop")
+				print("❌ Workshop ["+ID+"] is set - can't delete workshop when setted as current workshop")
 			elif(result == "WorkshopDeleted"):
-				print("✅ Workshop ["+id+"] is Deleted")
+				print("✅ Workshop ["+ID+"] is Deleted")
+			return result
 	@staticmethod
 	def help():
 		print("help -AddWorkshop")

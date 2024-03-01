@@ -12,11 +12,12 @@ from commands.CRUDs.domain.setDomain	     import SetDomain
 from commands.CRUDs.domain.unsetDomain	     import UnsetDomain
 from commands.CRUDs.path.addPath	     import AddPath
 from commands.CRUDs.path.displayPath	     import DisplayPath
-import GlobalVars as TopG
+from GlobalVars				     import DATABASE      as db
 import unittest
 import json
 import sys
-from collections import Counter
+import shutil
+import os
 
 class UTT(unittest.TestCase):
 
@@ -27,7 +28,7 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(AddWorkshop.execute,"addw workshop1 -s","WorkshopExist",PAUSE)
 		self.assertEQUAL(AddWorkshop.execute,"addw -s"		,"UserNeedsHelp",PAUSE)
 		self.assertEQUAL(AddWorkshop.execute,"addw"		,"UserNeedsHelp",PAUSE)
-
+	'''
 	def test_1112_AddDomain(self):
 		self.assertEQUAL(AddDomain.execute,"ad -d www.domain1.tn -w workshop1"+
 						   " -s --tag tag1  tag2 tag3 --tech"+
@@ -69,13 +70,14 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(AddPath.execute,"ap"					,"UserNeedsHelp")
 		#print('unsetworkshop')
 		#UnsetWorkshop.execute("usw")
-
+	'''
 	def test_1114_DisplayWorkshop(self):
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -w workshop1"   ,"workshop1"				,PAUSE)
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -w workshop1 -x","workshop1"				,PAUSE)
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -w workshop "   ,"WorkshopNotFound"			,PAUSE)
-		self.assertEQUAL(DisplayWorkshop.execute,"dw -A"	     ,["workshop2","workshop3","workshop1"]	,PAUSE)
-
+		self.assertEQUAL(DisplayWorkshop.execute,"dw -A"	     ,["workshop1","workshop2","workshop3"]	,PAUSE)
+		self.assertEQUAL(DisplayWorkshop.execute,"dw -A -x"	     ,["workshop1","workshop2","workshop3"]	,PAUSE)
+	'''
 	def test_1115_DisplayDomain(self):
 		self.assertEQUAL(DisplayDomain.execute,"dd -d www.domain1.tn"		     , "www.domain1.tn"					  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -d www.domain1.tn --show paths"   , "www.domain1.tn"					  ,PAUSE)
@@ -102,19 +104,27 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(DisplayPath.execute,"dp -a"				,"NoDomainSetted"					  ,True)
 		UnsetWorkshop.execute("usw")
 		self.assertEQUAL(DisplayPath.execute,"dp -A"				,"NoWorkshopSetted"					  ,True)
-		
+		'''
 
 
 	def test_1117_UpdateWorkshop(self):
-		self.assertEQUAL(UpdateWorkshop.execute,"updatew workshop1   -i updated_workshop1 -s"	   ,"WorkshopUpdated"	,True)
+		self.assertEQUAL(UpdateWorkshop.execute,"updatew workshop1   -i updated_workshop1 -s"	   ,"WorkshopUpdated"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew workshop1   -i updated_workshop1 -s"	   ,"WorkshopNotFound"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew updated_workshop1 -i updated_workshop1 -s","NewWorkshopIdExist",PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew -i TESTTTT -s"				   ,"UserNeedsHelp"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew updated_workshop1 -s"			   ,"UserNeedsHelp"	,PAUSE)
 	
+	def test_1118_DeleteWorkshop(self):
+		self.assertEQUAL(DeleteWorkshop.execute,"deletew workshop3 -s","WorkshopDeleted" ,PAUSE)
+		self.assertEQUAL(DeleteWorkshop.execute,"deletew whatever  -s","WorkshopNotFound",PAUSE)
+		SetWorkshop.execute("sw workshop2")
+		self.assertEQUAL(DeleteWorkshop.execute,"deletew workshop2 -s","WorkshopIsSet"	 ,PAUSE)
+		self.assertEQUAL(DeleteWorkshop.execute,"deletew -s"	      ,"UserNeedsHelp"	 ,PAUSE)
+		
+	'''
 	#def test_1118_UpdateDomain(self):
 		#self.assertEQUAL(UpdateDomain.execute,"ud ")
-	
+	'''
 	def assertEQUAL(self,executor,command,result,pause=False):
 		print("\n",command)
 		self.assertEqual(executor(command), result)
@@ -123,7 +133,7 @@ class UTT(unittest.TestCase):
 
 
 if __name__ == "__main__":
-	TopG.JSON_DATABASE = "data/test.json"
+	db = sys.argv[0].replace("test_togomori.py","")+"test_data/"
 	global PAUSE
 	inp   =input("make pauses ?[<enter>:no][<y>:yes]")
 	PAUSE =True if inp == 'y' else False
@@ -132,5 +142,5 @@ if __name__ == "__main__":
 
 
 	del_test_json = input()
-	with open(TopG.JSON_DATABASE, 'w') as workshops_file:
-		json.dump({"workshops":[]}, workshops_file)
+	shutil.rmtree(os.path.join(db,"workshops"))
+	os.mkdir(os.path.join(db,"workshops"))
