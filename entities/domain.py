@@ -1,25 +1,25 @@
 import json
 import os
 import pprint
-import GlobalVars	 as TopG
+import GlobalVars	 as gv
 import entities.workshop as W
 import entities.path	 as P
 import tldextract	 as domain_parts
 class Domain:
 	def __init__(self, workshop_id,
-			   domain	  ="", 
-			   sub		  ="",
-			   main		  ="",
-			   tld		  ="",
-			   tags		  =[],
-			   techs	  =[],
-			   whois_file	  ="",
-			   ip		  ="", 
-			   ports	  ={},
-			   server_file	  ="",
-			   robots_file	  ="",
-			   js_files	  =[],
-			   paths:[P.Path] =[]):
+			   domain	="", 
+			   sub		="",
+			   main		="",
+			   tld		="",
+			   tags		=[],
+			   techs	=[],
+			   whois_file	="",
+			   ip		="", 
+			   ports	={},
+			   server_file	="",
+			   robots_file	="",
+			   js_files	=[],
+			   paths	=[]):
 
 		self.workshop_id= workshop_id
 		self.domain	= domain
@@ -34,35 +34,93 @@ class Domain:
 		self.tags       = tags
 		self.techs      = techs
 		self.whois_file = whois_file
-		self.ip         = ip 
+		self.ip         = ip
 		self.ports      = ports
 		self.server_file= server_file
 		self.robots_file= robots_file
 		self.js_files   = js_files
-		self.paths	= paths
+		self.paths	= paths       
 
 	def toJson(self):
 		jsnDmn       = self.__dict__
-		jsnDmn['paths'] = [pp.toJson() for pp in self.paths]
 		return jsnDmn
 
 	@staticmethod
 	def jsonToDomain(dmn):
 		Dom	  = Domain(**dmn)
-		Dom.paths = [P.Path.jsonToPath(pp) for pp in dmn['paths']]
 		return Dom
 
+	@staticmethod
+	def getPath(ID,domain):
+		return os.path.join(W.Workshop.getDomainsPath(ID),domain)
+
+	@staticmethod
+	def getPathsPath(ID,domain):
+		return os.path.join(Domain.getPath(ID,domain),"paths")
+
+	@staticmethod
+	def getJsonPath(ID,domain):
+		return os.path.join(Domain.getPath(ID,domain),"domain.json")
 	def save(self):
-		wrk = W.Workshop.search(self.workshop_id)
-		if( wrk == "WorkshopNotFound" ):
+		if( not W.Workshop.exist(self.workshop_id )):
 			return "WorkshopNotFound"
-		elif(Domain.searchInWorkshop(self.domain,wrk) != "DomainNotFound"):
+		elif(Domain.exist(self.workshop_id,self.domain)):
 			return "DomainExist"
 		else:
-			wrk.domains.append(self)
-			wrk.update()
+			domain_path = Domain.getPath(self.workshop_id,self.domain)
+			paths_path  = Domain.getPathsPath(self.workshop_id,self.domain)
+			json_path   = Domain.getJsonPath(self.workshop_id,self.domain)
+			os.mkdir(domain_path)
+			os.mkdir( paths_path)
+			os.mknod(json_path)
+			del self.workshop_id
+			del self.domain
+			with open(json_path,'w') as json_file:
+				json.dump(self.toJson(),json_file)
+			
 			return "DomainAdded"
-	
+
+	@staticmethod
+	def exist(ID,domain):
+		return os.path.exists(Domain.getPath(ID,domain))
+
+	@staticmethod
+	def get(ID,domain,expand=False):
+		if Domain.exist(ID,domain):
+			with open(Domain.getJsonPath(ID,domain), 'r') as json_file:
+				json_domain = json.load(json_file)
+			json_domain["workshop_id"]	= ID
+			json_domain["domain"]		= domain
+			if expand: json_domain["paths"] =sorted(os.listdir(Domain.getPathsPath(ID,domain)))
+			return Domain.jsonToDomain(json_domain)
+		else:
+			return "DomainNotFound"
+			
+
+	def display(self,toDisplay=['ALL'], expand=False):
+		dmn={}
+		if "ALL" in toDisplay or "workshop_id"	in toDisplay:dmn["workshop_id"] =self.workshop_id
+		if "ALL" in toDisplay or "domain"	in toDisplay:dmn["domain"]	=self.domain
+		if "ALL" in toDisplay or "sub"		in toDisplay:dmn["sub"]		=self.sub
+		if "ALL" in toDisplay or "main"		in toDisplay:dmn["main"]	=self.main
+		if "ALL" in toDisplay or "tld"		in toDisplay:dmn["tld"]		=self.tld
+		if "ALL" in toDisplay or "tags"		in toDisplay:dmn["tags"]        =self.tags 
+		if "ALL" in toDisplay or "techs"	in toDisplay:dmn["techs"]	=self.techs 
+		if "ALL" in toDisplay or "whois_file"	in toDisplay:dmn["whois_file"]  =self.whois_file 
+		if "ALL" in toDisplay or "ip"		in toDisplay:dmn["ip"]          =self.ip 
+		if "ALL" in toDisplay or "ports"	in toDisplay:dmn["ports"]       =self.ports 
+		if "ALL" in toDisplay or "server_file"	in toDisplay:dmn["server_file"] =self.server_file 
+		if "ALL" in toDisplay or "robots_file"	in toDisplay:dmn["robots_file"] =self.robots_file 
+		if "ALL" in toDisplay or "js_files"	in toDisplay:dmn["js_files"]	=self.js_files 
+		if "ALL" in toDisplay or "paths"	in toDisplay:
+			if   expand  : dmn["paths"]= self.paths
+
+		if len(dmn) == 1:
+			dmn = next(iter(dmn.values()))
+		pp = pprint.PrettyPrinter(indent=4)
+		pp.pprint(dmn)
+
+
 	@staticmethod
 	def delete(domain,workshop_id):
 		wrk = W.Workshop.search(workshop_id)
@@ -143,37 +201,17 @@ class Domain:
 		self.save()
 		return "DomainUpdated"
 
-	def display(self,toDisplay=['ALL'], expand=False):
-		dmn={}
-		if "ALL" in toDisplay or "workshop_id"	in toDisplay:dmn["workshop_id"] =self.workshop_id
-		if "ALL" in toDisplay or "domain"	in toDisplay:dmn["domain"]	=self.domain
-		if "ALL" in toDisplay or "sub"		in toDisplay:dmn["sub"]		=self.sub
-		if "ALL" in toDisplay or "main"		in toDisplay:dmn["main"]	=self.main
-		if "ALL" in toDisplay or "tld"		in toDisplay:dmn["tld"]		=self.tld
-		if "ALL" in toDisplay or "tags"		in toDisplay:dmn["tags"]        =self.tags 
-		if "ALL" in toDisplay or "techs"	in toDisplay:dmn["techs"]	=self.techs 
-		if "ALL" in toDisplay or "whois_file"	in toDisplay:dmn["whois_file"]  =self.whois_file 
-		if "ALL" in toDisplay or "ip"		in toDisplay:dmn["ip"]          =self.ip 
-		if "ALL" in toDisplay or "ports"	in toDisplay:dmn["ports"]       =self.ports 
-		if "ALL" in toDisplay or "server_file"	in toDisplay:dmn["server_file"] =self.server_file 
-		if "ALL" in toDisplay or "robots_file"	in toDisplay:dmn["robots_file"] =self.robots_file 
-		if "ALL" in toDisplay or "js_files"	in toDisplay:dmn["js_files"]	=self.js_files 
-		if "ALL" in toDisplay or "paths"	in toDisplay:
-			if   expand  : dmn["paths"]= [p.toJson() for p in self.paths]
-			else	     : dmn["paths"]= [p.path     for p in self.paths]
 
-		pp = pprint.PrettyPrinter(indent=4)
-		pp.pprint(dmn)
-
+	
 	@staticmethod
-	def getDomainsByWorkshop(wrk):
-		return wrk.domains
-	@staticmethod
-	def searchInWorkshop(domain,wrk):
-		for dmn in wrk.domains:
-			if(dmn.domain==domain):
-				return dmn
-		return "DomainNotFound"
+	def getAll(ID, expand=False):
+		if W.Workshop.exist(ID):
+			domain_names = sorted(os.listdir(W.Workshop.getDomainsPath(ID)))
+			domains	     = []
+			for d in domain_names:
+				d = Domain.get(ID,d,expand)
+				domains.append(d)
+			return domains
 
 	@staticmethod
 	def searchBy(      workshop_id,
@@ -192,7 +230,7 @@ class Domain:
 		
 		domainsList=[]
 
-		domainsList= domainsList if not workshop_id	else Domain.getDomainsByWorkshop(W.Workshop.search(workshop_id))
+		domainsList= Domain.getAll(workshop_id)
 		domainsList= domainsList if not domain		else [d for d in domainsList if d.domain == domain]
 		domainsList= domainsList if not sub		else [d for d in domainsList if d.sub == sub]
 		domainsList= domainsList if not main		else [d for d in domainsList if d.main == main]

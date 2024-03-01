@@ -1,7 +1,7 @@
 from entities.workshop import Workshop
 from entities.domain   import Domain
 from commands.CRUDs    import DRY as c
-import GlobalVars as TopG
+import GlobalVars as gv
 
 
 class DisplayDomain:
@@ -24,7 +24,7 @@ class DisplayDomain:
 		js_files   = c.option("--js",	 True, True, IN)
 		show       = c.option("--show",  True, True, IN)
 		expand     = c.option("-x",	 False,False,IN)
-		all        = c.option("-A",      False,False,IN)
+		ALL        = c.option("-A",      False,False,IN)
 
 
 		if("UserNeedsHelp" in [ ad,
@@ -39,11 +39,11 @@ class DisplayDomain:
 					robots_file,
 					js_files,
 					show,
-					all] or (not domain and not all)):
+					ALL] or (not domain and not ALL)):
 			DisplayDomain.help()
 			return "UserNeedsHelp"
 
-		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
+		elif(not w_id and gv.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(ports_map and not c.canBeMap(ports_map)):
@@ -52,7 +52,7 @@ class DisplayDomain:
 		else:
 			show       = [] if not show else show
 			show.append("domain")
-			cw         = TopG.CURRENT_WORKSHOP
+			cw         = gv.CURRENT_WORKSHOP
 			if not w_id:        w_id        = cw 
 			if not sub:	    sub         = ""
 			if not main:	    main        = ""
@@ -76,14 +76,11 @@ class DisplayDomain:
 					server_file     =server_file,
 					robots_file	=robots_file,
 					js_files	= js_files)
-			wrk = Workshop.search(w_id)
-			if(wrk == "WorkshopNotFound"):
+			if(not Workshop.exist(w_id)):
 				print("❌ Workshop ["+w_id+"] Not Found.")
 				return "WorkshopNotFound"
 
-			if(all):
-				domainsList = Domain.getDomainsByWorkshop(wrk)
-				
+			if(ALL):
 				domainsList = Domain.searchBy(  workshop_id=w_id,
 								domain     =domain,
 								sub        =sub,
@@ -103,11 +100,11 @@ class DisplayDomain:
 					dd.append(d.domain)
 				return dd
 			elif(domain):
-				d = Domain.searchInWorkshop(domain,wrk)
-				if d == "DomainNotFound":
+				if not Domain.exist(w_id,domain):
 					print("No Domain have the name ["+domain+"] in workshop ["+w_id+"]")
 					return "DomainNotFound"
 				else:
+					d = Domain.get(w_id,domain)
 					d.display(show,expand)
 					return d.domain
 				

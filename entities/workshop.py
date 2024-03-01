@@ -30,7 +30,7 @@ class Workshop:
 			return "WorkshopExist"
 		else:
 			workshop_path = Workshop.getPath(self.ID)
-			domains_path  = os.path.join(workshop_path,"domains")
+			domains_path  = Workshop.getDomainsPath(self.ID)
 			os.mkdir(workshop_path)
 			os.mkdir(  domains_path)
 			return "WorkshopAdded"
@@ -45,7 +45,7 @@ class Workshop:
 				return Workshop(ID)
 			else:
 				wrk = Workshop(ID)
-				wrk.domains = os.listdir(Workshop.getDomainsPath(ID))
+				wrk.domains = sorted(os.listdir(Workshop.getDomainsPath(ID)))
 				return wrk
 		else:
 			return Workshop("WorkshopNotFound")
@@ -90,10 +90,4 @@ class Workshop:
 			wrk = Workshop.get(ID,expand)
 			workshops.append(wrk)
 		return workshops
-	
-	@staticmethod
-	def search(id):
-		for wrk in Workshop.getAllWorkshops():
-			if(id == wrk.id):
-				return wrk
-		return "WorkshopNotFound"
+

@@ -109,3 +109,4 @@ def segmentUrl(url):
 					return {"domain":url.netloc,"path":url.path}
 	else:
 		return {"domain":"NoDomain","path":"Nopath"}
+		

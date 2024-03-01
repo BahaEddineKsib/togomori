@@ -28,7 +28,8 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(AddWorkshop.execute,"addw workshop1 -s","WorkshopExist",PAUSE)
 		self.assertEQUAL(AddWorkshop.execute,"addw -s"		,"UserNeedsHelp",PAUSE)
 		self.assertEQUAL(AddWorkshop.execute,"addw"		,"UserNeedsHelp",PAUSE)
-	'''
+
+
 	def test_1112_AddDomain(self):
 		self.assertEQUAL(AddDomain.execute,"ad -d www.domain1.tn -w workshop1"+
 						   " -s --tag tag1  tag2 tag3 --tech"+
@@ -51,7 +52,7 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(AddDomain.execute,"ad -d www.t.tn --robots"						,"UserNeedsHelp")
 		self.assertEQUAL(AddDomain.execute,"ad -d www.t.tn --js"						,"UserNeedsHelp")
 		self.assertEQUAL(AddDomain.execute,"ad"									,"UserNeedsHelp")
-
+	'''
 	def test_1113_AddPath(self):
 		self.assertEQUAL(AddPath.execute,"ap www.domain1.tn/path/1 -w workshop1 -s"	,"PathAdded"	   ,PAUSE)
 		self.assertEQUAL(AddPath.execute,"ap /path/2 -d www.domain1.tn -w workshop1 -s"	,"PathAdded"	   ,PAUSE)
@@ -77,20 +78,21 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -w workshop "   ,"WorkshopNotFound"			,PAUSE)
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -A"	     ,["workshop1","workshop2","workshop3"]	,PAUSE)
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -A -x"	     ,["workshop1","workshop2","workshop3"]	,PAUSE)
-	'''
+
 	def test_1115_DisplayDomain(self):
+		SetWorkshop.execute("setw workshop1")
 		self.assertEQUAL(DisplayDomain.execute,"dd -d www.domain1.tn"		     , "www.domain1.tn"					  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -d www.domain1.tn --show paths"   , "www.domain1.tn"					  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -d www.domain1.tn --show paths -x", "www.domain1.tn"					  ,PAUSE)
-		self.assertEQUAL(DisplayDomain.execute,"dd -A "				     ,["www.domain3.tn","www.domain2.tn","www.domain1.tn"],PAUSE)
-		self.assertEQUAL(DisplayDomain.execute,"dd -A --show ALL"		     ,["www.domain3.tn","www.domain2.tn","www.domain1.tn"],PAUSE)
+		self.assertEQUAL(DisplayDomain.execute,"dd -A "				     ,["www.domain1.tn","www.domain2.tn","www.domain3.tn"],PAUSE)
+		self.assertEQUAL(DisplayDomain.execute,"dd -A --show ALL"		     ,["www.domain1.tn","www.domain2.tn","www.domain3.tn"],PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -A --port https:8585 :85"	     ,"WrongPortFormat"					  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -A --port https: -s"		     ,"WrongPortFormat"					  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -d  www.t.tn"		     ,"DomainNotFound")
-		self.assertEQUAL(DisplayDomain.execute,"dd -A --tag tag2"		     ,["www.domain2.tn","www.domain1.tn"]		  ,PAUSE)
+		self.assertEQUAL(DisplayDomain.execute,"dd -A --tag tag2"		     ,["www.domain1.tn","www.domain2.tn"]		  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -A --tag"			     ,"UserNeedsHelp")
 		self.assertEQUAL(DisplayDomain.execute,"dd -A -w whatever"		     ,"WorkshopNotFound")
-
+	'''
 	def test_1116_DisplayPath(self):
 		UnsetDomain.execute("usd")
 		self.assertEQUAL(DisplayPath.execute,"dp -p www.domain1.tn/path/1"	,"/path/1"						  ,True)
