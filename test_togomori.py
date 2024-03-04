@@ -108,15 +108,27 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(DisplayPath.execute,"dp -A"				,"NoWorkshopSetted"					  ,True)
 		'''
 
-
-	def test_1117_UpdateWorkshop(self):
+	def test_1117_UpdateDomain(self):
+		self.assertEQUAL(UpdateDomain.execute,"updatedomain www.domain1.tn -d www.updated_domain.tn -s"				,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.updated_domain.tn --w workshop2 -s"					,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.updated_domain.tn -d www.u_domain.tn -w workshop2 --w workshop1 -s"	,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --js + /u_js -s"						,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tag u_tag1 u_tag2 u_tag3 u_tag4 -s"			,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tag _ u_tag1 whatever -s"				,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tech _ -s"						,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port + p1:80 p2:60 -s"					,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port _ p2:80 -s"					,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port _ -s"						,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port u_ssh:25 u_https:448"				,"DomainUpdated"	,PAUSE)
+		
+	def test_1118_UpdateWorkshop(self):
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew workshop1   -i updated_workshop1 -s"	   ,"WorkshopUpdated"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew workshop1   -i updated_workshop1 -s"	   ,"WorkshopNotFound"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew updated_workshop1 -i updated_workshop1 -s","NewWorkshopIdExist",PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew -i TESTTTT -s"				   ,"UserNeedsHelp"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew updated_workshop1 -s"			   ,"UserNeedsHelp"	,PAUSE)
 	
-	def test_1118_DeleteWorkshop(self):
+	def test_1119_DeleteWorkshop(self):
 		self.assertEQUAL(DeleteWorkshop.execute,"deletew workshop3 -s","WorkshopDeleted" ,PAUSE)
 		self.assertEQUAL(DeleteWorkshop.execute,"deletew whatever  -s","WorkshopNotFound",PAUSE)
 		SetWorkshop.execute("sw workshop2")

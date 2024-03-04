@@ -107,6 +107,7 @@ class UpdateDomain:
 				print("❌ Domain ["+domain+"] already exist.")
 			elif(result == "DomainUpdated"):
 				print("✅ Domain ["+ud+"] is Updated.")
+			return result
 
 	@staticmethod	
 	def help():

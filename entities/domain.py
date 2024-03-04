@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 import pprint
 import GlobalVars	 as gv
 import entities.workshop as W
@@ -40,6 +41,13 @@ class Domain:
 		self.robots_file= robots_file
 		self.js_files   = js_files
 		self.paths	= paths       
+	
+	def setDomainParts(self):
+		if(self.domain):
+			self.sub  = domain_parts.extract(self.domain).subdomain 
+			self.main = domain_parts.extract(self.domain).domain    
+			self.tld  = domain_parts.extract(self.domain).suffix    
+
 
 	def toJson(self):
 		jsnDmn       = self.__dict__
@@ -124,85 +132,77 @@ class Domain:
 	@staticmethod
 	def delete(domain,workshop_id):
 		wrk = W.Workshop.search(workshop_id)
-		if( wrk == "WorkshopNotFound"):
+		if( not W.Workshop.exist(workshop_id)):
 			return "WorkshopNotFound"
-		elif(Domain.searchInWorkshop(domain,wrk) == "DomainNotFound"):
+		elif(not Domain.exist(workshop_id, domain)):
 			return "DomainNotFound"
 		else:
-			wrk.domains = [d for d in wrk.domains if d.domain != domain]
-			wrk.update()
+			shutil.rmtree(Domain.getPath(workshop_id,domain))
 			return "DomainDeleted"
 
 	@staticmethod
-	def update(domain, workshop_id, new_dmn):
-		old_wrk = W.Workshop.search(workshop_id)
-		new_wrk = W.Workshop.search(new_dmn.workshop_id)        if new_dmn.workshop_id           else ""
-		old_dmn = Domain.searchInWorkshop(domain, old_wrk) if old_wrk != "WorkshopNotFound" else ""
+	def update(domain, workshop_id, new_dmn, hard_update = False):
 
-		if( old_wrk == "WorkshopNotFound" ):
+		if(  not W.Workshop.exist(workshop_id) ):
 			return "OldWorkshopNotFound"
-		elif(old_dmn == "DomainNotFound"):
+		elif(not Domain.exist(workshop_id, domain)):
 			return "DomainNotFound"
-		elif(new_wrk == "WorkshopNotFound"):
+		elif(new_dmn.workshop_id and not W.Workshop.exist(new_dmn.workshop_id)):
 			return "NewWorkshopNotFound"
-		elif(new_wrk and Domain.searchInWorkshop(new_dmn.domain, new_wrk) != "DomainNotFound"):
+		elif(new_dmn.domain and Domain.exist(new_dmn.workshop_id, new_dmn.domain)):
 			return "DomainExist"
 		else:
-			old_dmn.paths		= new_dmn.paths		if new_dmn.paths	else old_dmn.paths
-			old_dmn.whois_file	= new_dmn.whois_file	if new_dmn.whois_file	else old_dmn.whois_file
-			old_dmn.ip		= new_dmn.ip		if new_dmn.ip		else old_dmn.ip
-			old_dmn.server_file	= new_dmn.server_file	if new_dmn.server_file	else old_dmn.server_file
-			old_dmn.robots_file	= new_dmn.robots_file	if new_dmn.robots_file	else old_dmn.robots_file
-			old_dmn.workshop_id     = new_dmn.workshop_id   if new_wrk              else old_dmn.workshop_id
+			dir_updated=False
+			domain_vars_updated=False
+			dmn = Domain.get(workshop_id, domain)
+			for key,val in new_dmn.__dict__.items():
+				if type(val) == str:
+					if   val:
+						if   key in ["workshop_id","domain"] : dir_updated = True
+						elif key not in ["sub","main","tld"] : domain_vars_updated = True
+					if   val == "_":
+						dmn.__dict__[key] = ""
+					elif val:
+						dmn.__dict__[key] = val
+				if type(val) == list:
+					if val:
+						domain_vars_updated = True
+						if   val[0] == "+":
+							del val[0]
+							dmn.__dict__[key] += val
+						elif val[0] == "_":
+							del val[0]
+							dmn.__dict__[key]  = [d for d in dmn.__dict__[key] if d not in val] if len(val) !=0 else []
+						else:
+							dmn.__dict__[key]  = val
+				if type(val) == dict:
+					if val:
+						domain_vars_updated = True
+						if(  next(iter(val.keys())) == "+"	):
+							del val['+']
+							dmn.__dict__[key].update(val)
+						elif(next(iter(val.keys())) == "_"	):
+							del val['_']
+							if len(val)!=0:
+								for k in  val.keys():
+									if k in dmn.__dict__[key].keys():
+										del dmn.__dict__[key][k]
+							else:
+								dmn.__dict__[key] = {}
+						else:
+							dmn.ports= val
+			if dir_updated:
+				shutil.move(Domain.getPath(workshop_id, domain),Domain.getPath(dmn.workshop_id, dmn.domain))
+				dmn.setDomainParts()
+			if domain_vars_updated:	
+				json_path = Domain.getJsonPath(dmn.workshop_id,dmn.domain)
+				del dmn.workshop_id
+				del dmn.domain
+				with open(json_path,'w') as json_file:
+					json.dump(dmn.toJson(),json_file)
 
-			if new_dmn.domain:
-				old_dmn.domain = new_dmn.domain
-				#for p in old_dmn.paths:
-
-			if new_dmn.js_files:	
-				if(  '+' == new_dmn.js_files[0]	):
-					old_dmn.js_files += new_dmn.js_files; old_dmn.js_files.remove('+')
-				elif('_' == new_dmn.js_files[0]	):
-					old_dmn.js_files = [ d for d in old_dmn.js_files if d not in new_dmn.js_files ]
-				else:
-					old_dmn.js_files  = new_dmn.js_files
-
-			if new_dmn.tags:	
-				if(  '+' == new_dmn.tags[0]	):
-					old_dmn.tags+= new_dmn.tags; old_dmn.tags.remove('+')
-				elif('_' == new_dmn.tags[0]	):
-					old_dmn.tags= [ d for d in old_dmn.tags if d not in new_dmn.tags]
-				else:
-					old_dmn.tags= new_dmn.tags
-
-			if new_dmn.techs:	
-				if(  '+' == new_dmn.techs[0]	):
-					old_dmn.techs+= new_dmn.techs; old_dmn.techs.remove('+')
-				elif('_' == new_dmn.techs[0]	):
-					old_dmn.techs= [ d for d in old_dmn.techs if d not in new_dmn.techs]
-				else:
-					old_dmn.techs= new_dmn.techs
-			if new_dmn.ports:	
-				if(  '+' == next(iter(new_dmn.ports.keys()))	):
-					old_dmn.ports.update(new_dmn.ports); del old_dmn.ports['+']
-				elif('_' == next(iter(new_dmn.ports.keys()))):
-					old_dmn.ports.update(new_dmn.ports);
-					for key in  new_dmn.ports.keys():
-						del old_dmn.ports[key]
-				else:
-					old_dmn.ports= new_dmn.ports
-
-			Domain.delete(domain,workshop_id)
-			old_dmn.save()
 			return "DomainUpdated"
 
-	def update(self):
-		Domain.delete(self.domain, self.workshop_id)
-		self.save()
-		return "DomainUpdated"
-
-
-	
 	@staticmethod
 	def getAll(ID, expand=False):
 		if W.Workshop.exist(ID):
