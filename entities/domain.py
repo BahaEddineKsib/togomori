@@ -131,7 +131,6 @@ class Domain:
 
 	@staticmethod
 	def delete(domain,workshop_id):
-		wrk = W.Workshop.search(workshop_id)
 		if( not W.Workshop.exist(workshop_id)):
 			return "WorkshopNotFound"
 		elif(not Domain.exist(workshop_id, domain)):
