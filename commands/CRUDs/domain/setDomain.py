@@ -2,7 +2,7 @@ from entities.domain   import Domain
 from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
 import json
-import GlobalVars as TopG
+import GlobalVars as gv
 
 
 class SetDomain:
@@ -14,13 +14,12 @@ class SetDomain:
 		if("UserNeedsHelp" in [domain]):
 			SetDomain.help()
 		else:
-			if( TopG.CURRENT_WORKSHOP != ""):
-				wrk = Workshop.search(TopG.CURRENT_WORKSHOP)
-				dmn = Domain.searchInWorkshop(domain,wrk)
-				if(dmn == "DomainNotFound"):
+			if( gv.CURRENT_WORKSHOP != ""):
+				cw = gv.CURRENT_WORKSHOP
+				if(not Domain.exist(cw,domain)):
 					print("❌ Domain ["+domain+"] Not Found.")
 				else:
-					TopG.CURRENT_DOMAIN = domain
+					gv.CURRENT_DOMAIN = domain
 					
 			else:
 				print("❌: Can't set Domain without setting a workshop.")

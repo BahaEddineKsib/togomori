@@ -1,69 +1,113 @@
 import entities.workshop as W
 import entities.domain   as D
+import os
+import json
 
 class Path:
-	def __init__(self, domain="", path="",variables=[]):
-		self.domain		= domain
-		self.path		= path
-		self.variables		= variables
+	def __init__(self, domain="", path="", tags=[], variables={}):
+		self.domain	= domain
+		self.path	= path
+		self.tags	= tags
+		self.variables	= variables
 	
 	def toJson(self):
 		jsnPath	= self.__dict__
 		return jsnPath
 
 	@staticmethod
+	def encode(path):
+		return path.replace("/","[BS]")
+	@staticmethod
+	def decode(path):
+		return path.replace("[BS]","/")
+
+	@staticmethod
 	def jsonToPath(pth):
 		return Path(**pth)
 
+	@staticmethod
+	def getPath(ID,domain,path):
+		path = Path.encode(path)
+		return os.path.join(D.Domain.getPathsPath(ID,domain),path)
+
+	@staticmethod
+	def getVariablesPath(ID,domain,path):
+		return os.path.join(Path.getPath(ID,domain,path),"variables")
+
+	@staticmethod
+	def getJsonPath(ID, domain, path):
+		return os.path.join(Path.getPath(ID,domain,path),"path.json")
+
 	def save(self,workshop_id):
-		wrk = W.Workshop.search(workshop_id)
-		dmn = D.Domain.searchInWorkshop(self.domain,wrk) if wrk != "WorkshopNotFound" else ""
-		if(  wrk == "WorkshopNotFound" ):
+		if(  not W.Workshop.exist(workshop_id) ):
 			return "WorkshopNotFound"
-		elif(dmn == "DomainNotFound"):
+		elif(not D.Domain.exist(workshop_id,self.domain)):
 			return "DomainNotFound"
-		elif(Path.searchInDomain(self.path, dmn)  != "PathNotFound"):
+		elif(Path.exist(workshop_id, self.domain, self.path)):
 			return "PathExist"
 		else:
-
-			dmn.paths.append(self)
-			dmn.update()
+			path_path = Path.getPath(workshop_id, self.domain, self.path)
+			vars_path = Path.getVariablesPath(workshop_id,self.domain,self.path)
+			json_path = Path.getJsonPath(workshop_id, self.domain, self.path)
+			os.mkdir(path_path)
+			os.mkdir(vars_path)
+			os.mknod(json_path)
+			del self.domain
+			del self.path
+			del self.variables
+			with open(json_path,'w') as json_file:
+				json.dump(self.toJson(), json_file)
 			return "PathAdded"
-	def display(self,select=True):
+
+	@staticmethod
+	def exist(ID, domain, path):
+		return os.path.exists(Path.getPath(ID, domain, path))
+
+	@staticmethod
+	def get(ID, domain, path, expand=False):
+		if Path.exist(ID,domain,path):
+			with open(Path.getJsonPath(ID,domain,path), 'r') as json_file:
+				json_path = json.load(json_file)
+			json_path["domain"]		= domain
+			json_path["path"]		= path
+			#if expand: json_domain["paths"] =sorted(os.listdir(Domain.getPathsPath(ID,domain)))
+			return Path.jsonToPath(json_path)
+		else:
+			return "PathNotFound"
+
+	def display(self,select=True, expand=True):
+		to_prnt = self.path
+		if expand:
+			to_prnt = self.domain+to_prnt
 		print(self.domain+self.path)
 		if(select):
-			print(' '*len(self.domain) + '~'*len(self.path))
+			to_prnt = ' '*len(self.domain) + '~'*len(self.path) if expand else '~'*len(self.path)
+			print(to_prnt)
 	
-
+	
 	@staticmethod
-	def searchInDomain(path,dmn):
-		for pth in dmn.paths:
-			if(pth.path==path):
-				return pth
-		return "PathNotFound"
-
-	@staticmethod
-	def getPathsByDomain(domain,workshop_id):
-		wrk = W.Workshop.search(workshop_id)
-		dmn = D.Domain.searchInWorkshop(domain,wrk) if wrk != "WorkshopNotFound" else ""
-		if(  wrk == "WorkshopNotFound" ):
+	def getByDomain(domain,workshop_id):
+		if( not W.Workshop.exist(workshop_id) ):
 			return "WorkshopNotFound"
-		elif(dmn == "DomainNotFound"):
+		elif( not D.Domain.exist(workshop_id, domain) ):
 			return "DomainNotFound"
 		else:
-			return dmn.paths
+			return [Path.get(workshop_id,domain,Path.decode(p)) for p in D.Domain.get(workshop_id,domain,True).paths]
+
+			
 
 
-	def getPathsByWorkshop(workshop_id):
-		wrk = W.Workshop.search(workshop_id)
-		if(  wrk == "WorkshopNotFound" ):
+
+	@staticmethod
+	def getAll(workshop_id):
+		if( not W.Workshop.exist(workshop_id) ):
 			return "WorkshopNotFound"
 		else:
 			paths=[]
-			for dmn in wrk.domains:
-				paths += Path.getPathsByDomain(dmn.domain,workshop_id)
+			for dmn in W.Workshop.get(workshop_id,True).domains:
+				paths += Path.getByDomain(dmn,workshop_id)
 
-			return paths
+			return sorted(paths)
 				
 
 

@@ -52,14 +52,14 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(AddDomain.execute,"ad -d www.t.tn --robots"						,"UserNeedsHelp")
 		self.assertEQUAL(AddDomain.execute,"ad -d www.t.tn --js"						,"UserNeedsHelp")
 		self.assertEQUAL(AddDomain.execute,"ad"									,"UserNeedsHelp")
-	'''
+	
 	def test_1113_AddPath(self):
-		self.assertEQUAL(AddPath.execute,"ap www.domain1.tn/path/1 -w workshop1 -s"	,"PathAdded"	   ,PAUSE)
-		self.assertEQUAL(AddPath.execute,"ap /path/2 -d www.domain1.tn -w workshop1 -s"	,"PathAdded"	   ,PAUSE)
-		self.assertEQUAL(AddPath.execute,"ap  www.watever.tn/ -w workshop1 -s"		,"DomainNotFound"  ,PAUSE)
-		self.assertEQUAL(AddPath.execute,"ap  www.domain1.tn/    -w whatever -s"	,"WorkshopNotFound",PAUSE)
-		self.assertEQUAL(AddPath.execute,"ap /path/1          -w workshop1 -s"		,"NoDomainSetted"  ,PAUSE)
-		self.assertEQUAL(AddPath.execute,"ap  www.domain1.tn/p -s"			,"NoWorkshopSetted",PAUSE)
+		self.assertEQUAL(AddPath.execute,"ap www.domain1.tn/path/1 -w workshop1 --tag tag1 tag2 tag3 -s","PathAdded"	   ,PAUSE)
+		self.assertEQUAL(AddPath.execute,"ap /path/2 -d www.domain1.tn -w workshop1 -s"			,"PathAdded"	   ,PAUSE)
+		self.assertEQUAL(AddPath.execute,"ap  www.watever.tn/ -w workshop1 -s"				,"DomainNotFound"  ,PAUSE)
+		self.assertEQUAL(AddPath.execute,"ap  www.domain1.tn/    -w whatever -s"			,"WorkshopNotFound",PAUSE)
+		self.assertEQUAL(AddPath.execute,"ap /path/1          -w workshop1 -s"				,"NoDomainSetted"  ,PAUSE)
+		self.assertEQUAL(AddPath.execute,"ap  www.domain1.tn/p -s"					,"NoWorkshopSetted",PAUSE)
 		print('setworkshop workshop1 \n setdomain www.domain1.tn')
 		SetWorkshop.execute("setw workshop1")
 		SetDomain.execute("setd www.domain1.tn")
@@ -70,8 +70,9 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(AddPath.execute,"ap /path/1/ -s"			,"PathAdded"	,PAUSE)
 		self.assertEQUAL(AddPath.execute,"ap"					,"UserNeedsHelp")
 		#print('unsetworkshop')
-		#UnsetWorkshop.execute("usw")
-	'''
+		UnsetWorkshop.execute("usw")
+		UnsetDomain.execute("usd")
+	
 	def test_1114_DisplayWorkshop(self):
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -w workshop1"   ,"workshop1"				,PAUSE)
 		self.assertEQUAL(DisplayWorkshop.execute,"dw -w workshop1 -x","workshop1"				,PAUSE)
@@ -92,9 +93,9 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(DisplayDomain.execute,"dd -A --tag tag2"		     ,["www.domain1.tn","www.domain2.tn"]		  ,PAUSE)
 		self.assertEQUAL(DisplayDomain.execute,"dd -A --tag"			     ,"UserNeedsHelp")
 		self.assertEQUAL(DisplayDomain.execute,"dd -A -w whatever"		     ,"WorkshopNotFound")
-	'''
+	
 	def test_1116_DisplayPath(self):
-		UnsetDomain.execute("usd")
+		#UnsetDomain.execute("usd")
 		self.assertEQUAL(DisplayPath.execute,"dp -p www.domain1.tn/path/1"	,"/path/1"						  ,True)
 		self.assertEQUAL(DisplayPath.execute,"dp -d www.domain1.tn -a"		,["/path/1","/path/2","/path/3","/path/1/"]		  ,True)
 		self.assertEQUAL(DisplayPath.execute,"dp -A"				,["/path/4/dmn2","/path/1","/path/2","/path/3","/path/1/"],True)
@@ -106,20 +107,19 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(DisplayPath.execute,"dp -a"				,"NoDomainSetted"					  ,True)
 		UnsetWorkshop.execute("usw")
 		self.assertEQUAL(DisplayPath.execute,"dp -A"				,"NoWorkshopSetted"					  ,True)
-		'''
 
 	def test_1117_UpdateDomain(self):
-		self.assertEQUAL(UpdateDomain.execute,"updatedomain www.domain1.tn -d www.updated_domain.tn -s"				,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.updated_domain.tn --w workshop2 -s"					,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.updated_domain.tn -d www.u_domain.tn -w workshop2 --w workshop1 -s"	,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --js + /u_js -s"						,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tag u_tag1 u_tag2 u_tag3 u_tag4 -s"			,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tag _ u_tag1 whatever -s"				,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tech _ -s"						,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port + p1:80 p2:60 -s"					,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port _ p2:80 -s"					,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port _ -s"						,"DomainUpdated"	,PAUSE)
-		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port u_ssh:25 u_https:448 -s"				,"DomainUpdated"	,PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updatedomain www.domain1.tn -d www.updated_domain.tn -s"				,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.updated_domain.tn --w workshop2 -s"					,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.updated_domain.tn -d www.u_domain.tn -w workshop2 --w workshop1 -s"	,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --js + /u_js -s"						,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tag u_tag1 u_tag2 u_tag3 u_tag4 -s"			,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tag _ u_tag1 whatever -s"				,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --tech _ -s"						,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port + p1:80 p2:60 -s"					,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port _ p2:80 -s"					,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port _ -s"						,"DomainUpdated",PAUSE)
+		self.assertEQUAL(UpdateDomain.execute,"updated www.u_domain.tn --port u_ssh:25 u_https:448 -s"				,"DomainUpdated",PAUSE)
 		
 	def test_1118_UpdateWorkshop(self):
 		self.assertEQUAL(UpdateWorkshop.execute,"updatew workshop1   -i updated_workshop1 -s"	   ,"WorkshopUpdated"	,PAUSE)

@@ -11,12 +11,13 @@ class AddPath:
 		IN         = c.short_command(IN,"ap")
 		ap         = c.option("ap",           True, False,IN)
 		domain     = c.option("-d",           True, False,IN)
+		tags       = c.option("--tag",        True, True, IN)
 		w_id       = c.option("-w",           True, False,IN)
 		for_sure   = c.option("-s",           False,False,IN)
-		
 
 
-		if("UserNeedsHelp" in [ ap,domain,for_sure]):
+
+		if("UserNeedsHelp" in [ ap,domain, tags, for_sure]):
 			AddPath.help()
 			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
@@ -36,9 +37,9 @@ class AddPath:
 			cw   = TopG.CURRENT_WORKSHOP
 			w_id = cw if not w_id else w_id
 			
-			pth   = Path(domain = domain, path = path, variables = [])
+			pth   = Path(domain = domain, path = path, tags=tags)
 			print("\npath:")
-			pth.display()
+			#pth.display()
 			
 			result = c.questionToExecute(for_sure,pth.save,{'workshop_id':w_id},"Save path ["+ap+"] ?")
 			if(result == "WorkshopNotFound"):

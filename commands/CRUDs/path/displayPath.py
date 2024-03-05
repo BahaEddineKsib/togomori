@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from entities.domain   import Domain
 from entities.path     import Path
 from commands.CRUDs    import DRY as c
-import GlobalVars as TopG
+import GlobalVars as gv
 
 
 class DisplayPath:
@@ -21,38 +21,37 @@ class DisplayPath:
 		if("UserNeedsHelp" in [ dp,domain,path,w_id, all_in_domain,all_in_workshop] or (not path and not all_in_domain and not all_in_workshop) ):
 			DisplayPath.help()
 			return "UserNeedsHelp"
-		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
+		elif(not w_id and gv.CURRENT_WORKSHOP == ""):
 			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
-		elif(not domain and c.segmentUrl(path)["domain"] == "NoDomain" and not TopG.CURRENT_DOMAIN and not all_in_workshop):
+		elif(not domain and c.segmentUrl(path)["domain"] == "NoDomain" and not gv.CURRENT_DOMAIN and not all_in_workshop):
 			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
-			cw   = TopG.CURRENT_WORKSHOP
+			cw   = gv.CURRENT_WORKSHOP
 			w_id = cw if not w_id else w_id
-			wrk  = Workshop.search(w_id)
-			if wrk == "WorkshopNotFound":
+
+			if not Workshop.exist(w_id):
 				print("❌ Workshop ["+w_id+"] Not Found.")
 				return"WorkshopNotFound"
 
 			if(all_in_workshop):
 				pp = []
-				paths = Path.getPathsByWorkshop(w_id)
+				paths = Path.getAll(w_id)
 				for p in paths:
 					p.display(select)
 					pp.append(p.path)
 				return pp
 			
 			domain = c.segmentUrl(path)['domain']	if not domain		  else domain
-			domain = TopG.CURRENT_DOMAIN		if     domain=="NoDomain" else domain
-			dmn    = Domain.searchInWorkshop(domain,wrk)
+			domain = gv.CURRENT_DOMAIN		if     domain=="NoDomain" else domain
 
-			if dmn == "DomainNotFound":
+			if not Domain.exist(w_id,domain):
 				print("❌ Domain ["+domain+"] Not Found.")
 				return   "DomainNotFound"
 			if(all_in_domain):
 				pp = []
-				paths = Path.getPathsByDomain(domain, w_id)
+				paths = Path.getByDomain(domain, w_id)
 				for p in paths:
 					p.display(select)
 					pp.append(p.path)
@@ -66,13 +65,13 @@ class DisplayPath:
 				print("❌ No Path entered.")
 				return "NoPath"
 			
-			pth  = Path.searchInDomain(path,dmn)
-			if pth == "PathNotFound":
+			if not Path.exist(w_id,domain,path):
 				print("❌ Path ["+path+"] Not Found.")
 				return "PathNotFound"
-
-			pth.display(select)
-			return pth.path
+			else:
+				pth = Path.get(w_id,domain,path)
+				pth.display(select)
+				return pth.path
 
 
 			

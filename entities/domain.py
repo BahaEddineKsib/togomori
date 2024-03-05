@@ -99,7 +99,7 @@ class Domain:
 				json_domain = json.load(json_file)
 			json_domain["workshop_id"]	= ID
 			json_domain["domain"]		= domain
-			if expand: json_domain["paths"] =sorted(os.listdir(Domain.getPathsPath(ID,domain)))
+			if expand: json_domain["paths"] =sorted([ P.Path.decode(p) for p in os.listdir(Domain.getPathsPath(ID,domain))])
 			return Domain.jsonToDomain(json_domain)
 		else:
 			return "DomainNotFound"
