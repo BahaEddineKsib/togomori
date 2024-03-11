@@ -16,7 +16,6 @@ class DisplayWorkshop:
 		else:
 			if(ID):
 				if( Workshop.exist(ID)):
-					print("\n✔️:WORKSHOP:")
 					wrk = Workshop.get(ID,expand)
 					wrk.display(expand)
 					return wrk.ID
@@ -25,7 +24,6 @@ class DisplayWorkshop:
 					return "WorkshopNotFound"
 			if(all):
 				workshops_ids=[]
-				print("\n✔️WORKSHOPS:")
 				for wrk in Workshop.getAll(expand):
 					wrk.display(expand)
 					workshops_ids.append(wrk.ID)

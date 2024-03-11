@@ -12,6 +12,7 @@ from commands.CRUDs.domain.setDomain	     import SetDomain	    as sd
 from commands.CRUDs.domain.unsetDomain	     import UnsetDomain     as usd
 from commands.CRUDs.path.addPath	     import AddPath         as ap
 from commands.CRUDs.path.displayPath         import DisplayPath     as dp
+from commands.CRUDs.path.updatePath	     import UpdatePath	    as up
 import os
 def execute(IN):
 	command = ''
@@ -37,13 +38,13 @@ def execute(IN):
 		# PATH
 		case "addpath" | "addp" | "ap":			ap.execute(IN)
 		case "displaypath" | "displayp" | "dp":		dp.execute(IN)
-		case "updateurl" | "updateu" | "uu":		print('EXECUTING update URL..')
-		case "deleteurl" | "deleteu" | "delu":		print('EXECUTING delete URL..')
+		case "updatepath" | "updatep" | "up":		up.execute(IN)
+		case "deletepath" | "deletep" | "delp":		print('EXECUTING delete URL..')
 		# Parameter
-		case "addparameter" | "addp" | "ap":		print('EXECUTING add parameter..')
-		case "displayparameter" | "displayp" | "dp":	print('EXECUTING display parameter..')
-		case "updateparameter" | "updatep" | "up":	print('EXECUTING update parameter..')
-		case "deleteparameter" | "deletep" | "delp":	print('EXECUTING delete parameter..')
+		case "addvariable" | "addv" | "av":		print('EXECUTING add parameter..')
+		case "displayvariable" | "displayv" | "dv":	print('EXECUTING display parameter..')
+		case "updatevariable" | "updatev" | "uv":	print('EXECUTING update parameter..')
+		case "deletevariable" | "deletev" | "delv":	print('EXECUTING delete parameter..')
 		# Cookie
 		case "addcookie" | "addc" | "ac":		print('EXECUTING add cookie..')
 		case "displaycookie" | "displayc" | "dc":	print('EXECUTING display cookie..')

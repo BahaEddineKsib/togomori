@@ -8,19 +8,19 @@ class UpdateDomain:
 	@staticmethod
 	def execute(IN):
 		IN         = c.short_command(IN,"ud")
-		ud         = c.option("ud",           True, False,IN)
-		domain     = c.option("-d",           True, False,IN)
-		w_id       = c.option("-w",           True, False,IN)
-		new_w_id   = c.option("--w",          True, False,IN)
-		tags       = c.option("--tag",        True, True, IN)
-		techs      = c.option("--tech",       True, True, IN)
-		whois_file = c.option("--whois", True, False,IN)
-		ip         = c.option("--ip",         True, False,IN)
-		ports_map  = c.option("--port",       True, True, IN)
+		ud         = c.option("ud"	,True, False,IN)
+		domain     = c.option("-d"	,True, False,IN)
+		w_id       = c.option("-w"	,True, False,IN)
+		new_w_id   = c.option("--w"	,True, False,IN)
+		tags       = c.option("--tag"	,True, True, IN)
+		techs      = c.option("--tech"	,True, True, IN)
+		whois_file = c.option("--whois"	,True, False,IN)
+		ip         = c.option("--ip"	,True, False,IN)
+		ports_map  = c.option("--port"	,True, True, IN)
 		server_file= c.option("--server",True, False,IN)
 		robots_file= c.option("--robots",True, False,IN)
-		js_files   = c.option("--js",    True, True, IN)
-		for_sure   = c.option("-s",           False,False,IN)
+		js_files   = c.option("--js"	,True, True, IN)
+		for_sure   = c.option("-s"	,False,False,IN)
 		
 
 
@@ -85,16 +85,15 @@ class UpdateDomain:
 			else: toDisplay.append("js_files")
 
 			dmn   = Domain( workshop_id     =new_w_id,
-					domain     =domain,
+					domain		=domain,
 					tags            =tags,
-					techs      =techs,
+					techs		=techs,
 					whois_file      =whois_file,
 					ip              =ip,
-					ports       =ports_map,
+					ports		=ports_map,
 					server_file     =server_file,
-					robots_file =robots_file,
-					js_files   = js_files)
-			print("\ndomain:")
+					robots_file	=robots_file,
+					js_files	= js_files)
 			dmn.display(toDisplay)
 			result = c.questionToExecute(for_sure,Domain.update,{'domain':ud, 'workshop_id':w_id, 'new_dmn':dmn},"Update domain ["+ud+"] ?")
 			if(result ==   "NewWorkshopNotFound"):

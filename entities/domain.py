@@ -107,21 +107,20 @@ class Domain:
 
 	def display(self,toDisplay=['ALL'], expand=False):
 		dmn={}
-		if "ALL" in toDisplay or "workshop_id"	in toDisplay:dmn["workshop_id"] =self.workshop_id
-		if "ALL" in toDisplay or "domain"	in toDisplay:dmn["domain"]	=self.domain
-		if "ALL" in toDisplay or "sub"		in toDisplay:dmn["sub"]		=self.sub
-		if "ALL" in toDisplay or "main"		in toDisplay:dmn["main"]	=self.main
-		if "ALL" in toDisplay or "tld"		in toDisplay:dmn["tld"]		=self.tld
-		if "ALL" in toDisplay or "tags"		in toDisplay:dmn["tags"]        =self.tags 
-		if "ALL" in toDisplay or "techs"	in toDisplay:dmn["techs"]	=self.techs 
-		if "ALL" in toDisplay or "whois_file"	in toDisplay:dmn["whois_file"]  =self.whois_file 
-		if "ALL" in toDisplay or "ip"		in toDisplay:dmn["ip"]          =self.ip 
-		if "ALL" in toDisplay or "ports"	in toDisplay:dmn["ports"]       =self.ports 
-		if "ALL" in toDisplay or "server_file"	in toDisplay:dmn["server_file"] =self.server_file 
-		if "ALL" in toDisplay or "robots_file"	in toDisplay:dmn["robots_file"] =self.robots_file 
-		if "ALL" in toDisplay or "js_files"	in toDisplay:dmn["js_files"]	=self.js_files 
-		if "ALL" in toDisplay or "paths"	in toDisplay:
-			if   expand  : dmn["paths"]= self.paths
+		if "ALL" in toDisplay or "workshop_id"	in toDisplay or expand:dmn["workshop_id"]  =self.workshop_id
+		if "ALL" in toDisplay or "domain"	in toDisplay or expand:dmn["domain"]	 =self.domain
+		if "ALL" in toDisplay or "sub"		in toDisplay or expand:dmn["sub"]		 =self.sub
+		if "ALL" in toDisplay or "main"		in toDisplay or expand:dmn["main"]	 =self.main
+		if "ALL" in toDisplay or "tld"		in toDisplay or expand:dmn["tld"]		 =self.tld
+		if "ALL" in toDisplay or "tags"		in toDisplay or expand:dmn["tags"]         =self.tags 
+		if "ALL" in toDisplay or "techs"	in toDisplay or expand:dmn["techs"]	 =self.techs 
+		if "ALL" in toDisplay or "whois_file"	in toDisplay or expand:dmn["whois_file"]   =self.whois_file 
+		if "ALL" in toDisplay or "ip"		in toDisplay or expand:dmn["ip"]           =self.ip 
+		if "ALL" in toDisplay or "ports"	in toDisplay or expand:dmn["ports"]        =self.ports 
+		if "ALL" in toDisplay or "server_file"	in toDisplay or expand:dmn["server_file"]  =self.server_file 
+		if "ALL" in toDisplay or "robots_file"	in toDisplay or expand:dmn["robots_file"]  =self.robots_file 
+		if "ALL" in toDisplay or "js_files"	in toDisplay or expand:dmn["js_files"]	 =self.js_files 
+		if "ALL" in toDisplay or "paths"	in toDisplay or expand:dmn["paths"]	 = self.paths
 
 		if len(dmn) == 1:
 			dmn = next(iter(dmn.values()))
@@ -137,6 +136,7 @@ class Domain:
 			return "DomainNotFound"
 		else:
 			shutil.rmtree(Domain.getPath(workshop_id,domain))
+			if gv.CURRENT_DOMAIN == domain : gv.CURRENT_DOMAIN = ""
 			return "DomainDeleted"
 
 	@staticmethod
@@ -159,10 +159,10 @@ class Domain:
 					if   val:
 						if   key in ["workshop_id","domain"] : dir_updated = True
 						elif key not in ["sub","main","tld"] : domain_vars_updated = True
-					if   val == "_":
-						dmn.__dict__[key] = ""
-					elif val:
-						dmn.__dict__[key] = val
+						if   val == "_":
+							dmn.__dict__[key] = ""
+						elif val:
+							dmn.__dict__[key] = val
 				if type(val) == list:
 					if val:
 						domain_vars_updated = True
@@ -193,7 +193,7 @@ class Domain:
 			if dir_updated:
 				shutil.move(Domain.getPath(workshop_id, domain),Domain.getPath(dmn.workshop_id, dmn.domain))
 				dmn.setDomainParts()
-			if domain_vars_updated:	
+			if dir_updated or domain_vars_updated:	
 				json_path = Domain.getJsonPath(dmn.workshop_id,dmn.domain)
 				del dmn.workshop_id
 				del dmn.domain

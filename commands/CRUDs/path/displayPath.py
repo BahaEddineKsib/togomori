@@ -16,9 +16,11 @@ class DisplayPath:
 		all_in_domain   = c.option("-a",      False,False,IN)
 		all_in_workshop = c.option("-A",      False,False,IN)
 		select          = c.option("--select",False,False,IN)
+		expand		= c.option("-x",      False,False,IN)
+		very_expand	= c.option("-X",      False,False,IN)
 
 
-		if("UserNeedsHelp" in [ dp,domain,path,w_id, all_in_domain,all_in_workshop] or (not path and not all_in_domain and not all_in_workshop) ):
+		if("UserNeedsHelp" in [ dp,domain,path,w_id, all_in_domain,all_in_workshop,select,expand, very_expand] or (not path and not all_in_domain and not all_in_workshop) ):
 			DisplayPath.help()
 			return "UserNeedsHelp"
 		elif(not w_id and gv.CURRENT_WORKSHOP == ""):
@@ -39,7 +41,7 @@ class DisplayPath:
 				pp = []
 				paths = Path.getAll(w_id)
 				for p in paths:
-					p.display(select)
+					p.display(select,expand,very_expand)
 					pp.append(p.path)
 				return pp
 			
@@ -53,7 +55,7 @@ class DisplayPath:
 				pp = []
 				paths = Path.getByDomain(domain, w_id)
 				for p in paths:
-					p.display(select)
+					p.display(select,expand,very_expand)
 					pp.append(p.path)
 				return pp
 
@@ -70,7 +72,7 @@ class DisplayPath:
 				return "PathNotFound"
 			else:
 				pth = Path.get(w_id,domain,path)
-				pth.display(select)
+				pth.display(select,expand,very_expand)
 				return pth.path
 
 

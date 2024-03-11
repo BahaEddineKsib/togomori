@@ -37,9 +37,16 @@ class AddPath:
 			cw   = TopG.CURRENT_WORKSHOP
 			w_id = cw if not w_id else w_id
 			
+			if not tags:
+				tags = []
+				very_expand = False
+			else:
+				very_expand = True
+
+
 			pth   = Path(domain = domain, path = path, tags=tags)
-			print("\npath:")
-			#pth.display()
+
+			pth.display(True,False,very_expand)
 			
 			result = c.questionToExecute(for_sure,pth.save,{'workshop_id':w_id},"Save path ["+ap+"] ?")
 			if(result == "WorkshopNotFound"):

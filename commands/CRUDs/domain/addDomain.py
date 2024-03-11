@@ -83,7 +83,6 @@ class AddDomain:
 					server_file     =server_file,
 					robots_file     =robots_file,
 					js_files        = js_files)
-			print("\ndomain:")
 			dmn.display(toDisplay)
 			result = c.questionToExecute(for_sure,dmn.save,{},"Save domain ["+domain+"] ?")
 			if(result == "WorkshopNotFound"):
