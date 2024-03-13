@@ -13,8 +13,10 @@ from commands.CRUDs.domain.unsetDomain	     import UnsetDomain
 from commands.CRUDs.path.addPath	     import AddPath
 from commands.CRUDs.path.displayPath	     import DisplayPath
 from commands.CRUDs.path.updatePath	     import UpdatePath
+from commands.CRUDs.path.deletePath	     import DeletePath
 from executor import execute
 from GlobalVars				     import DATABASE      as db
+import GlobalVars as gv
 import unittest
 import json
 import sys
@@ -134,8 +136,11 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(UpdateWorkshop,"updatew updated_workshop1 -i updated_workshop1 -s","NewWorkshopIdExist",PAUSE)
 		self.assertEQUAL(UpdateWorkshop,"updatew -i TESTTTT -s"				   ,"UserNeedsHelp"	,PAUSE)
 		self.assertEQUAL(UpdateWorkshop,"updatew updated_workshop1 -s"			   ,"UserNeedsHelp"	,PAUSE)
-		
-	def test_1120_DeleteDomain(self):
+
+	def test_1120_DeletePath(self):
+		self.assertEQUAL(DeletePath,"delp  www.domain2.tn/path/4/dmn2 -s","PathDeleted", PAUSE)
+
+	def test_1121_DeleteDomain(self):
 		self.assertEQUAL(DeleteDomain,"deletedomain www.domain2.tn -s"	  ,"DomainDeleted"	,PAUSE)
 		self.assertEQUAL(DeleteDomain,"deld www.domain3.tn -s -w whatever","WorkshopNotFound"	,PAUSE)
 		self.assertEQUAL(DeleteDomain,"deld www.whatever.tn -s","DomainNotFound"		,PAUSE)
@@ -143,7 +148,7 @@ class UTT(unittest.TestCase):
 
 
 
-	def test_1121_DeleteWorkshop(self):
+	def test_1122_DeleteWorkshop(self):
 		self.assertEQUAL(DeleteWorkshop,"deletew workshop3 -s","WorkshopDeleted" ,PAUSE)
 		self.assertEQUAL(DeleteWorkshop,"deletew whatever  -s","WorkshopNotFound",PAUSE)
 		SetWorkshop.execute("sw workshop2")
@@ -151,9 +156,11 @@ class UTT(unittest.TestCase):
 		self.assertEQUAL(DeleteWorkshop,"deletew -s"	      ,"UserNeedsHelp"	 ,PAUSE)
 		print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
-
 	def assertEQUAL(self,executor,command,result,pause=False):
-		print("\n",command)
+		CW = "["+ gv.CURRENT_WORKSHOP+"]" if gv.CURRENT_WORKSHOP else ""
+		CD = "["+ gv.CURRENT_DOMAIN  +"]" if gv.CURRENT_DOMAIN   else ""
+		print("\n┌─"+CW+""+CD+"🕵"
+	             +"\n└─>>> "+command)
 		self.assertEqual(executor.execute(command), result)
 		if pause:
 			p = input()

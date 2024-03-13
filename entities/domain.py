@@ -151,13 +151,15 @@ class Domain:
 		elif(new_dmn.domain and Domain.exist(new_dmn.workshop_id, new_dmn.domain)):
 			return "DomainExist"
 		else:
-			dir_updated=False
-			domain_vars_updated=False
+			domain_updated	    =False
+			workshop_updated    =False
+			domain_vars_updated =False
 			dmn = Domain.get(workshop_id, domain)
 			for key,val in new_dmn.__dict__.items():
 				if type(val) == str:
 					if   val:
-						if   key in ["workshop_id","domain"] : dir_updated = True
+						if   key == "workshop_id"	     : workshop_updated    = True
+						elif key == "domain"		     : domain_updated      = True
 						elif key not in ["sub","main","tld"] : domain_vars_updated = True
 						if   val == "_":
 							dmn.__dict__[key] = ""
@@ -190,10 +192,14 @@ class Domain:
 								dmn.__dict__[key] = {}
 						else:
 							dmn.ports= val
-			if dir_updated:
+			if workshop_updated and gv.CURRENT_WORKSHOP == workshop_id and gv.CURRENT_DOMAIN == domain:
+				gv.CURRENT_WORKSHOP = dmn.workshop_id
+			if domain_updated and gv.CURRENT_WORKSHOP == domain:
+				gv.CURRENT_DOMAIN = dmn.domain
+			if workshop_updated or domain_updated:
 				shutil.move(Domain.getPath(workshop_id, domain),Domain.getPath(dmn.workshop_id, dmn.domain))
 				dmn.setDomainParts()
-			if dir_updated or domain_vars_updated:	
+			if domain_updated or domain_vars_updated:	
 				json_path = Domain.getJsonPath(dmn.workshop_id,dmn.domain)
 				del dmn.workshop_id
 				del dmn.domain

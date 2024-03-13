@@ -87,7 +87,20 @@ class Path:
 		if(select and not very_expand):
 			to_prnt = '_'*len(self.domain) + '~'*len(self.path) if expand else '~'*len(self.path)
 			print(to_prnt)
-	
+
+
+	@staticmethod
+	def delete(path, domain, workshop_id):
+		if(  not W.Workshop.exist(workshop_id)):
+			return "WorkshopNotFound"
+		elif(not D.Domain.exist(workshop_id, domain)):
+			return "DomainNotFound"
+		elif(not Path.exist(workshop_id,domain,path)):
+			return "PathNotFound"
+		else:
+			shutil.rmtree(Path.getPath(workshop_id, domain, path))
+			return "PathDeleted"
+
 	
 	@staticmethod
 	def update(workshop_id, domain, path, new_pth):

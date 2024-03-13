@@ -13,6 +13,7 @@ from commands.CRUDs.domain.unsetDomain	     import UnsetDomain     as usd
 from commands.CRUDs.path.addPath	     import AddPath         as ap
 from commands.CRUDs.path.displayPath         import DisplayPath     as dp
 from commands.CRUDs.path.updatePath	     import UpdatePath	    as up
+from commands.CRUDs.path.deletePath	     import DeletePath	    as delp
 import os
 def execute(IN):
 	command = ''
@@ -39,7 +40,7 @@ def execute(IN):
 		case "addpath" | "addp" | "ap":			ap.execute(IN)
 		case "displaypath" | "displayp" | "dp":		dp.execute(IN)
 		case "updatepath" | "updatep" | "up":		up.execute(IN)
-		case "deletepath" | "deletep" | "delp":		print('EXECUTING delete URL..')
+		case "deletepath" | "deletep" | "delp":		delp.execute(IN)
 		# Parameter
 		case "addvariable" | "addv" | "av":		print('EXECUTING add parameter..')
 		case "displayvariable" | "displayv" | "dv":	print('EXECUTING display parameter..')
