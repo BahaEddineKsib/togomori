@@ -34,6 +34,7 @@ It comprises three main components:
 |SSL/TLS Certificate| openSSL           | Analyze SSL/TLS certificates for encryption details and domain validation   |
 |Email Addresses    |-------------------| Scrape web pages for email addresses associated with the domain.            |
 |GitHub             |Github search API  | Discovery of sensitive information by conducting Git recon                  |
+|Archived Web Pages | waybackpy         | Utilize web archives This can reveal past configurations, features, or vulnerabilities|
 |urls               | wordlists/js scan | look for urls per sub-domain by wordlist or scanning the js files           |
 |urls parameters    | requests/wordlists| look for url's parameters                                                   |
 |http scenario recrd| mitmweb           | record a scenario  of requests/responses that being send after an action like (button clicking)|
