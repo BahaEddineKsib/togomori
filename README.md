@@ -19,7 +19,7 @@ It comprises three main components:
 * A `Bug Bounty Hunter` can use Togomori to get a clear view about the target and tag what assets are in or out of the scope.
 
 ------------------------------------------------------------------------------------------------------------------
-##Assets to look for
+## Assets to look for
 
 |Asset              | used tech         |                               explanation                                   |
 |:-----------------:|:-----------------:|:---------------------------------------------------------------------------:|
