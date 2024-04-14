@@ -29,14 +29,16 @@ It comprises three main components:
 |Subdomains         | requests/wordlists| Identify subdomains associated with the target website.                     |
 |Server Details     | python-nmap       | server hosting the website, including the operating system and version.     |
 |robots.txt         | urllib            | Examine robots.txt to discover hidden resources and potential sensitive data|
-|javascript         | htmlsession render|                                                                             |
+|javascript         | htmlsession render| capture javascript files                                                    |
+|Fetch apis/XHR     | selenium library  | capture Fetch apis and xmlHttpRequests                                      |
+|SSL/TLS Certificate| openSSL           | Analyze SSL/TLS certificates for encryption details and domain validation   |
+|Email Addresses    |-------------------| Scrape web pages for email addresses associated with the domain.            |
+|GitHub             |Github search API  | Discovery of sensitive information by conducting Git recon                  |
 |urls               | wordlists/js scan | look for urls per sub-domain by wordlist or scanning the js files           |
 |urls parameters    | requests/wordlists| look for url's parameters                                                   |
-|http scenario recrd| mitmweb           | record a scenario of requests that being send after an action               |
+|http scenario recrd| mitmweb           | record a scenario  of requests/responses that being send after an action like (button clicking)|
 |html inputs        | web scraping      | locate all html inputs in a web page                                        |
 |cookies            | cookie jar/records| get websites cookies                                                        |
-|ASN                | ------------------|                                                                             |
-* selenium library
 
 ---------------------------------------------------------------------------------------------------------------------
 ## Possible Tables/classes
