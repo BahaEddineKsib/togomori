@@ -80,7 +80,10 @@ def listToMap(LP, updating=False):
 
 	Map={}
 	for l in LP:
-		Map[l.split(':')[0]] = int(l.split(':')[1])
+		if ':' in l:
+			Map[l.split(':')[0]] = l.split(':')[1]
+		else:
+			Map[l]=''
 	return Map
 
 def segmentUrl(url):
@@ -91,22 +94,57 @@ def segmentUrl(url):
 		url_no_scheme = url.split("://")[1]
 		if( len(url_no_scheme.split('/')) == 1):
 			if(len(url_no_scheme.split('.')) == 1):
-				return {"domain":"NoDomain","path":"InvalidPath"}
+				url = urlparse(url)
+				result_url = {"domain":"NoDomain","path":"InvalidPath", 'variables':url.query}
 			else:
 				url = urlparse(url)
-				return {"domain":url.netloc,"path":"NoPath"}
+				result_url = {"domain":url.netloc,"path":"NoPath", 'variables':url.query}
 			
 		else:
 			if(url_no_scheme[0] == '/'):
 				url = urlparse(url)
-				return {"domain":"NoDomain","path":url.path}
+				result_url = {"domain":"NoDomain","path":url.path, 'variables':url.query}
 			else:
 				domain = url_no_scheme.split("/")[0]
 				if(len(domain.split('.')) == 1):
-					return {"domain":"NoDomain","path":"InvalidPath"}
+					url = urlparse(url)
+					result_url = {"domain":"NoDomain","path":"InvalidPath", 'variables':url.query}
 				else:
 					url = urlparse(url)
-					return {"domain":url.netloc,"path":url.path}
+					result_url = {"domain":url.netloc,"path":url.path, 'variables':url.query}
+		if result_url['variables'] == '':
+			result_url['variables']="NoVariables"
+		else:
+			result_url['variables']= [var_val.split("=") for var_val in result_url['variables'].split("&")]
+			var_val = {}
+			for vv in result_url['variables']:
+				if len(vv) == 2:
+					val = vv[0]
+					var = vv[1]
+					var_val[val]=var
+			result_url['variables'] = var_val
+		return result_url
 	else:
-		return {"domain":"NoDomain","path":"Nopath"}
-		
+		return {'domain':'NoDomain','path':'NoPath','variables':'NoVariables'}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

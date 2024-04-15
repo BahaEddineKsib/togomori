@@ -61,13 +61,10 @@ def execute(IN):
 		case "displaytransaction" | "displayt" | "dt":	print('EXECUTING display transaction..')
 		case "updatetransaction" | "updatet" | "ut":	print('EXECUTING update transaction..')
 		case "deletetransaction" | "deletet" | "delt":	print('EXECUTING delete transaction..')
-		#quitting
+		case '':					return True
 		case "quit" | "q":				return False
-		#clear
 		case "clear" | "c":				os.system('clear')
-		#Invalid Command
-		case _:
-			print('Invalid Command')
+		case _:						print('Invalid Command')
 	return True
 			
 			

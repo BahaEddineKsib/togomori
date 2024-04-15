@@ -19,7 +19,6 @@ class DisplayPath:
 		expand		= c.option("-x",      False,False,IN)
 		very_expand	= c.option("-X",      False,False,IN)
 
-
 		if("UserNeedsHelp" in [ dp,domain,path,w_id, all_in_domain,all_in_workshop,select,expand, very_expand] or (not path and not all_in_domain and not all_in_workshop) ):
 			DisplayPath.help()
 			return "UserNeedsHelp"

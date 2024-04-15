@@ -13,12 +13,13 @@ class UpdatePath:
 		domain     = c.option("-d",	True, False,IN)
 		new_path   = c.option("--p",	True, False,IN)
 		tags       = c.option("--tag",  True, True, IN)
+		variables  = c.option("--var",  True, True, IN)
 		new_d	   = c.option("--d",	True, False,IN)
 		w_id       = c.option("-w",     True, False,IN)
 		for_sure   = c.option("-s",     False,False,IN)
 
 
-		if("UserNeedsHelp" in [ up,domain, new_path, tags, new_d, w_id, for_sure]):
+		if("UserNeedsHelp" in [ up,domain, new_path, tags, variables, new_d, w_id, for_sure]):
 			AddPath.help()
 			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
@@ -49,8 +50,13 @@ class UpdatePath:
 			domain	= TopG.CURRENT_DOMAIN	    if     domain == "NoDomain" else domain
 			cw	= TopG.CURRENT_WORKSHOP
 			w_id	= cw if not w_id else w_id
-			
-			new_pth	= Path(domain = new_d, path = new_p, tags=tags)
+
+			if variables:
+				variables = c.listToMap(variables, True)
+			else:
+				variables = c.segmentUrl(new_path)['variables'] if c.segmentUrl(new_path)['variables'] != 'NoVariables' else {}
+
+			new_pth	= Path(domain = new_d, path = new_p, tags=tags, variables=variables)
 
 			new_pth.display(True,False)
 			

@@ -9,11 +9,12 @@ class AddPath:
 	@staticmethod
 	def execute(IN):
 		IN         = c.short_command(IN,"ap")
-		ap         = c.option("ap",           True, False,IN)
-		domain     = c.option("-d",           True, False,IN)
-		tags       = c.option("--tag",        True, True, IN)
-		w_id       = c.option("-w",           True, False,IN)
-		for_sure   = c.option("-s",           False,False,IN)
+		ap         = c.option("ap"	,True, False,IN)
+		domain     = c.option("-d"	,True, False,IN)
+		tags       = c.option("--tag"	,True, True, IN)
+		variables  = c.option("--var"	,True, True, IN)
+		w_id       = c.option("-w"	,True, False,IN)
+		for_sure   = c.option("-s"	,False,False,IN)
 
 
 
@@ -43,8 +44,12 @@ class AddPath:
 			else:
 				very_expand = True
 
-
-			pth   = Path(domain = domain, path = path, tags=tags)
+			if variables:
+				variables = c.listToMap(variables, True)
+			else:
+				variables = c.segmentUrl(ap)['variables'] if c.segmentUrl(ap)['variables'] != 'NoVariables' else {}
+			
+			pth   = Path(domain = domain, path = path, tags=tags, variables=variables)
 
 			pth.display(True,False,very_expand)
 			
