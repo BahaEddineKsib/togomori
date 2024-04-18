@@ -14,6 +14,7 @@ from commands.CRUDs.path.addPath	     import AddPath         as ap
 from commands.CRUDs.path.displayPath         import DisplayPath     as dp
 from commands.CRUDs.path.updatePath	     import UpdatePath	    as up
 from commands.CRUDs.path.deletePath	     import DeletePath	    as delp
+from commands.CRAFTs.getTechs		     import GetTechs
 import os
 def execute(IN):
 	command = ''
@@ -61,6 +62,13 @@ def execute(IN):
 		case "displaytransaction" | "displayt" | "dt":	print('EXECUTING display transaction..')
 		case "updatetransaction" | "updatet" | "ut":	print('EXECUTING update transaction..')
 		case "deletetransaction" | "deletet" | "delt":	print('EXECUTING delete transaction..')
+		case "get":
+			asset = ''
+			if len(IN.split()) >= 2:
+				asset = IN.split()[1]
+			match asset:
+				case "techs": GetTechs.execute(IN)
+				case ""     : print("help")
 		case '':					return True
 		case "quit" | "q":				return False
 		case "clear" | "c":				os.system('clear')

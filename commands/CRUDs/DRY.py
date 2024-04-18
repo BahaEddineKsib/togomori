@@ -30,7 +30,13 @@ def option(op,value,MultiValues,IN):
 				return "UserNeedsHelp"
 	else:
 		return False
-	
+
+def concat_getasset(IN):
+	INs   = IN.split()
+	INs[0] = INs[0] + INs[1]
+	del INs[1]
+	return ' '.join(INs)
+
 def short_command(IN,cmnd):
 	INs = IN.split()
 	INs[0] = cmnd
