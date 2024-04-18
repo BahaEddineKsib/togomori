@@ -16,7 +16,7 @@ class DisplayDomain:
 		w_id       = c.option("-w",      True, False,IN)
 		tags       = c.option("--tag",   True, True, IN)
 		techs      = c.option("--tech",  True, True, IN)
-		whois_file = c.option("--whois", True, False,IN)
+		whois = c.option("--whois", True, False,IN)
 		ip         = c.option("--ip",    True, False,IN)
 		ports_map  = c.option("--port",  True, True, IN)
 		server_file= c.option("--server",True, False,IN)
@@ -32,7 +32,7 @@ class DisplayDomain:
 					w_id,
 					tags,
 					techs,
-					whois_file,
+					whois,
 					ip,
 					ports_map,
 					server_file,
@@ -59,7 +59,7 @@ class DisplayDomain:
 			if not tld:	    tld         = ""
 			if not tags:        tags        = [] 
 			if not techs:       techs       = [] 
-			if not whois_file:  whois_file  = "" 
+			if not whois:  whois  = "" 
 			if not ip:          ip          = "" 
 			if not ports_map:   ports_map   = {} 
 			if not server_file: server_file = "" 
@@ -70,7 +70,7 @@ class DisplayDomain:
 					domain		=domain,
 					tags            =tags,
 					techs		=techs,
-					whois_file      =whois_file,
+					whois      =whois,
 					ip              =ip,
 					ports		=ports_map,
 					server_file     =server_file,
@@ -88,7 +88,7 @@ class DisplayDomain:
 								tld	   =tld,
 								tags	   =tags,
 								techs      =techs,
-								whois_file =whois_file,
+								whois =whois,
 								ip	   =ip,
 								ports	   =ports_map,
 								server_file=server_file,

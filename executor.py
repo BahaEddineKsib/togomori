@@ -15,6 +15,7 @@ from commands.CRUDs.path.displayPath         import DisplayPath     as dp
 from commands.CRUDs.path.updatePath	     import UpdatePath	    as up
 from commands.CRUDs.path.deletePath	     import DeletePath	    as delp
 from commands.CRAFTs.getTechs		     import GetTechs
+from commands.CRAFTs.getWhois		     import GetWhois
 import os
 def execute(IN):
 	command = ''
@@ -68,7 +69,8 @@ def execute(IN):
 				asset = IN.split()[1]
 			match asset:
 				case "techs": GetTechs.execute(IN)
-				case ""     : print("help")
+				case "whois": GetWhois.execute(IN)
+				case _      : print("help")
 		case '':					return True
 		case "quit" | "q":				return False
 		case "clear" | "c":				os.system('clear')

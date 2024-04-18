@@ -14,7 +14,7 @@ class Domain:
 			   tld		="",
 			   tags		=[],
 			   techs	=[],
-			   whois_file	="",
+			   whois	={},
 			   ip		="", 
 			   ports	={},
 			   server_file	="",
@@ -34,7 +34,7 @@ class Domain:
 			self.tld = tld
 		self.tags       = tags
 		self.techs      = techs
-		self.whois_file = whois_file
+		self.whois = whois
 		self.ip         = ip
 		self.ports      = ports
 		self.server_file= server_file
@@ -114,7 +114,7 @@ class Domain:
 		if "ALL" in toDisplay or "tld"		in toDisplay or expand:dmn["tld"]		 =self.tld
 		if "ALL" in toDisplay or "tags"		in toDisplay or expand:dmn["tags"]         =self.tags 
 		if "ALL" in toDisplay or "techs"	in toDisplay or expand:dmn["techs"]	 =self.techs 
-		if "ALL" in toDisplay or "whois_file"	in toDisplay or expand:dmn["whois_file"]   =self.whois_file 
+		if "ALL" in toDisplay or "whois"	in toDisplay or expand:dmn["whois"]   =self.whois
 		if "ALL" in toDisplay or "ip"		in toDisplay or expand:dmn["ip"]           =self.ip 
 		if "ALL" in toDisplay or "ports"	in toDisplay or expand:dmn["ports"]        =self.ports 
 		if "ALL" in toDisplay or "server_file"	in toDisplay or expand:dmn["server_file"]  =self.server_file 
@@ -226,7 +226,7 @@ class Domain:
 			   tld		=False,
 			   tags		=False,
 			   techs	=False,
-			   whois_file   =False,
+			   whois        =False,
 			   ip           =False, 
 			   ports	=False,
 			   server_file  =False,
@@ -243,7 +243,7 @@ class Domain:
 		domainsList= domainsList if not tags		else [d for d in domainsList if any(tag  in d.tags              for tag  in tags)]
 		domainsList= domainsList if not ports		else [d for d in domainsList if any(port in d.ports.items() for port in ports.items())]
 		domainsList= domainsList if not techs		else [d for d in domainsList if any(tech in d.techs        for tech in techs)]
-		domainsList= domainsList if not whois_file	else [d for d in domainsList if d.whois_file == whois_file]
+		domainsList= domainsList if not whois	else [d for d in domainsList if d.whois == whois]
 		domainsList= domainsList if not ip		else [d for d in domainsList if d.ip == ip]
 		domainsList= domainsList if not server_file     else [d for d in domainsList if d.server_file == server_file]
 		domainsList= domainsList if not robots_file	else [d for d in domainsList if d.robots_file== robots_file]

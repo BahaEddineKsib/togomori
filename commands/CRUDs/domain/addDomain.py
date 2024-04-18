@@ -13,7 +13,7 @@ class AddDomain:
 		w_id       = c.option("-w",           True, False,IN)
 		tags       = c.option("--tag",        True, True, IN)
 		techs      = c.option("--tech",       True, True, IN)
-		whois_file = c.option("--whois",      True, False,IN)
+		whois = c.option("--whois",      True, False,IN)
 		ip         = c.option("--ip",         True, False,IN)
 		ports_map  = c.option("--port",       True, True, IN)
 		server_file= c.option("--server",     True, False,IN)
@@ -28,7 +28,7 @@ class AddDomain:
 					for_sure,
 					tags,
 					techs,
-					whois_file,
+					whois,
 					ip,
 					ports_map,
 					server_file,
@@ -55,8 +55,8 @@ class AddDomain:
 			if not techs:       techs       = [] 
 			else: toDisplay.append("techs")
 			
-			if not whois_file:  whois_file  = "" 
-			else: toDisplay.append("whois_file")
+			if not whois:  whois  = "" 
+			else: toDisplay.append("whois")
 			
 			if not ip:          ip          = "" 
 			else: toDisplay.append("ip")
@@ -77,7 +77,7 @@ class AddDomain:
 					domain          =domain,
 					tags            =tags,
 					techs           =techs,
-					whois_file      =whois_file,
+					whois      =whois,
 					ip              =ip,
 					ports           =ports_map,
 					server_file     =server_file,
