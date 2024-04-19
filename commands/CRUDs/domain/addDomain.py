@@ -84,7 +84,7 @@ class AddDomain:
 					robots_file     =robots_file,
 					js_files        = js_files)
 			dmn.display(toDisplay)
-			result = c.questionToExecute(for_sure,dmn.save,{},"Save domain ["+domain+"] ?")
+			result = c.questionToExecute( for_sure,dmn.save,{},"Save domain ["+domain+"] ?")
 			if(result == "WorkshopNotFound"):
 				print("❌ Workshop ["+w_id+"] Not Found.")
 				return "WorkshopNotFound"

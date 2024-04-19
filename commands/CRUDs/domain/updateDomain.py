@@ -37,7 +37,7 @@ class UpdateDomain:
 					js_files,
 					w_id,
 					new_w_id]):
-			AddDomain.help()
+			UpdateDomain.help()
 			return "UserNeedsHelp"
 
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):

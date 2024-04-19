@@ -16,6 +16,8 @@ from commands.CRUDs.path.updatePath	     import UpdatePath	    as up
 from commands.CRUDs.path.deletePath	     import DeletePath	    as delp
 from commands.CRAFTs.getTechs		     import GetTechs
 from commands.CRAFTs.getWhois		     import GetWhois
+from APIs.app				     import run_apis
+from commands.CRUDs    import DRY as c
 import os
 def execute(IN):
 	command = ''
@@ -71,6 +73,7 @@ def execute(IN):
 				case "techs": GetTechs.execute(IN)
 				case "whois": GetWhois.execute(IN)
 				case _      : print("help")
+		case 'run': c.questionToExecute( False,run_apis,{},"running APIs will prevent executing commands in this terminal \n you can execute < python3 APIs/app.py > in another terminal \n run APIs here (y/n)")
 		case '':					return True
 		case "quit" | "q":				return False
 		case "clear" | "c":				os.system('clear')

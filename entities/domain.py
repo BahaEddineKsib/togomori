@@ -154,9 +154,13 @@ class Domain:
 			domain_updated	    =False
 			workshop_updated    =False
 			domain_vars_updated =False
+			print('from update')
+			new_dmn.display()
+			print(type(new_dmn.whois))
 			dmn = Domain.get(workshop_id, domain)
 			for key,val in new_dmn.__dict__.items():
 				if type(val) == str:
+					print('in str '+key+' '+val)
 					if   val:
 						if   key == "workshop_id"	     : workshop_updated    = True
 						elif key == "domain"		     : domain_updated      = True
@@ -166,6 +170,7 @@ class Domain:
 						elif val:
 							dmn.__dict__[key] = val
 				if type(val) == list:
+					print('in list '+key+' '+str(val))
 					if val:
 						domain_vars_updated = True
 						if   val[0] == "+":
@@ -177,6 +182,7 @@ class Domain:
 						else:
 							dmn.__dict__[key]  = val
 				if type(val) == dict:
+					print('in dict '+key+str(val))
 					if val:
 						domain_vars_updated = True
 						if(  next(iter(val.keys())) == "+"	):
@@ -191,7 +197,7 @@ class Domain:
 							else:
 								dmn.__dict__[key] = {}
 						else:
-							dmn.ports= val
+							dmn.__dict__[key]= val
 			if workshop_updated and gv.CURRENT_WORKSHOP == workshop_id and gv.CURRENT_DOMAIN == domain:
 				gv.CURRENT_WORKSHOP = dmn.workshop_id
 			if domain_updated and gv.CURRENT_WORKSHOP == domain:
