@@ -16,6 +16,7 @@ class SetWorkshop:
 			if(Workshop.exist(ID)):
 				gv.CURRENT_WORKSHOP=ID
 				gv.CURRENT_DOMAIN  =""
+				print("✅ Workshop "+ID+" Setted")
 			else:
 				print("❌: Workshop Not Found")
 

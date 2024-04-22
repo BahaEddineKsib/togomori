@@ -15,6 +15,7 @@ class UnsetWorkshop:
 		else:
 			TopG.CURRENT_WORKSHOP=""
 			TopG.CURRENT_DOMAIN  =""
+			print("✅ Workshop  Unsetted")
 			
 	@staticmethod
 	def help():

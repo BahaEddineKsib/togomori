@@ -1,6 +1,7 @@
 import re
 from urllib.parse import urlparse
-
+import io
+import sys
 # DRYFFC : DON'T REPEAT YOURSELF FUNCTIONS FOR COMMANDS
 
 
@@ -133,6 +134,26 @@ def segmentUrl(url):
 	else:
 		return {'domain':'NoDomain','path':'NoPath','variables':'NoVariables'}
 
+
+def capture_prints(func):
+	def wrapper(*args, **kwargs):
+		# Create a StringIO object to capture prints
+		stdout_buffer = io.StringIO()
+		# Redirect sys.stdout to the StringIO object
+		sys.stdout = stdout_buffer
+		try:
+			# Call the function
+			result = func(*args, **kwargs)
+		finally:
+			# Restore sys.stdout
+			sys.stdout = sys.__stdout__
+		# Get the captured prints as a string
+		captured_prints = stdout_buffer.getvalue()
+		# Close the buffer
+		stdout_buffer.close()
+		# Return the captured prints and the result of the function
+		return captured_prints, result
+	return wrapper
 
 
 

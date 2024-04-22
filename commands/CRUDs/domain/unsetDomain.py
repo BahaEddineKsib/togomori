@@ -15,6 +15,7 @@ class UnsetDomain:
 			UnsetDomain.help()
 		else:
 			TopG.CURRENT_DOMAIN = ""
+			print("✅ Domain Unsetted")
 
 	@staticmethod
 	def help():

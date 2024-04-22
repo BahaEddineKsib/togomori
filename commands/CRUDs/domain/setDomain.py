@@ -20,6 +20,7 @@ class SetDomain:
 					print("❌ Domain ["+domain+"] Not Found.")
 				else:
 					gv.CURRENT_DOMAIN = domain
+					print("✅ Domain "+domain+" Setted")
 					
 			else:
 				print("❌: Can't set Domain without setting a workshop.")
