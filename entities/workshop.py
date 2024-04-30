@@ -1,7 +1,6 @@
 import json
 import os
 import GlobalVars as gv
-from   GlobalVars import DATABASE as db
 import entities.domain as D
 import pprint
 import shutil
@@ -20,7 +19,7 @@ class Workshop:
 
 	@staticmethod
 	def getPath(ID):
-		return os.path.join(db,"workshops", ID)
+		return os.path.join(gv.DATABASE,"workshops", ID)
 
 	@staticmethod
 	def getDomainsPath(ID):
@@ -84,7 +83,7 @@ class Workshop:
 
 	@staticmethod
 	def getAll(expand=False):
-		workshop_ids = sorted(os.listdir(os.path.join(db,"workshops")))
+		workshop_ids = sorted(os.listdir(os.path.join(gv.DATABASE,"workshops")))
 		workshops    = []
 		for ID in workshop_ids:
 			wrk = Workshop.get(ID,expand)

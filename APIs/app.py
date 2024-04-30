@@ -5,9 +5,6 @@ import os
 import subprocess
 import json
 import sys
-global LAST_OUTPUT
-LAST_OUTPUT = '-'
-
 
 def define_apis():
 	
@@ -34,6 +31,31 @@ def define_apis():
 		print('\n'+captured_prints)
 		
 		return {'CURRENT_WORKSHOP':gv.CURRENT_WORKSHOP, 'CURRENT_DOMAIN':gv.CURRENT_DOMAIN, "LAST_OUTPUT":captured_prints}
+
+	@app.route('/get_domains', methods=['GET','POST','OPTION'])
+	def get_domains():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "":
+			return {'domains':['set a workshop']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
+		dd = []
+		for d in domainsList:
+			pathsCount = len(Path.getByDomain(d.domain,gv.CURRENT_WORKSHOP))
+			jsCount	   = len(d.js_files)
+			portsCount = len(list(d.ports.keys()))
+			ip	   = "❌" if d.ip	   == "" else d.ip
+			robots_file= "❌" if d.robots_file == "" else d.robots_file
+			server_file= "❌" if d.server_file == "" else d.server_file
+			tags	   = "❌" if len(d.tags)   == 0  else d.tags
+			techs	   = len(d.techs)
+			whois	   = "❌" if d.whois       == "" else "✅"
+
+			dd.append({'domain':d.domain, 'ip':ip,'paths':pathsCount, 'js':jsCount, 'ports':portsCount, 'techs':techs,'whois':whois, 'server_file':server_file, 'robots_file':robots_file, 'tags':tags})
+		return {'data':dd}
 	return app
 def run_apis():
 	subprocess.Popen(["python3", "APIs/app.py"])
@@ -42,4 +64,10 @@ def run_apis():
 if __name__ == '__main__':
 	app = define_apis()
 	app.run(debug=True)
+
+
+
+
+
+
 

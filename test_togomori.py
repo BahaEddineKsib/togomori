@@ -170,7 +170,8 @@ class UTT(unittest.TestCase):
 
 
 if __name__ == "__main__":
-	db = sys.argv[0].replace("test_togomori.py","")+"test_data/"
+	# = "/home/kali/togomori/test_togomori.py".replace("test_togomori.py","")+"test_data/"
+	print(db)
 	global PAUSE
 	inp   =input("make pauses ?[<enter>:no][<y>:yes]")
 	PAUSE =True if inp == 'y' else False
