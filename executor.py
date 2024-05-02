@@ -16,6 +16,7 @@ from commands.CRUDs.path.updatePath	     import UpdatePath	    as up
 from commands.CRUDs.path.deletePath	     import DeletePath	    as delp
 from commands.CRAFTs.getTechs		     import GetTechs
 from commands.CRAFTs.getWhois		     import GetWhois
+from commands.CRAFTs.getIp		     import GetIp
 from commands.CRUDs    import DRY as c
 import os
 import sys
@@ -72,6 +73,7 @@ def execute(IN):
 			match asset:
 				case "techs": GetTechs.execute(IN)
 				case "whois": GetWhois.execute(IN)
+				case "ip"   : GetIp.execute(IN)
 				case _      : print("help")
 		case 'run':
 			from APIs.app import run_apis
