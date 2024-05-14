@@ -93,6 +93,15 @@ def listToMap(LP, updating=False):
 			Map[l]=''
 	return Map
 
+
+def canBeNumber(n):
+    try:
+        int(n)
+        return True
+    except ValueError:
+        return False
+
+
 def segmentUrl(url):
 	if url:
 		result = {}

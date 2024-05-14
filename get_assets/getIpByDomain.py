@@ -1,3 +1,4 @@
+from entities.domain import Domain
 import socket
 
 def GetIpByDomain(workshop, domain, no_save):
