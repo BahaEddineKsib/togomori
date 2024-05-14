@@ -8,6 +8,7 @@ def scan_port(domain, port_name, port, open_ports):
 		sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		sock.settimeout(2)
 		result = sock.connect_ex((domain, port))
+		sock.close()
 		if result == 0:
 			open_ports[port_name] = port
 			print(""+port_name+":"+str(port)+" ✅",end='\n')
@@ -17,11 +18,10 @@ def scan_port(domain, port_name, port, open_ports):
 			print("\n"+port_name+":"+str(port)+" ❌",end='')
 	except Exception as e:
 		#print(port_name+":"+str(port)+" ❌",end='')
-		print("error: ")
-		print(e)
+		#print("error: ")
+		#print(e)
 		open_ports["NoPorts"] = 1
-	finally:
-		sock.close()
+		return 0
 
 def GetOpenPortsByDomain(workshop, domain, no_save,top_20=True, top_web=False, by_ports=[],interval=[]):
 
@@ -32,20 +32,21 @@ def GetOpenPortsByDomain(workshop, domain, no_save,top_20=True, top_web=False, b
 
 	if interval:
 		try:
-			num_of_sockets_to_relax = 350
+			num_of_sockets_to_relax = 30000
 			relax_time = 5
 			relax = 0
 			for p in range(interval[0], interval[1]+1):
 				t = threading.Thread(target=scan_port, args=(domain, str(p), p,  open_ports))
 				t.start()
 				threads_interval.append(t)
+				#print("##################################################################"+str(relax))
 				relax = relax + 1
 				if relax == num_of_sockets_to_relax:
 					relax = 0
 					for T in threads_interval:
 						T.join()
 					threads_interval=[]
-					#print("--------------------------------------------------"+str((p/interval[1])*100)+"%")
+					print("--------------------------------------------------"+str((p/interval[1])*100)+"%")
 			if threads_interval:
 				for T in threads_interval:
 					T.join()
@@ -62,7 +63,7 @@ def GetOpenPortsByDomain(workshop, domain, no_save,top_20=True, top_web=False, b
 	ports_to_scan = getPortsList(top_20, top_web, by_ports)
 	translatePortsToNames(open_ports)
 	if ports_to_scan:
-		try:
+		try: 
 			for key, port in ports_to_scan.items():
 				if not interval:
 					t = threading.Thread(target=scan_port, args=(domain, key, port,  open_ports))

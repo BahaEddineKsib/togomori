@@ -5,7 +5,7 @@ def GetIpByDomain(workshop, domain, no_save):
 	try:
 		ip = socket.gethostbyname(domain)
 	except:
-		return "NoIp"
+		return "NoIp" 
 		
 	if not no_save:
 		dmn = Domain(workshop_id=workshop, domain=domain, ip=ip)
