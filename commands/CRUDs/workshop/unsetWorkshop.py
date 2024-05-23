@@ -19,6 +19,9 @@ class UnsetWorkshop:
 			
 	@staticmethod
 	def help():
-		print("help -UnsetWorkshop")
+		print("""
+	command: unsetworkshop | unsetw | sw  [CONTAIN NO OPTIONS]
+	""")
+
 
 

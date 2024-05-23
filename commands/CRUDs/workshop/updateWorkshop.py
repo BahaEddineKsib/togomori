@@ -26,6 +26,17 @@ class UpdateWorkshop:
 				return "WorkshopUpdated"
 	@staticmethod
 	def help():
-		print("help -UpdateWorkshop")
+		print("""
+	command: updateworkshop | updatew | uw
+	option		required	Description
+
+	<workshop>	  YES		select a workshop to update
+
+	-i <new_id>	  YES		give a new id
+
+	-s		  NO		skip the saving question , and save changes
+	""")
+
+
 
 

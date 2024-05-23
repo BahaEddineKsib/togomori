@@ -52,7 +52,7 @@ def define_apis():
 			server_file= "❌" if d.server_file == "" else d.server_file
 			tags	   = "❌" if len(d.tags)   == 0  else d.tags
 			techs	   = len(d.techs)
-			whois	   = "❌" if d.whois       == "" else "✅"
+			whois	   = "❌" if not d.whois         else "✅"
 
 			dd.append({'domain':d.domain, 'ip':ip,'paths':pathsCount, 'js':jsCount, 'ports':portsCount, 'techs':techs,'whois':whois, 'server_file':server_file, 'robots_file':robots_file, 'tags':tags})
 		return {'data':dd}

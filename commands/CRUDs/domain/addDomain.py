@@ -97,9 +97,37 @@ class AddDomain:
 
 	@staticmethod	
 	def help():
-		print("help -AddDomain")
+		print("""
+	command: adddomain | addd | dd
+	option		required	Description
 
+	-d <domain>	  YES		New Domain 
+					exemple: -d www.example.com
 
+	-w <workshop>	  Y/N		select a workshop to add the domain in it
+					required when there is no workshop setted
+
+	--tags <[tags]>	  NO		
+
+	-s		  NO		skip the saving question , and save changes
+	""")
+
+"""
+		IN         = c.short_command(IN,"ad")
+		ad         = c.option("ad",           False,False,IN)
+		domain     = c.option("-d",           True, False,IN)
+		w_id       = c.option("-w",           True, False,IN)
+		tags       = c.option("--tag",        True, True, IN)
+		techs      = c.option("--tech",       True, True, IN)
+		whois = c.option("--whois",      True, False,IN) 
+		ip         = c.option("--ip",         True, False,IN)
+		ports_map  = c.option("--port",       True, True, IN)
+		server_file= c.option("--server",     True, False,IN)
+		robots_file= c.option("--robots",     True, False,IN)
+		js_files   = c.option("--js",         True, True, IN)
+		for_sure   = c.option("-s",           False,False,IN)
+	
+"""
 
 
 #TESTING COMMAND

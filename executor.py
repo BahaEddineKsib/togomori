@@ -18,6 +18,7 @@ from commands.CRAFTs.getTechs		     import GetTechs
 from commands.CRAFTs.getWhois		     import GetWhois
 from commands.CRAFTs.getIp		     import GetIp
 from commands.CRAFTs.getOpenPorts	     import GetOpenPorts
+from commands.CRAFTs.getSubDomains	     import GetSubDomains
 from commands.CRUDs    import DRY as c
 import os
 import sys
@@ -76,6 +77,7 @@ def execute(IN):
 				case "whois": GetWhois.execute(IN)
 				case "ip"   : GetIp.execute(IN)
 				case "ports": GetOpenPorts.execute(IN)
+				case "subs" : GetSubDomains.execute(IN)
 				case _      : print("help")
 		case 'run':
 			from APIs.app import run_apis

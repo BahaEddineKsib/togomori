@@ -32,5 +32,16 @@ class DisplayWorkshop:
 			
 	@staticmethod
 	def help():
-		print("help -DisplayWorkshop")
+		print("""
+	command: displayworkshop | displayw | dw
+	option		required	Description
+
+	-w <workshop>	  Y/N		select a workshop to display 
+					required when option -A is not added
+
+	-A		  Y/N		display ALL the workshops
+					required when option -w is not added
+
+	-x		  NO		expand the display for more details
+	""")
 

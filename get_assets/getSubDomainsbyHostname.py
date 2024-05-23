@@ -1,10 +1,12 @@
-#from entities.domain		import Domain
-#import GlobalVars		as gv
+from entities.domain		import Domain
+import GlobalVars		as gv
 import socket
 import threading
 
 
 def GetSubDomainsByHostname(workshop, domain, no_save, by_wordlist=True):
+	socket.setdefaulttimeout(100)
+	founded_subs = {}
 	if by_wordlist :
 		#wordlist_file = gv.PATH+"wordlists/subs.txt"
 		wordlist_file = "wordlists/subs.txt"
@@ -13,14 +15,13 @@ def GetSubDomainsByHostname(workshop, domain, no_save, by_wordlist=True):
 			name = file.read()
 			subsList = name.splitlines()
 		threads = []
-		founded_subs= {}
 		num_of_sockets_to_relax = 10001
 		relax_time = 5
 		relax = 0
 		subNum=0
 		for sub in subsList:
 			subNum = subNum+1
-			t = threading.Thread(target=domainExist, args=(workshop, sub+'.'+domain, True, founded_subs))
+			t = threading.Thread(target=domainExist, args=(workshop, sub+'.'+domain, no_save, founded_subs))
 			t.start()
 			threads.append(t)
 			relax = relax + 1
@@ -36,18 +37,23 @@ def GetSubDomainsByHostname(workshop, domain, no_save, by_wordlist=True):
 			threads=[]
 			print("--------------------------------------------------100%    DONE")
 	#print(founded_subs)
+	return founded_subs
 
 def domainExist(workshop, domain, no_save, founded_subs):
+	save_it = False
 	try:
 		ip = socket.gethostbyname(domain)
-		founded_subs[domain] = ip
-		print("[+] "+domain)
+
+		if ip not in list(founded_subs.values()):
+			founded_subs[domain] = ip
+			print("[+] "+ip+" "+domain)
+			save_it = True
 	except Exception as e:
 		#print(e)
 		#print("***********"+domain)
-		return "NoIp" 
-		"""
-	if not no_save:
+		return "NoIp"
+
+	if (not no_save) and save_it:
 		dmn = Domain(workshop_id=workshop, domain=domain, ip=ip)
 		r   = dmn.save()
 		if r == 'WorkshopNotFound':
@@ -56,10 +62,9 @@ def domainExist(workshop, domain, no_save, founded_subs):
 			dmn.domain = ''
 			dmn.workshop_id=''
 			r = Domain.update(domain, workshop, dmn, False)
-		"""
 	return ip
 
 
 
 
-GetSubDomainsByHostname("workshop", "esprit.tn", True, by_wordlist=True)
+#GetSubDomainsByHostname("workshop", "esprit-tn.com", True, by_wordlist=True)

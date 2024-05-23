@@ -4,6 +4,7 @@ ftp
 localhost
 webmail
 pfe
+prepa
 smtp
 pop
 ns1
@@ -28,6 +29,7 @@ vpn
 ns3
 mail2
 new
+grade
 mysql
 old
 lists

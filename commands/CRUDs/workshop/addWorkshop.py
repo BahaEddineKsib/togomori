@@ -25,13 +25,14 @@ class AddWorkshop:
 
 	@staticmethod	
 	def help():
-		print("help -AddWorkshop")
+		print("""
+	command: addworkshop | addw | aw
+	option		required	Description
 
+	<workshop>	  YES		the name of the new workshop
 
-
-
-
-
+	-s		  NO		skip the saving question , and save changes
+	""")
 
 
 

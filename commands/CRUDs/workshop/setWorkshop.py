@@ -22,5 +22,12 @@ class SetWorkshop:
 
 	@staticmethod
 	def help():
-		print("help -SetWorkshop")
+		print("""
+	command: setworkshop | setw | sw
+	option		required	Description
+
+	<workshop>	  Y/N		workshop name to set
+	""")
+
+
 

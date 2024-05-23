@@ -22,6 +22,13 @@ class DeleteWorkshop:
 			return result
 	@staticmethod
 	def help():
-		print("help -AddWorkshop")
+		print("""
+	command: deleteworkshop | deletew | delw
+	option		required	Description
+
+	<workshop>	  YES		workshop name to delete
+
+	-s		  NO		skip the saving question , and save changes
+	""")
 
 
