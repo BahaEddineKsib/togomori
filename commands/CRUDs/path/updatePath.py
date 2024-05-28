@@ -11,10 +11,10 @@ class UpdatePath:
 		IN         = c.short_command(IN,"up")
 		up         = c.option("up",     True, False,IN)
 		domain     = c.option("-d",	True, False,IN)
-		new_path   = c.option("--p",	True, False,IN)
+		new_path   = c.option("-p",	True, False,IN)
 		tags       = c.option("--tag",  True, True, IN)
 		variables  = c.option("--var",  True, True, IN)
-		new_d	   = c.option("--d",	True, False,IN)
+		new_d	   = c.option("-D",	True, False,IN)
 		w_id       = c.option("-w",     True, False,IN)
 		for_sure   = c.option("-s",     False,False,IN)
 
@@ -79,6 +79,30 @@ class UpdatePath:
 
 	@staticmethod	
 	def help():
-		print("help -AddDomain")
+		print("""
+	command: updatepath | updatep | up
+	option			required	Description
 
+	<path>			  YES		select a path to update
+						exemple: up /path1/page.php
+						Note: you can specify the domain here
+						(up www.ex.tn/path1/page.php)
 
+	-d <domain>		  Y/N		specify a domain
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	--tag  <[tags]>		  NO		Update tags (ERASE all the old tags and replace it with new list.)
+	     + <[tags]>				adding + before the tags list will add to the already existed tags
+	     - <[tags]>				adding _ before the tags list will remove the tags you listed if they exist
+						exemple: --tag + ex1 ex2 ex3 ex4
+
+	--var <[variable:VALUE]>  NO		Update variables (ERASE all the old variables and replace it with new list)
+	     +<[variable:VALUE]>		adding + before the variables list will add to the already existed variables
+	     -<[variable:VALUE]>		adding _ before the variables list will remove the variables you listed if they exist
+						exemple: --var _ email:admin@m.com date:4-9-22
+
+	-s			  NO		skip the saving question , and save changes
+	""")

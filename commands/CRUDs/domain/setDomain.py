@@ -27,5 +27,9 @@ class SetDomain:
 
 	@staticmethod
 	def help():
-		print("help -SetWorkshop")
+		print("""
+	command: setdomain | setd | sd
+	option		required	Description
 
+	<domain>	  YES		workshop name to set
+	""")

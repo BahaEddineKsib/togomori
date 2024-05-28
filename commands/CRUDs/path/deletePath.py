@@ -49,5 +49,19 @@ class DeletePath:
 			return result
 	@staticmethod	
 	def help():
-		print("help -DeletePath")
+		print("""
+	command: deletepath | deletep | delp
+	option			required	Description
+
+	<path>			  YES		insert path to delete
+						exemple: dp /path1/page.php
+
+	-d <domain>		  Y/N		specify a domain where the path exist
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	-s			  NO		skip the saving question , and save changes
+	""")
 

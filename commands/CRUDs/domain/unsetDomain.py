@@ -19,5 +19,9 @@ class UnsetDomain:
 
 	@staticmethod
 	def help():
-		print("help -SetWorkshop")
+		print("""
+	command: unsetdomain | unsetd | usd [CONTAIN NO OPTIONS]
+	""")
+
+
 

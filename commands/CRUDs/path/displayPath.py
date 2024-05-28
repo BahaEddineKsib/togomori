@@ -78,6 +78,32 @@ class DisplayPath:
 			
 	@staticmethod
 	def help():
-		print("help -AddDomain")
+		print("""
+	command: addpath | addp | dp
+	option			required	Description
+
+	-p <path>		  Y/N		insert path to display
+						required in the absent of -A or -a
+
+	-d <domain>		  Y/N		specify a domain
+						required when there is no domain setted
+						optional in the presence of the option -A
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	-a			  NO		display all the paths of a specified domain
+
+	-A			  NO		display all the paths of a specified workshop
+
+
+	--select		  NO		select the path in this manner (~~~~~~~~~)
+
+	-x			  NO		extand the display
+
+	-X			  NO		VERY extand the display
+
+	-s			  NO		skip the saving question , and save changes
+		""")
 
 

@@ -68,6 +68,26 @@ class AddPath:
 
 	@staticmethod	
 	def help():
-		print("help -AddDomain")
+		print("""
+	command: addpath | addp | dp
+	option			required	Description
 
+	<path>			  YES		New path
+						exemple: dp /path1/page.php
+						Note: you can specify the domain and variables here 
+						(dp www.ex.tn/path1/page.php?id=40)
 
+	-d <domain>		  Y/N		specify a domain
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	--tag <[tags]>		  NO		Add a list of tags to add in the new domain
+						exemple: --tag ex1 ex2 ex3 ex4
+
+	--var <[variable:VALUE]>  NO		Add a list of variables and its value to add to the new path
+						exemple: --var email:admin@m.com date:4-9-22
+
+	-s			  NO		skip the saving question , and save changes
+		""")

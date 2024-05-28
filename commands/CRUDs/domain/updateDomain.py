@@ -108,8 +108,46 @@ class UpdateDomain:
 				print("✅ Domain ["+ud+"] is Updated.")
 			return result
 
-	@staticmethod	
+	@staticmethod
 	def help():
-		print("help -AddDomain")
+		print("""
+	command: updatedomain | updated | ud
+	option			required	Description
+	
+	<domain>		  YES		Select a domain to update
+						exemple: ud www.exemple.com
 
+	-d <domain>		  YES		Insert a New Domain
+						exemple: -d www.example_updated.com
 
+	-w <workshop>		  Y/N		Select a workshop which the domain exist
+						required when there is no workshop setted
+
+	--tag   <[tags]>	  NO		Update tags. ( ERASE all the old tags and replace it with the new list.)
+	      + <[tags]>			adding + before the tags list will add tags to the already existed tags 
+	      _ <[tags]>			adding _ before the tags list will remove the tags you listed if they exist
+						exemple: --tag _ tag1 tag2 tag3
+
+	--tech   <[techs]>	  NO		Update technologies.( ERASE all the old techs and replace it with the new list.)
+	       + <[techs]>			adding + before the techs list will add tags to the already existed tags
+	       _ <[techs]>			adding _ before the techs list will remove the tags you listed if they exist
+						exemple: --tech + react bootstrap nodejs
+
+	--whois  <[COLUMN:VALUE]> NO		Update whois columns. (ERASE all the columns and replace them with your input)
+	       + <[COLUMN:VALUE]>		adding + before the whois columns will add columns to the already existed columns
+	       _ <[COLUMN:VALUE]>		adding _ before the column:value list will remove the columns you listed if they exist
+						exemple: --whois + admin_email:admin@m.com org:techCompany
+
+	--ip <ip>		  NO		Update the ip address
+
+	--port   <[PORT:VALUE]>	  NO		Update the ports ( ERASE all the old ports and replace it with the new list.)
+	       + <[PORT:VALUE]>			adding + before the ports list will add ports to the already existed ports
+	       _ <[PORT:VALUE]>			adding _ before the ports list will remove the ports you listed if they exist
+						exemple: --port http:443 ssh:22
+
+	--robots <file_path>	  NO		Update the robots.txt file path
+
+	--js <[file_path]>	  NO		Update the list of js file's paths (-/+)
+
+	-s			  NO		skip the saving question , and save changes
+	""")

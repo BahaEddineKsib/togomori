@@ -35,5 +35,17 @@ class DeleteDomain:
 			return result
 	@staticmethod	
 	def help():
-		print("help -DeleteDomain")
+		print("""
+	command: deldomain | deleted | deld
+	option			required	Description
+
+	<domain>		  YES		New Domain 
+						exemple: deld www.example.com
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	-s			  NO		skip the saving question , and save changes
+	""")
+
 

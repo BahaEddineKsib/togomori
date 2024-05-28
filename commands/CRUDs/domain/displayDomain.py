@@ -59,7 +59,7 @@ class DisplayDomain:
 			if not tld:	    tld         = ""
 			if not tags:        tags        = [] 
 			if not techs:       techs       = [] 
-			if not whois:  whois  = "" 
+			if not whois:  whois		= {}
 			if not ip:          ip          = "" 
 			if not ports_map:   ports_map   = {} 
 			if not server_file: server_file = "" 
@@ -70,7 +70,7 @@ class DisplayDomain:
 					domain		=domain,
 					tags            =tags,
 					techs		=techs,
-					whois      =whois,
+					whois		=whois,
 					ip              =ip,
 					ports		=ports_map,
 					server_file     =server_file,
@@ -88,7 +88,7 @@ class DisplayDomain:
 								tld	   =tld,
 								tags	   =tags,
 								techs      =techs,
-								whois =whois,
+								whois      =whois,
 								ip	   =ip,
 								ports	   =ports_map,
 								server_file=server_file,
@@ -110,9 +110,46 @@ class DisplayDomain:
 				
 
 
-	@staticmethod	
+	@staticmethod
 	def help():
-		print("help -DisplayDomain")
+		print("""
+	command: displaydomain | displayd | dd
+	option			required	Description
 
+	-d <domain>		  Y/N		Select a domain to display
+						required when -A option is absent
+
+	-A			  Y/N		Display all the domains in a workshop
+						required when -d option id absent
+
+	--show <[VARs]>		  NO		Choose variables to display. variables are:
+						[domain, tag, tech, ip, port, robots, js, whois, ALL]
+						exemple: --show whois port
+						note: the variable ALL , means display all the variables
+
+	-x			  NO		Expand the display
+
+	-w <workshop>		  Y/N		select a workshop
+						required when there is no workshop setted
+
+	--tag <[tags]>		  NO		Search by a list of tags to add in the new domain
+						exemple: --tag ex1 ex2 ex3 ex4
+
+	--tech <[techs]>	  NO		Search by a list of techs to add in the new domain
+						exemple: --tech react bootstrap nodejs
+
+	--whois <[COLUMN:VALUE]>  NO		Search by a list of whois colums and its value to add to the new domain
+						exemple: --whois admin_email:admin@m.com org:techCompany
+
+	--ip <ip>		  NO		Search by an ip address to the new domain
+
+	--port <[PORT:VALUE]>	  NO		Search by a list of ports to add to the new domain
+						exemple: --port http:443 ssh:22
+
+	--robots <file_path>	  NO		Search by a robots.txt file path
+
+	--js <file_path>	  NO		Search by a list of js file's paths
+
+	""")
 
 
