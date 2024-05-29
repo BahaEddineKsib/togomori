@@ -47,5 +47,20 @@ class GetSubDomains:
 			return result
 	@staticmethod
 	def help():
-		print("help")
+		print("""
+	command: get subs
+	option			required	Description
+
+	-d <domain>		  YES		insert a domain to get its subdomains
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop
+						required when there is no workshop setted
+
+	-W			  NO		scan by the wordlist
+
+	-C			  NO		get subs from crt.sh
+
+	-no			  NO		do NOT save the ip address we got.
+		""")
 

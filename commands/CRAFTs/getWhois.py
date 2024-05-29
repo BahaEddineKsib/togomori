@@ -41,7 +41,20 @@ class GetWhois:
 						print(key+': '+str(result[key]))
 	
 			return result
+	@staticmethod	
+	def help():
+		print("""
+	command: get whois
+	option			required	Description
 
+	-d <domain>		  YES		insert a domain to get its technologies
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop
+						required when there is no workshop setted
+
+	-no			  NO		do NOT save the ip address we got.
+		""")
 
 
 

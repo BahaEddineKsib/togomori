@@ -77,5 +77,25 @@ class GetOpenPorts:
 
 	@staticmethod
 	def help():
-		print("help")
+		print("""
+	command: get ports
+	option			required	Description
+
+	-d <domain>		  YES		insert a domain to get its ip address
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	--t20			  NO		scan the top 20 scanned ports
+
+	--tweb			  NO		scan the top scanned ports for web applications
+
+	-p			  NO		specify a one or list of ports to scan
+
+	--interval		  NO		specify an interval of ports to scan
+
+	-no			  NO		do NOT save the ip address we got.
+		""")
+
 #GetIpByDomain('workshop', 'google.com', 'no_save', False, False, [], [1,1000])

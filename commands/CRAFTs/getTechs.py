@@ -48,6 +48,20 @@ class GetTechs:
 	
 	@staticmethod	
 	def help():
-		print("help -get techs")
+		print("""
+	command: get techs
+	option			required	Description
+
+	-d <domain>		  YES		insert a domain to get its technologies
+						required when there is no domain setted
+
+	-w <workshop>		  Y/N		select a workshop
+						required when there is no workshop setted
+
+	-b			  NO		get the credit (how many scan left)
+
+	-no			  NO		do NOT save the ip address we got.
+		""")
+
 
 

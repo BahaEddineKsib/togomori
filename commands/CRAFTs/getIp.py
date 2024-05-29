@@ -40,8 +40,15 @@ class GetIp:
 			return result
 	@staticmethod
 	def help():
-		print("help")
+		print("""
+	command: get ip
+	option			required	Description
 
+	-d <domain>		  YES		insert a domain to get its ip address
+						required when there is no domain setted
 
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
 
-
+	-no			  NO		do NOT save the ip address we got.
+		""")
