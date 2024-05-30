@@ -1,4 +1,4 @@
-from entities.workshop			import Workshop
+from entities.workshop			import Workshop 
 from entities.domain			import Domain
 from entities.path			import Path
 from commands.CRUDs			import DRY as c

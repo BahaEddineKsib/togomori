@@ -19,6 +19,7 @@ from commands.CRAFTs.getWhois		     import GetWhois
 from commands.CRAFTs.getIp		     import GetIp
 from commands.CRAFTs.getOpenPorts	     import GetOpenPorts
 from commands.CRAFTs.getSubDomains	     import GetSubDomains
+from commands.help			     import Help
 from commands.CRUDs    import DRY as c
 import os
 import sys
@@ -78,7 +79,7 @@ def execute(IN):
 				case "ip"   : GetIp.execute(IN)
 				case "ports": GetOpenPorts.execute(IN)
 				case "subs" : GetSubDomains.execute(IN)
-				case _      : print("help")
+				case _      : Help.execute("help get")
 		case 'run':
 			from APIs.app import run_apis
 			c.questionToExecute( False,run_apis,{},"running APIs will prevent executing commands in this terminal \n you can execute < python3 APIs/app.py > in another terminal \n run APIs here (y/n)")
@@ -86,6 +87,7 @@ def execute(IN):
 		case "quit" | "q":				return False
 		case "clear" | "c":				os.system('clear')
 		case "pwd":					print(os.getcwd())
+		case "help":					Help.execute(IN)
 		case _:						print('Invalid Command')
 	return True
 			
