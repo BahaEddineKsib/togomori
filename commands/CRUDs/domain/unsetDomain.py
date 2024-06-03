@@ -3,7 +3,7 @@ from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
 import json
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class UnsetDomain:
 	@staticmethod
@@ -15,11 +15,11 @@ class UnsetDomain:
 			UnsetDomain.help()
 		else:
 			TopG.CURRENT_DOMAIN = ""
-			print("✅ Domain Unsetted")
+			pp("✅ Domain Unsetted")
 
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: unsetdomain | unsetd | usd [CONTAIN NO OPTIONS]
 	""")
 

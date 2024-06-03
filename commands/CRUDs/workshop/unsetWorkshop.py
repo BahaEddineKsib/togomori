@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
 import json
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class UnsetWorkshop:
 	@staticmethod
@@ -15,11 +15,11 @@ class UnsetWorkshop:
 		else:
 			TopG.CURRENT_WORKSHOP=""
 			TopG.CURRENT_DOMAIN  =""
-			print("✅ Workshop  Unsetted")
+			pp("✅ Workshop  Unsetted")
 			
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: unsetworkshop | unsetw | sw  [CONTAIN NO OPTIONS]
 	""")
 

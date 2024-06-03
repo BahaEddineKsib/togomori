@@ -2,6 +2,7 @@ from entities.domain		import Domain
 import GlobalVars		as gv
 import socket
 import threading
+from personalizedPrint import pp
 
 
 def GetSubDomainsByHostname(workshop, domain, no_save, by_wordlist=True):
@@ -30,13 +31,13 @@ def GetSubDomainsByHostname(workshop, domain, no_save, by_wordlist=True):
 				for T in threads:
 					T.join()
 				threads=[]
-				print("--------------------------------------------------"+str((subNum/10000)*100)+"%")
+				pp("--------------------------------------------------"+str((subNum/10000)*100)+"%")
 		if threads:
 			for T in threads:
 				T.join()
 			threads=[]
-			print("--------------------------------------------------100%    DONE")
-	#print(founded_subs)
+			pp("--------------------------------------------------100%    DONE")
+	#pp(founded_subs)
 	return founded_subs
 
 def domainExist(workshop, domain, no_save, founded_subs):
@@ -46,11 +47,11 @@ def domainExist(workshop, domain, no_save, founded_subs):
 
 		if ip not in list(founded_subs.values()):
 			founded_subs[domain] = ip
-			print("[+] "+ip+" "+domain)
+			pp("[+] "+ip+" "+domain)
 			save_it = True
 	except Exception as e:
-		#print(e)
-		#print("***********"+domain)
+		#pp(e)
+		#pp("***********"+domain)
 		return "NoIp"
 
 	if (not no_save) and save_it:

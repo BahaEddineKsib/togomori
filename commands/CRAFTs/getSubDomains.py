@@ -4,7 +4,7 @@ from entities.path			import Path
 from commands.CRUDs			import DRY as c
 from get_assets.getSubDomainsbyHostname	import GetSubDomainsByHostname
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 #GetSubDomainsByHostname("workshop", "esprit-tn.com", True, by_wordlist=True)
 class GetSubDomains:
@@ -25,10 +25,10 @@ class GetSubDomains:
 			GetIp.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(c.segmentUrl(domain)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			domain   = c.segmentUrl(domain)['domain'] if domain else TopG.CURRENT_DOMAIN
@@ -41,13 +41,13 @@ class GetSubDomains:
 			result = GetSubDomainsByHostname(workshop,domain,no_save, by_wordlist)
 
 			match result:
-				case {} : print("No subdomains are found.")
-				case _  : print(result)
+				case {} : pp("No subdomains are found.")
+				case _  : pp(result)
 	
 			return result
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: get subs
 	option			required	Description
 

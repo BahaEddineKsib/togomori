@@ -1,5 +1,6 @@
 from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
+from personalizedPrint import pp
 
 class DeleteWorkshop:
 	@staticmethod
@@ -14,15 +15,15 @@ class DeleteWorkshop:
 		else:
 			result = c.questionToExecute(for_sure,Workshop.delete,{'ID':ID},"Delete workshop ["+ID+"] ?")
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+ID+"] not found")
+				pp("❌ Workshop ["+ID+"] not found")
 			elif(result == "WorkshopIsSet"):
-				print("❌ Workshop ["+ID+"] is set - can't delete workshop when setted as current workshop")
+				pp("❌ Workshop ["+ID+"] is set - can't delete workshop when setted as current workshop")
 			elif(result == "WorkshopDeleted"):
-				print("✅ Workshop ["+ID+"] is Deleted")
+				pp("✅ Workshop ["+ID+"] is Deleted")
 			return result
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: deleteworkshop | deletew | delw
 	option		required	Description
 

@@ -2,6 +2,7 @@ import re
 from urllib.parse import urlparse
 import io
 import sys
+from personalizedPrint import pp
 # DRYFFC : DON'T REPEAT YOURSELF FUNCTIONS FOR COMMANDS
 
 
@@ -51,7 +52,7 @@ def saveIt(save, save_function):
 			s = input("\nsave it (y/n) ?")
 			stay = False if s in ['y','n'] else True
 		if(s=='n'):
-			print("❌: THIS OBJECT WON'T BE SAVED")
+			pp("❌: THIS OBJECT WON'T BE SAVED")
 			return False
 		else:
 			return save_function()

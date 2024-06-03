@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from entities.domain   import Domain
 from commands.CRUDs    import DRY as c
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class DeleteDomain:
 	@staticmethod
@@ -18,7 +18,7 @@ class DeleteDomain:
 			DeleteDomain.help()
 			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		else:
 			cw         = TopG.CURRENT_WORKSHOP
@@ -27,15 +27,15 @@ class DeleteDomain:
 			result = c.questionToExecute(for_sure,Domain.delete,{'domain':deld, 'workshop_id':w_id},"Delete domain ["+deld+"] ?")
 			
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 			elif(result == "DomainNotFound"):
-				print("❌ Domain ["+deld+"] Not Found.")
+				pp("❌ Domain ["+deld+"] Not Found.")
 			elif(result == "DomainDeleted"):
-				print("✅ Domain ["+deld+"] is Deleted.")
+				pp("✅ Domain ["+deld+"] is Deleted.")
 			return result
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: deldomain | deleted | deld
 	option			required	Description
 

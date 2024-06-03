@@ -20,7 +20,9 @@ from commands.CRAFTs.getIp		     import GetIp
 from commands.CRAFTs.getOpenPorts	     import GetOpenPorts
 from commands.CRAFTs.getSubDomains	     import GetSubDomains
 from commands.help			     import Help
-from commands.CRUDs    import DRY as c
+from commands.CRUDs			     import DRY as c
+from personalizedPrint			     import clear
+from personalizedPrint			     import pp
 import os
 import sys
 def execute(IN):
@@ -50,25 +52,25 @@ def execute(IN):
 		case "updatepath" | "updatep" | "up":		up.execute(IN)
 		case "deletepath" | "deletep" | "delp":		delp.execute(IN)
 		# Parameter
-		case "addvariable" | "addv" | "av":		print('EXECUTING add parameter..')
-		case "displayvariable" | "displayv" | "dv":	print('EXECUTING display parameter..')
-		case "updatevariable" | "updatev" | "uv":	print('EXECUTING update parameter..')
-		case "deletevariable" | "deletev" | "delv":	print('EXECUTING delete parameter..')
+		case "addvariable" | "addv" | "av":		pp('EXECUTING add parameter..')
+		case "displayvariable" | "displayv" | "dv":	pp('EXECUTING display parameter..')
+		case "updatevariable" | "updatev" | "uv":	pp('EXECUTING update parameter..')
+		case "deletevariable" | "deletev" | "delv":	pp('EXECUTING delete parameter..')
 		# Cookie
-		case "addcookie" | "addc" | "ac":		print('EXECUTING add cookie..')
-		case "displaycookie" | "displayc" | "dc":	print('EXECUTING display cookie..')
-		case "updatecookie" | "updatec" | "uc":		print('EXECUTING update cookie..')
-		case "deletecookie" | "deletec" | "delc":	print('EXECUTING delete cookie..')
+		case "addcookie" | "addc" | "ac":		pp('EXECUTING add cookie..')
+		case "displaycookie" | "displayc" | "dc":	pp('EXECUTING display cookie..')
+		case "updatecookie" | "updatec" | "uc":		pp('EXECUTING update cookie..')
+		case "deletecookie" | "deletec" | "delc":	pp('EXECUTING delete cookie..')
 		# Capture
-		case "addcapture" | "addcap" | "acap":		print('EXECUTING add capture..')
-		case "displaycapture" | "displaycap" | "dcap":	print('EXECUTING display capture..')
-		case "updatecapture" | "updatecap" | "ucap":	print('EXECUTING update capture..')
-		case "deletecapture" | "deletecap" | "dcap":	print('EXECUTING delete capture..')
+		case "addcapture" | "addcap" | "acap":		pp('EXECUTING add capture..')
+		case "displaycapture" | "displaycap" | "dcap":	pp('EXECUTING display capture..')
+		case "updatecapture" | "updatecap" | "ucap":	pp('EXECUTING update capture..')
+		case "deletecapture" | "deletecap" | "dcap":	pp('EXECUTING delete capture..')
 		# Transaction
-		case "addtransaction" | "addt" | "at":		print('EXECUTING add transaction..')
-		case "displaytransaction" | "displayt" | "dt":	print('EXECUTING display transaction..')
-		case "updatetransaction" | "updatet" | "ut":	print('EXECUTING update transaction..')
-		case "deletetransaction" | "deletet" | "delt":	print('EXECUTING delete transaction..')
+		case "addtransaction" | "addt" | "at":		pp('EXECUTING add transaction..')
+		case "displaytransaction" | "displayt" | "dt":	pp('EXECUTING display transaction..')
+		case "updatetransaction" | "updatet" | "ut":	pp('EXECUTING update transaction..')
+		case "deletetransaction" | "deletet" | "delt":	pp('EXECUTING delete transaction..')
 		case "get":
 			asset = ''
 			if len(IN.split()) >= 2:
@@ -85,10 +87,10 @@ def execute(IN):
 			c.questionToExecute( False,run_apis,{},"running APIs will prevent executing commands in this terminal \n you can execute < python3 APIs/app.py > in another terminal \n run APIs here (y/n)")
 		case '':					return True
 		case "quit" | "q":				return False
-		case "clear" | "c":				os.system('clear')
-		case "pwd":					print(os.getcwd())
+		case "clear" | "c":				clear()
+		case "pwd":					pp(os.getcwd())
 		case "help":					Help.execute(IN)
-		case _:						print('Invalid Command')
+		case _:						pp('Invalid Command')
 	return True
 			
 			

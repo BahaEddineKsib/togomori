@@ -4,7 +4,7 @@ from entities.path			import Path
 from commands.CRUDs			import DRY as c
 from get_assets.getIpByDomain	 	import GetIpByDomain 
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class GetIp:
 	@staticmethod
@@ -22,10 +22,10 @@ class GetIp:
 			GetIp.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(c.segmentUrl(domain)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			domain   = c.segmentUrl(domain)['domain'] if domain else TopG.CURRENT_DOMAIN
@@ -34,13 +34,13 @@ class GetIp:
 			
 			result = GetIpByDomain(workshop,domain,no_save)
 			match result:
-				case "NoIp": print("Can't get this domain's ip")
-				case _  :		 print(result)
+				case "NoIp": pp("Can't get this domain's ip")
+				case _  :		 pp(result)
 	
 			return result
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: get ip
 	option			required	Description
 

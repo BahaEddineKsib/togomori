@@ -3,7 +3,7 @@ from entities.domain   import Domain
 from entities.path     import Path
 from commands.CRUDs    import DRY as c
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class AddPath:
 	@staticmethod
@@ -22,15 +22,15 @@ class AddPath:
 			AddPath.help()
 			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(not domain and c.segmentUrl(ap)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			path   = c.segmentUrl(ap)["path"]
 			if path == 'NoPath' or path == 'InvalidPath':
-				print("❌ Invalid Path. Path should contain at least one / and  start with /")
+				pp("❌ Invalid Path. Path should contain at least one / and  start with /")
 				return "InvalidPath"
 
 			domain = c.segmentUrl(ap)['domain'] if not domain		else domain
@@ -55,20 +55,20 @@ class AddPath:
 			
 			result = c.questionToExecute(for_sure,pth.save,{'workshop_id':w_id},"Save path ["+ap+"] ?")
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 			elif(result == "DomainNotFound"):
-				print("❌ Domain ["+domain+"] Not Found.")
+				pp("❌ Domain ["+domain+"] Not Found.")
 			elif(result == "PathExist"):
-				print("❌ Path ["+path+"] Already Exist.")
+				pp("❌ Path ["+path+"] Already Exist.")
 			elif(result == "PathAdded"):
-				print("✅ Path ["+path+"] is Added.")
+				pp("✅ Path ["+path+"] is Added.")
 			return result
 
 
 
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: addpath | addp | dp
 	option			required	Description
 

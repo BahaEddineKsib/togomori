@@ -3,7 +3,7 @@ from entities.domain   import Domain
 from entities.path     import Path
 from commands.CRUDs    import DRY as c
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class UpdatePath:
 	@staticmethod
@@ -23,22 +23,22 @@ class UpdatePath:
 			AddPath.help()
 			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(not domain and c.segmentUrl(up)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			path   = c.segmentUrl(up)["path"]
 			if path == 'NoPath' or path == 'InvalidPath':
-				print("❌ Invalid Path. Path should contain at least one / and  start with /")
+				pp("❌ Invalid Path. Path should contain at least one / and  start with /")
 				return "InvalidPath"
 
 			if new_path:
 				new_p = c.segmentUrl(new_path)["path"]
 				d     = c.segmentUrl(new_path)["domain"]
 				if new_p == 'NoPath' or new_p == "InvalidPath":
-					print("❌ Invalid Path. Path should contain at least one / and  start with /")
+					pp("❌ Invalid Path. Path should contain at least one / and  start with /")
 					return "InvalidPath"
 				elif not new_d and d != 'NoDomain' :
 					new_d = d
@@ -62,24 +62,24 @@ class UpdatePath:
 			
 			result = c.questionToExecute(for_sure,Path.update,{'workshop_id':w_id,'domain':domain,'path':path,'new_pth':new_pth},"Update path ["+path+"] ?")
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 			elif(result == "DomainNotFound"):
-				print("❌ Domain ["+domain+"] Not Found.")
+				pp("❌ Domain ["+domain+"] Not Found.")
 			elif(result == "PathNotFound"):
-				print("❌ path ["+path+"] Not Found")
+				pp("❌ path ["+path+"] Not Found")
 			elif(result == "NewPathExist"):
-				print("❌ Path ["+new_p+"] Already Exist.")
+				pp("❌ Path ["+new_p+"] Already Exist.")
 			elif(result == "NewDomainNotFound"):
-				print("❌ domain ["+new_d+"] Not Found.")
+				pp("❌ domain ["+new_d+"] Not Found.")
 			elif(result == "PathUpdated"):
-				print("✅ Path ["+path+"] is Updated.")
+				pp("✅ Path ["+path+"] is Updated.")
 			return result
 
 
 
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: updatepath | updatep | up
 	option			required	Description
 

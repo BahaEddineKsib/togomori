@@ -3,7 +3,7 @@ from entities.domain   import Domain
 from entities.path     import Path
 from commands.CRUDs    import DRY as c
 import GlobalVars as gv
-
+from personalizedPrint import pp
 
 class DisplayPath:
 	@staticmethod
@@ -23,17 +23,17 @@ class DisplayPath:
 			DisplayPath.help()
 			return "UserNeedsHelp"
 		elif(not w_id and gv.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(not domain and c.segmentUrl(path)["domain"] == "NoDomain" and not gv.CURRENT_DOMAIN and not all_in_workshop):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			cw   = gv.CURRENT_WORKSHOP
 			w_id = cw if not w_id else w_id
 
 			if not Workshop.exist(w_id):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 				return"WorkshopNotFound"
 
 			if(all_in_workshop):
@@ -48,7 +48,7 @@ class DisplayPath:
 			domain = gv.CURRENT_DOMAIN		if     domain=="NoDomain" else domain
 
 			if not Domain.exist(w_id,domain):
-				print("❌ Domain ["+domain+"] Not Found.")
+				pp("❌ Domain ["+domain+"] Not Found.")
 				return   "DomainNotFound"
 			if(all_in_domain):
 				pp = []
@@ -60,14 +60,14 @@ class DisplayPath:
 
 			path   = c.segmentUrl(path)["path"]
 			if path == 'InvalidPath':
-				print("❌ Invalid Path. Path should contain at least one / and  start with /")
+				pp("❌ Invalid Path. Path should contain at least one / and  start with /")
 				return "InvalidPath"
 			if(path == "NoPath"):
-				print("❌ No Path entered.")
+				pp("❌ No Path entered.")
 				return "NoPath"
 			
 			if not Path.exist(w_id,domain,path):
-				print("❌ Path ["+path+"] Not Found.")
+				pp("❌ Path ["+path+"] Not Found.")
 				return "PathNotFound"
 			else:
 				pth = Path.get(w_id,domain,path)
@@ -78,7 +78,7 @@ class DisplayPath:
 			
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: addpath | addp | dp
 	option			required	Description
 

@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from entities.domain   import Domain
 from commands.CRUDs    import DRY as c
 import GlobalVars as gv
-
+from personalizedPrint import pp
 
 class DisplayDomain:
 	@staticmethod
@@ -44,10 +44,10 @@ class DisplayDomain:
 			return "UserNeedsHelp"
 
 		elif(not w_id and gv.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(ports_map and not c.canBeMap(ports_map)):
-			print("❌Ports format: <[PORT_NAME]:[PORT]>")
+			pp("❌Ports format: <[PORT_NAME]:[PORT]>")
 			return"WrongPortFormat"
 		else:
 			show       = [] if not show else show
@@ -77,7 +77,7 @@ class DisplayDomain:
 					robots_file	=robots_file,
 					js_files	= js_files)
 			if(not Workshop.exist(w_id)):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 				return "WorkshopNotFound"
 
 			if(ALL):
@@ -101,7 +101,7 @@ class DisplayDomain:
 				return dd
 			elif(domain):
 				if not Domain.exist(w_id,domain):
-					print("No Domain have the name ["+domain+"] in workshop ["+w_id+"]")
+					pp("No Domain have the name ["+domain+"] in workshop ["+w_id+"]")
 					return "DomainNotFound"
 				else:
 					d = Domain.get(w_id,domain)
@@ -112,7 +112,7 @@ class DisplayDomain:
 
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: displaydomain | displayd | dd
 	option			required	Description
 

@@ -4,7 +4,7 @@ from entities.path			import Path
 from commands.CRUDs			import DRY as c
 from get_assets.getTechsByWebanalyzer	import GetTechsByWebanalyzer
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class GetTechs:
 	@staticmethod
@@ -23,10 +23,10 @@ class GetTechs:
 			GetTechs.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(c.segmentUrl(domain)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			domain   = c.segmentUrl(domain)['domain'] if domain else TopG.CURRENT_DOMAIN
@@ -35,20 +35,20 @@ class GetTechs:
 			
 			result = GetTechsByWebanalyzer(workshop, domain, no_save, show_balance)
 			match result:
-				case 400               : print("400	There was an error with the request")
-				case 403               : print("403	Authorisation failure (incorrect API key, invalid method or resource or insufficient credits)\n Write your API KEY in config.json")
-				case 429               : print("429	Rate limit exceeded")
-				case 'WorkshopNotFound': print("Workshop Not Found")
+				case 400               : pp("400	There was an error with the request")
+				case 403               : pp("403	Authorisation failure (incorrect API key, invalid method or resource or insufficient credits)\n Write your API KEY in config.json")
+				case 429               : pp("429	Rate limit exceeded")
+				case 'WorkshopNotFound': pp("Workshop Not Found")
 				case _  :
 					for t in result['techs']:
-						print(t)
+						pp(t)
 					if show_balance :
-						print("You have "+str(result['balance'])+" requests left")
+						pp("You have "+str(result['balance'])+" requests left")
 			return result
 	
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: get techs
 	option			required	Description
 

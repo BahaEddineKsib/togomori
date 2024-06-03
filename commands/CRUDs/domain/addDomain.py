@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from entities.domain   import Domain
 from commands.CRUDs    import DRY as c
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class AddDomain:
 	@staticmethod
@@ -38,10 +38,10 @@ class AddDomain:
 			AddDomain.help()
 			return "UserNeedsHelp"
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(ports_map and not c.canBeMap(ports_map)):
-			print("❌Ports format: <[PORT_NAME]:[PORT]>")
+			pp("❌Ports format: <[PORT_NAME]:[PORT]>")
 			return "WrongPortFormat"
 		else:
 			toDisplay  = ["domain"]
@@ -86,18 +86,18 @@ class AddDomain:
 			dmn.display(toDisplay)
 			result = c.questionToExecute( for_sure,dmn.save,{},"Save domain ["+domain+"] ?")
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 				return "WorkshopNotFound"
 			elif(result == "DomainExist"):
-				print("❌ Domain ["+domain+"] already exist.")
+				pp("❌ Domain ["+domain+"] already exist.")
 				return "DomainExist"
 			elif(result == "DomainAdded"):
-				print("✅ Domain ["+domain+"] is Added.")
+				pp("✅ Domain ["+domain+"] is Added.")
 				return "DomainAdded"
 
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: adddomain | addd | dd
 	option			required	Description
 

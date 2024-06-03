@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
 import json
 import GlobalVars as gv
-
+from personalizedPrint import pp
 
 class SetWorkshop:
 	@staticmethod
@@ -16,13 +16,13 @@ class SetWorkshop:
 			if(Workshop.exist(ID)):
 				gv.CURRENT_WORKSHOP=ID
 				gv.CURRENT_DOMAIN  =""
-				print("✅ Workshop "+ID+" Setted")
+				pp("✅ Workshop "+ID+" Setted")
 			else:
-				print("❌: Workshop Not Found")
+				pp("❌: Workshop Not Found")
 
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: setworkshop | setw | sw
 	option		required	Description
 

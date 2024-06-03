@@ -4,7 +4,7 @@ from entities.path			import Path
 from commands.CRUDs			import DRY as c
 from get_assets.getInfoByWhois	 	import GetInfoByWhois
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class GetWhois:
 	@staticmethod
@@ -22,10 +22,10 @@ class GetWhois:
 			GetTechs.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(c.segmentUrl(domain)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		else:
 			domain   = c.segmentUrl(domain)['domain'] if domain else TopG.CURRENT_DOMAIN
@@ -34,16 +34,16 @@ class GetWhois:
 			
 			result = GetInfoByWhois(workshop,domain,no_save)
 			match result:
-				case "DomainNotInWhois": print("Can't get this domain's information with whois")
-				case "WorkshopNotFound": print("workshop not found")
+				case "DomainNotInWhois": pp("Can't get this domain's information with whois")
+				case "WorkshopNotFound": pp("workshop not found")
 				case _  :
 					for key in result:
-						print(key+': '+str(result[key]))
+						pp(key+': '+str(result[key]))
 	
 			return result
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: get whois
 	option			required	Description
 

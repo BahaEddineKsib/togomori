@@ -1,6 +1,7 @@
 from entities.domain import Domain
 import whois
 import json
+from personalizedPrint import pp
 
 def GetInfoByWhois(workshop, domain,no_save):
 	info = whois.whois(domain)

@@ -4,6 +4,8 @@ import GlobalVars as gv
 import entities.domain as D
 import pprint
 import shutil
+from personalizedPrint import pp
+
 class Workshop:
 	def __init__(self, ID, domains = []):
 		self.ID      = ID
@@ -51,11 +53,14 @@ class Workshop:
 	
 
 	def display(self, expand = False):
-		pp = pprint.PrettyPrinter(indent=4)
+		pprnt = pprint.PrettyPrinter(indent=4)
 		if expand:
-			pp.pprint(self.toJson())
+			pprnt.pprint(self.toJson())
+			pp(msg=self.toJson(),print_it=False)
 		else:
-			pp.pprint(self.ID)
+			pprnt.pprint(self.ID)
+			pp(msg=self.ID,print_it=False)
+
 
 
 	@staticmethod

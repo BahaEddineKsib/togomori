@@ -1,5 +1,6 @@
 from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
+from personalizedPrint import pp
 
 class UpdateWorkshop:
 	@staticmethod
@@ -16,17 +17,17 @@ class UpdateWorkshop:
 			result = c.questionToExecute(for_sure,Workshop.update,{'oldId':old_id,'newId':new_id },"update workshop ["+old_id+"] to ["+new_id+"] ? (y/n)")
 
 			if(result == "WorkshopNotFound"):
-				print("❌ Workshop ["+old_id+"] not found")
+				pp("❌ Workshop ["+old_id+"] not found")
 				return "WorkshopNotFound"
 			elif(result == "NewWorkshopIdExist"):
-				print("❌ Id ["+new_id+"] already exist.")
+				pp("❌ Id ["+new_id+"] already exist.")
 				return "NewWorkshopIdExist"
 			elif(result == "WorkshopUpdated"):
-				print("✅ Workshop ["+old_id+"] is Updated to ["+new_id+"]")
+				pp("✅ Workshop ["+old_id+"] is Updated to ["+new_id+"]")
 				return "WorkshopUpdated"
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: updateworkshop | updatew | uw
 	option		required	Description
 

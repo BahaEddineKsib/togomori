@@ -2,11 +2,12 @@ from executor import execute
 import readline
 import sys
 import GlobalVars as TopG
+from personalizedPrint import pp
 
 
 
 
-print('╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻\n'
+pp('╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻\n'
      +' ┃ ┃ ┃┃╺┓┃ ┃┃┃┃┃ ┃┣┳┛┃\n'
      +' ╹ ┗━┛┗━┛┗━┛╹ ╹┗━┛╹┗╸╹ version 0.0\n')
 

@@ -20,7 +20,7 @@ from commands.CRAFTs.getIp		     import GetIp
 from commands.CRAFTs.getOpenPorts	     import GetOpenPorts
 from commands.CRAFTs.getSubDomains	     import GetSubDomains
 from commands.CRUDs import DRY as c
-
+from personalizedPrint import pp
 
 class Help:
 
@@ -33,7 +33,7 @@ class Help:
 			return "UserNeedsHelp"
 		else:
 			if( "commands" in HL or "all" in HL):
-				print("""
+				pp("""
 					COMMANDS:
 					setworkshop	| setw		| sw
 					unsetworkshop	| unsetw	| usw
@@ -79,7 +79,7 @@ class Help:
 			if("all" in HL or "get"		in HL or "get_subs"	in HL or "subs"		     in HL):GetSubDomains.help()
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: help
 	option			required	Description
 

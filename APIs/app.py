@@ -26,11 +26,24 @@ def define_apis():
 		from executor import execute
 		from commands.CRUDs    import DRY as c
 		import GlobalVars as gv
-		execute = c.capture_prints(execute)
-		captured_prints, result = execute(cmnd)
-		print('\n'+captured_prints)
+		#execute = c.capture_prints(execute)
+		#captured_prints, result = execute(cmnd)
+		execute(cmnd)
+
+		#print('\n'+captured_prints)
 		
-		return {'CURRENT_WORKSHOP':gv.CURRENT_WORKSHOP, 'CURRENT_DOMAIN':gv.CURRENT_DOMAIN, "LAST_OUTPUT":captured_prints}
+		return {'CURRENT_WORKSHOP':gv.CURRENT_WORKSHOP, 'CURRENT_DOMAIN':gv.CURRENT_DOMAIN, "LAST_OUTPUT":''}
+
+	@app.route('/get_output',  methods=['GET','POST','OPTION'])
+	def get_output():
+		content = ''
+		with open('output.txt', 'r') as f:
+			for line in f:
+				print(line)
+				content = content + line
+
+			print("connnnnnnnnnnnnnnnnnnnnn"+content)
+			return content
 
 	@app.route('/get_domains', methods=['GET','POST','OPTION'])
 	def get_domains():

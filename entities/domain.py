@@ -6,6 +6,7 @@ import GlobalVars	 as gv
 import entities.workshop as W
 import entities.path	 as P
 import tldextract	 as domain_parts
+from personalizedPrint import pp
 class Domain:
 	def __init__(self, workshop_id,
 			   domain	="", 
@@ -124,8 +125,9 @@ class Domain:
 
 		if len(dmn) == 1:
 			dmn = next(iter(dmn.values()))
-		pp = pprint.PrettyPrinter(indent=4)
-		pp.pprint(dmn)
+		pprnt = pprint.PrettyPrinter(indent=4)
+		pprnt.pprint(dmn)
+		pp(msg=dmn, print_it=False)
 
 
 	@staticmethod

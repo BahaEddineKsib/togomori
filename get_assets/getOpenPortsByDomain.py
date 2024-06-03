@@ -2,6 +2,9 @@ from entities.domain import Domain
 import socket
 import threading
 import time
+from personalizedPrint import pp
+
+
 
 def scan_port(domain, port_name, port, open_ports):
 	try:
@@ -11,15 +14,15 @@ def scan_port(domain, port_name, port, open_ports):
 		sock.close()
 		if result == 0:
 			open_ports[port_name] = port
-			print(""+port_name+":"+str(port)+" ✅",end='\n')
+			pp(""+port_name+":"+str(port)+" ✅",end='\n')
 		else:
 
-			#print("|",end='')
-			print("\n"+port_name+":"+str(port)+" ❌",end='')
+			#pp("|",end='')
+			pp("\n"+port_name+":"+str(port)+" ❌",end='')
 	except Exception as e:
-		#print(port_name+":"+str(port)+" ❌",end='')
-		#print("error: ")
-		#print(e)
+		#pp(port_name+":"+str(port)+" ❌",end='')
+		#pp("error: ")
+		#pp(e)
 		open_ports["NoPorts"] = 1
 		return 0
 
@@ -39,25 +42,25 @@ def GetOpenPortsByDomain(workshop, domain, no_save,top_20=True, top_web=False, b
 				t = threading.Thread(target=scan_port, args=(domain, str(p), p,  open_ports))
 				t.start()
 				threads_interval.append(t)
-				#print("##################################################################"+str(relax))
+				#pp("##################################################################"+str(relax))
 				relax = relax + 1
 				if relax == num_of_sockets_to_relax:
 					relax = 0
 					for T in threads_interval:
 						T.join()
 					threads_interval=[]
-					print("--------------------------------------------------"+str((p/interval[1])*100)+"%")
+					pp("--------------------------------------------------"+str((p/interval[1])*100)+"%")
 			if threads_interval:
 				for T in threads_interval:
 					T.join()
 				threads_interval=[]
-				print("--------------------------------------------------100%")
+				pp("--------------------------------------------------100%")
 
 
 
 		except Exception as e:
-			print("ERROR: in interval")
-			print(e)
+			pp("ERROR: in interval")
+			pp(e)
 			open_ports["NoPorts"] = 1
 
 	ports_to_scan = getPortsList(top_20, top_web, by_ports)
@@ -77,8 +80,8 @@ def GetOpenPortsByDomain(workshop, domain, no_save,top_20=True, top_web=False, b
 			for t in threads:
 				t.join()
 		except Exception as e:
-			print("ERROR: in ports to scan ")
-			print(e)
+			pp("ERROR: in ports to scan ")
+			pp(e)
 			open_ports["NoPorts"] = 1
 
 	if not no_save:

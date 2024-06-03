@@ -2,7 +2,7 @@ from entities.workshop import Workshop
 from entities.domain   import Domain
 from commands.CRUDs    import DRY as c
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 class UpdateDomain:
 	@staticmethod
@@ -41,11 +41,11 @@ class UpdateDomain:
 			return "UserNeedsHelp"
 
 		elif(not w_id and TopG.CURRENT_WORKSHOP == ""):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 
 		elif(ports_map and not c.canBeMap(ports_map, updating=True)):
-			print("❌Ports format: <[PORT_NAME]:[PORT]>")
+			pp("❌Ports format: <[PORT_NAME]:[PORT]>")
 			return "WrongPortFormat"
 
 		else:
@@ -97,20 +97,20 @@ class UpdateDomain:
 			dmn.display(toDisplay)
 			result = c.questionToExecute(for_sure,Domain.update,{'domain':ud, 'workshop_id':w_id, 'new_dmn':dmn},"Update domain ["+ud+"] ?")
 			if(result ==   "NewWorkshopNotFound"):
-				print("❌ Workshop ["+new_w_id+"] Not Found.")
+				pp("❌ Workshop ["+new_w_id+"] Not Found.")
 			elif(result == "OldWorkshopNotFound"):
-				print("❌ Workshop ["+w_id+"] Not Found.")
+				pp("❌ Workshop ["+w_id+"] Not Found.")
 			elif(result == "DomainNotFound"):
-				print("❌ Domain ["+ud+"] Not Found.")
+				pp("❌ Domain ["+ud+"] Not Found.")
 			elif(result == "DomainExist"):
-				print("❌ Domain ["+domain+"] already exist.")
+				pp("❌ Domain ["+domain+"] already exist.")
 			elif(result == "DomainUpdated"):
-				print("✅ Domain ["+ud+"] is Updated.")
+				pp("✅ Domain ["+ud+"] is Updated.")
 			return result
 
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: updatedomain | updated | ud
 	option			required	Description
 	

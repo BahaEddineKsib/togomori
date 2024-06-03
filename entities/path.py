@@ -3,7 +3,7 @@ import entities.domain   as D
 import os
 import json
 import shutil
-
+from personalizedPrint import pp
 class Path:
 	def __init__(self, domain="", path="", tags=[], variables={}):
 		self.domain	= domain
@@ -75,10 +75,10 @@ class Path:
 			to_prnt = self.domain+to_prnt
 		if very_expand:
 			to_prnt = self.toJson()
-		print(to_prnt)
+		pp(to_prnt)
 		if(select and not very_expand):
 			to_prnt = '_'*len(self.domain) + '~'*len(self.path) if expand else '~'*len(self.path)
-			print(to_prnt)
+			pp(to_prnt)
 
 
 	@staticmethod

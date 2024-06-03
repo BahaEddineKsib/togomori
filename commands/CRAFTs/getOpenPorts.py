@@ -4,7 +4,7 @@ from entities.path			import Path
 from commands.CRUDs			import DRY as c
 from get_assets.getOpenPortsByDomain	 	import GetOpenPortsByDomain 
 import GlobalVars as TopG
-
+from personalizedPrint import pp
 
 #GetIpByDomain('workshop', 'google.com', 'no_save', False, False, [], [1,1000])
 class GetOpenPorts:
@@ -34,28 +34,28 @@ class GetOpenPorts:
 			GetOpenPorts.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):
-			print("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
+			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
 			return "NoWorkshopSetted"
 		elif(c.segmentUrl(domain)["domain"]=="NoDomain" and not TopG.CURRENT_DOMAIN):
-			print("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
+			pp("❌ Set a Domain or specify a domain with [-d <domain>] or in the beginning of the path.")
 			return "NoDomainSetted"
 		elif(interval):
 			if(len(interval) != 2):
-				print("❌ interval is wrong")
+				pp("❌ interval is wrong")
 				return "WrongInterval"
 			if not c.canBeNumber(interval[0]) or not c.canBeNumber(interval[1]):
-				print("❌ interval is wrong")
+				pp("❌ interval is wrong")
 				return "WrongInterval"
 			else:
 				interval[0] = int(interval[0])
 				interval[1] = int(interval[1])
 			if interval[0]>= interval[1]:
-				print("❌ interval is wrong")
+				pp("❌ interval is wrong")
 				return "WrongInterval"
 		elif(by_ports):
 			for p in range(0,len(by_ports)):
 				if not c.canBeNumber(by_ports[p]):
-					print("❌ port is wrong")
+					pp("❌ port is wrong")
 					return "WrongPort"
 				else:
 					by_ports[p] = int(by_ports[p])
@@ -67,8 +67,8 @@ class GetOpenPorts:
 
 		result = GetOpenPortsByDomain(workshop, domain, no_save, top_20, top_web, by_ports, interval)
 		match result:
-			case "NoIp": print("Can't get this domain's ip")
-			case _  :		 print(result)
+			case "NoIp": pp("Can't get this domain's ip")
+			case _  :		 pp(result)
 	
 		return result
 
@@ -77,7 +77,7 @@ class GetOpenPorts:
 
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: get ports
 	option			required	Description
 

@@ -1,6 +1,9 @@
 from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
 import json
+from personalizedPrint import pp
+
+
 class DisplayWorkshop:
 	@staticmethod
 	def execute(IN):
@@ -20,7 +23,7 @@ class DisplayWorkshop:
 					wrk.display(expand)
 					return wrk.ID
 				else:
-					print("❌: Workshop Not Found")
+					pp("❌: Workshop Not Found")
 					return "WorkshopNotFound"
 			if(all):
 				workshops_ids=[]
@@ -32,7 +35,7 @@ class DisplayWorkshop:
 			
 	@staticmethod
 	def help():
-		print("""
+		pp("""
 	command: displayworkshop | displayw | dw
 	option		required	Description
 

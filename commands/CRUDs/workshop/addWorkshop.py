@@ -1,5 +1,7 @@
 from entities.workshop import Workshop
 from commands.CRUDs    import DRY as c
+from personalizedPrint import pp
+
 
 class AddWorkshop:
 	@staticmethod
@@ -13,19 +15,19 @@ class AddWorkshop:
 			return "UserNeedsHelp"
 		else:
 			wrk = Workshop(id)
-			#print("\nWORKSHOP:")
+			#pp("\nWORKSHOP:")
 			#wrk.display()
 			result = c.questionToExecute(for_sure,wrk.save,{},"Save workshop ["+id+"] ?")
 			if(result == "WorkshopExist"):
-				print("❌ Workshop ["+id+"] already exist")
+				pp("❌ Workshop ["+id+"] already exist")
 				return "WorkshopExist"
 			elif(result == "WorkshopAdded"):
-				print("✅ Workshop is ["+id+"] Added")
+				pp("✅ Workshop is ["+id+"] Added")
 				return "WorkshopAdded"
 
 	@staticmethod	
 	def help():
-		print("""
+		pp("""
 	command: addworkshop | addw | aw
 	option		required	Description
 
