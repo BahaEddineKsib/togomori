@@ -13,7 +13,7 @@ def GetTechsByWebanalyzer(workshop, domain, no_save, show_balance):
 	if show_balance:
 		res2    = requests.get('https://api.wappalyzer.com/v2/credits/balance/',headers=headers)
 		if res2.status_code != 200:
-			return balance.status_code
+			return res2.status_code
 		result['balance'] = res2.json()['credits'] 
 
 	#if res1.status_code != 200:

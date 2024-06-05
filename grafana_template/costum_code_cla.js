@@ -23,7 +23,8 @@ async function execute() {
     // Make a request to the API with the defined options
     var start_at = Date.now();
     console.log("start at:", start_at);
-    const response = await fetch(`${apiUrl}?cmnd=${COMMAND}`, requestOptions);
+    const clr      = await fetch(`${apiUrl}?cmnd=c`, requestOptions);
+    const response = await fetch(`${apiUrl}?cmnd=${COMMAND} -s`, requestOptions);
     var ends_at = Date.now();
     console.log("ends  at:", ends_at);
     commndExecutionIsDone = true;
@@ -73,15 +74,13 @@ const fetchData = async () => {
         const response = await fetch(`${apiOut}`, requestOptions);
         var ends_at = Date.now();
         console.log("ends  at:", ends_at);
-        console.log("res ok");
         if (response.ok) {
           // Parse the response JSON
           const data = await response.text();
-          console.log('Responseeeeeeeeee:', data);
           locationService.partial({ 'var-LAST_OUTPUT': data }, true);
           var now = new Date();
-          var dateText = now.toLocaleTimeString();
-          locationService.partial({ 'var-refresh': dateText }, true);
+          //var dateText = now.toLocaleTimeString();
+          //locationService.partial({ 'var-refresh': dateText }, true);
         } else {
           // Handle non-successful responses
           console.error('Errorrr:', response.statusText);
@@ -92,7 +91,7 @@ const fetchData = async () => {
         console.error('Network error:', error);
       }
       console.log("NB", x, "commndExecutionIsDone: ", commndExecutionIsDone);
-      //await sleep(500);
+      await sleep(500);
       if (!commndExecutionIsDone) {
         x = 0
       }

@@ -39,11 +39,28 @@ def define_apis():
 		content = ''
 		with open('output.txt', 'r') as f:
 			for line in f:
-				print(line)
+				#print(line)
 				content = content + line
 
-			print("connnnnnnnnnnnnnnnnnnnnn"+content)
 			return content
+
+	@app.route('/get_domain', methods=['GET','POST','OPTION'])
+	def get_domain():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		dmn = request.args.get('dmn')
+		dmn = '' if dmn == None else dmn
+		
+		if gv.CURRENT_WORKSHOP == "":
+			return {'domain':"set a workshop"}
+		dmn_res = Domain.get(gv.CURRENT_WORKSHOP,dmn)
+		return dmn_res.toJson()
+
+		
+
 
 	@app.route('/get_domains', methods=['GET','POST','OPTION'])
 	def get_domains():

@@ -38,7 +38,17 @@ class GetWhois:
 				case "WorkshopNotFound": pp("workshop not found")
 				case _  :
 					for key in result:
-						pp(key+': '+str(result[key]))
+						if  type(result[key]) != list:
+							pp(key+':		'+result[key])
+						else:
+							first = True
+							for i in result[key]:
+								if first:
+									pp(key+':		'+i)
+									first = False
+								else:
+									pp('			'+i)
+
 	
 			return result
 	@staticmethod	

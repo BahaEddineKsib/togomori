@@ -97,7 +97,9 @@ class Domain:
 	def get(ID,domain,expand=False):
 		if Domain.exist(ID,domain):
 			with open(Domain.getJsonPath(ID,domain), 'r') as json_file:
+				#print(Domain.getJsonPath(ID,domain))
 				json_domain = json.load(json_file)
+
 			json_domain["workshop_id"]	= ID
 			json_domain["domain"]		= domain
 			if expand: json_domain["paths"] =sorted([ P.Path.decode(p) for p in os.listdir(Domain.getPathsPath(ID,domain))])
