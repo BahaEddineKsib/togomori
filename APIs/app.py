@@ -86,7 +86,72 @@ def define_apis():
 
 			dd.append({'domain':d.domain, 'ip':ip,'paths':pathsCount, 'js':jsCount, 'ports':portsCount, 'techs':techs,'whois':whois, 'server_file':server_file, 'robots_file':robots_file, 'tags':tags})
 		return {'data':dd}
+
+	@app.route('/get_numberDomainsByWorkshop', methods=['GET','POST','OPTION'])
+	def get_numberDomainsByWorkshop():
+		from entities.workshop	import	Workshop
+		from entities.domain	import	Domain
+		import GlobalVars	as	gv
+
+		if gv.CURRENT_WORKSHOP == "":
+			return {"nb":0}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
+		res = {"nb":len(domainsList)}
+		return res
+
+	@app.route("/get_ipStat", methods=['GET','POST','OPTION'])
+	def get_ipStat():
+		from entities.workshop	import	Workshop
+		from entities.domain	import	Domain
+		import GlobalVars	as	gv
+		import ipaddress
+		from collections import defaultdict
+
+
+		if gv.CURRENT_WORKSHOP == "":
+			return [{"name":"set a workshop","value":0}]
+		dl = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
+		ip_addresses=[]
+		for d in dl:
+			if(d.ip):
+				ip_addresses.append(d.ip)
+
+		#guess 1
+		guess ={}
+		def guessing(itr):
+			for ip in ip_addresses:
+				net = ip.split('.')
+				if itr == 1: net = net[0]+"."+net[1]+"."+net[2]+".0"
+				if itr == 2: net = net[0]+"."+net[1]+".0.0"
+				if itr == 3: net = net[0]+".0.0.0"
+				if not(net in guess.keys()):
+					guess[net] = []
+				guess[net].append(ip)
+			#clean
+			to_delete=[]
+			for key in guess.keys():
+				if len(guess[key]) == 1:
+					to_delete.append(key)
+				else:
+					for ip in guess[key]:
+						while ip in ip_addresses:
+							ip_addresses.remove(ip)
+			if itr != 3:
+				for k in to_delete:
+					del guess[k]
+		guessing(1)
+		guessing(2)
+		guessing(3)
+
+		rslt = []
+		for k in guess.keys():
+			rslt.append({"name":k, "value":len(guess[k])})
+
+
+		return rslt
 	return app
+
+
 def run_apis():
 	subprocess.Popen(["python3", "APIs/app.py"])
 
