@@ -8,6 +8,7 @@ from selenium.common.exceptions		import WebDriverException
 from commands.CRUDs			import DRY as c
 from entities.domain			import Domain
 from entities.path			import Path
+from personalizedPrint import pp
 import tldextract	 as domain_parts
 import requests
 import os
@@ -16,6 +17,8 @@ import time
 def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=True, ignore_those=[]):
 	if ignore_those == []:
 		ignore_those = ["mozilla", "google", "facebook", "weglot", "polyfill.io", "fonts.gstatic.com"]
+	elif "disable" in ignore_those:
+		ignore_those = []
 
 	#look_for = ["all"]
 	print("looking for :")
@@ -33,11 +36,11 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 
 	is_session_closed(driver)
 	main    = domain_parts.extract(domain).domain
-	print("main: "+main)
-	print("GET "+domain)
+	pp("main: "+main)
+	pp("GET "+domain)
 	driver.get("https://"+domain)
 	WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
-	print("waiting for the site to fully load...")
+	pp("waiting for the site to fully load...")
 	#time.sleep(10)
 	reqs = []
 	len_reqs = 0
@@ -56,20 +59,20 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 				ignore = url_is_ignored(main, driver.requests[r].url, ignore_those, strict)
 				if not ignore :
 					if 'all' in look_for:
-						print(
-							str(driver.requests[r].method)+"       ",
-							str(driver.requests[r].response.headers['Content-Type'])+"             ",
-							str(driver.requests[r].response.status_code)+" ",
+						pp(
+							str(driver.requests[r].method)+"       "+
+							str(driver.requests[r].response.headers['Content-Type'])+"             "+
+							str(driver.requests[r].response.status_code)+" "+
 							str(driver.requests[r].url)
 						)
 						reqs.append(driver.requests[r])
 					else:
 						get_it = to_look_for(str(driver.requests[r].response.headers['Content-Type']), look_for)
 						if ( get_it ):
-							print(
-							str(driver.requests[r].method)+"       ",
-							str(driver.requests[r].response.headers['Content-Type'])+"             ",
-							str(driver.requests[r].response.status_code)+" ",
+							pp(
+							str(driver.requests[r].method)+"       "+
+							str(driver.requests[r].response.headers['Content-Type'])+"             "+
+							str(driver.requests[r].response.status_code)+" "+
 							str(driver.requests[r].url)
 							)
 							reqs.append(driver.requests[r])
@@ -81,8 +84,8 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 			keep_wait = keep_wait + 1
 
 			
-	for req in reqs:
-		if not no_save:
+	if not no_save:
+		for req in reqs:
 
 			url       = c.segmentUrl(req.url)["domain"]
 			path	  = c.segmentUrl(req.url)["path"]
@@ -94,7 +97,15 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 					dmn.domain = ''
 					dmn.workshop_id=''
 					r = Domain.update(url, workshop, dmn, False)
-			if path != "InvalidPath" and path != "NoPath":
+
+			
+			if req.response.headers['Content-Type'].find('javascript') != -1:
+				dmn.domain	=''
+				dmn.workshop_id	=''
+				dmn.js_files	=['+', url+''+path]
+				r = Domain.update(url, workshop, dmn, False)
+
+			elif path != "InvalidPath" and path != "NoPath":
 				pth = Path(domain=url, path=path)
 				r   = pth.save(workshop)
 				if r == "PathExist":
@@ -126,8 +137,8 @@ def is_session_closed(driver):
 	try:
 		# Try to access window handles or any other property/method
 		driver.window_handles
-		print("session is OPEN.")
+		pp("session is OPEN.")
 		return False  # If no exception is raised, the session is still open
 	except Exception:
-		print("session is CLOSED")
+		pp("session is CLOSED")
 		return True  # If an exception is raised, the session is closed

@@ -11,10 +11,12 @@ class GetJavascripts:
 	def execute(IN):
 		IN	     = c.concat_getasset(IN)
 		IN	     = c.short_command(IN,"js")
-		cmnd	     = c.option("js",False, False,IN)
-		workshop     = c.option("-w"   ,True,  False,IN)
-		domain	     = c.option("-d"   ,True,  False,IN)
-		no_save	     = c.option("-no"  ,False, False,IN)
+		cmnd	     = c.option("js"	,False, False,IN)
+		workshop     = c.option("-w"	,True,  False,IN)
+		domain	     = c.option("-d"	,True,  False,IN)
+		no_save	     = c.option("-no"	,False, False,IN)
+		ig_list	     = c.option("-ig"	,True,  True ,IN)
+		not_strict   = c.option("-ns"	,False, False,IN)
 
 
 
@@ -31,10 +33,14 @@ class GetJavascripts:
 			domain   = c.segmentUrl(domain)['domain'] if domain else TopG.CURRENT_DOMAIN
 			cw	 = TopG.CURRENT_WORKSHOP
 			workshop = cw if not workshop else workshop
+
+			if not ig_list:
+				ig_list = []
+				
 			
 			#result = GetUrlsBySession(workshop,domain,no_save)
-			result = GetUrlsBySession(workshop, domain, ["script"], False)
-			#(workshop, domain, look_for=['all'], no_save=True)
+			result = GetUrlsBySession(workshop, domain, ["script"], no_save, not not_strict, ig_list)
+			#(workshop, domain, look_for=['all'], no_save=True, strict=True, ignore_those=[])
 			match result:
 				case "error": pp("Can't get this domain's js files")
 				case _  :		 pp("done")
