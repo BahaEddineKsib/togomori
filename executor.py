@@ -20,6 +20,7 @@ from commands.CRAFTs.getIp		     import GetIp
 from commands.CRAFTs.getOpenPorts	     import GetOpenPorts
 from commands.CRAFTs.getSubDomains	     import GetSubDomains
 from commands.CRAFTs.getJavascripts	     import GetJavascripts
+from commands.CRAFTs.getPaths		     import GetPaths
 from commands.help			     import Help
 from commands.CRUDs			     import DRY as c
 from personalizedPrint			     import clear
@@ -83,6 +84,7 @@ def execute(IN):
 				case "ports": GetOpenPorts.execute(IN)
 				case "subs" : GetSubDomains.execute(IN)
 				case "js"   : GetJavascripts.execute(IN)
+				case "paths": GetPaths.execute(IN)
 				case _      : Help.execute("help get")
 		case 'run':
 			from APIs.app import run_apis

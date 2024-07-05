@@ -19,6 +19,8 @@ from commands.CRAFTs.getWhois		     import GetWhois
 from commands.CRAFTs.getIp		     import GetIp
 from commands.CRAFTs.getOpenPorts	     import GetOpenPorts
 from commands.CRAFTs.getSubDomains	     import GetSubDomains
+from commands.CRAFTs.getJavascripts	     import GetJavascripts
+from commands.CRAFTs.getPaths		     import GetPaths
 from commands.CRUDs import DRY as c
 from personalizedPrint import pp
 
@@ -55,7 +57,9 @@ class Help:
 					get whois
 					get ip
 					get ports
-					get subs""")
+					get subs
+					get js
+					get paths""")
 			if("all" in HL or "workshop" 	in HL or "set"		in HL or "setworkshop"       in HL):sw.help()
 			if("all" in HL or "domain"	in HL or "set"		in HL or "setdomain"         in HL):sd.help()
 			if("all" in HL or "workshop"	in HL or "unset"	in HL or "unsetworkshop"     in HL):usw.help()
@@ -77,6 +81,8 @@ class Help:
 			if("all" in HL or "get"		in HL or "get_ip"	in HL or "ip"		     in HL):GetIp.help()
 			if("all" in HL or "get"		in HL or "get_ports"	in HL or "ports"	     in HL):GetOpenPorts.help()
 			if("all" in HL or "get"		in HL or "get_subs"	in HL or "subs"		     in HL):GetSubDomains.help()
+			if("all" in HL or "get"		in HL or "get_js"	in HL or "js"		     in HL):GetJavascripts.help()
+			if("all" in HL or "get"		in HL or "get_paths"	in HL or "paths"	     in HL):GetJavascripts.help()
 	@staticmethod
 	def help():
 		pp("""
@@ -122,17 +128,19 @@ class Help:
 		domain			help for the CRUD commands of domain
 		path			help for the CRUD commands of path
 
-		get			help for the commands get [techs, whois, ip, ports, subs]
+		get			help for the commands get [techs, whois, ip, ports, subs, js]
                 techs			help for the command get techs
                 whois			help for the command get whois
                 ip			help for the command get ip
                 ports			help for the command get ports
                 subs			help for the command get subs
+		js			help for the command get js
+		paths			help for the command get paths
 		
 		all			list all the commands help
 		commands		listing all the existing commands
 
 
-		exemple: help domain tech
+		exemple: help domain techs
 
 		""")

@@ -97,13 +97,14 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 					dmn.domain = ''
 					dmn.workshop_id=''
 					r = Domain.update(url, workshop, dmn, False)
-
 			
-			if req.response.headers['Content-Type'].find('javascript') != -1:
-				dmn.domain	=''
-				dmn.workshop_id	=''
-				dmn.js_files	=['+', url+''+path]
-				r = Domain.update(url, workshop, dmn, False)
+			if req.response:
+				if req.response.headers['Content-Type']:
+					if req.response.headers['Content-Type'].find('javascript') != -1:
+						dmn.domain	=''
+						dmn.workshop_id	=''
+						dmn.js_files	=['+', url+''+path]
+						r = Domain.update(url, workshop, dmn, False)
 
 			elif path != "InvalidPath" and path != "NoPath":
 				pth = Path(domain=url, path=path)

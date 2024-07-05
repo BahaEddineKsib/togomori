@@ -6,12 +6,12 @@ from get_assets.getUrlsBySession 	import GetUrlsBySession
 import GlobalVars as TopG
 from personalizedPrint import pp
 
-class GetJavascripts:
+class GetPaths:
 	@staticmethod
 	def execute(IN):
 		IN	     = c.concat_getasset(IN)
-		IN	     = c.short_command(IN,"js")
-		cmnd	     = c.option("js"	,False, False,IN)
+		IN	     = c.short_command(IN,"paths")
+		cmnd	     = c.option("paths"	,False, False,IN)
 		workshop     = c.option("-w"	,True,  False,IN)
 		domain	     = c.option("-d"	,True,  False,IN)
 		no_save	     = c.option("-no"	,False, False,IN)
@@ -20,8 +20,8 @@ class GetJavascripts:
 
 
 
-		if("UserNeedsHelp" in [ cmnd, domain, no_save, workshop]):
-			GetJavascript.help()
+		if("UserNeedsHelp" in [ cmnd, domain, no_save, workshop, ig_list, not_strict]):
+			GetPaths.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):
 			pp("❌ Set a Workshop or specify a workshop with [-w <workshop id>]")
@@ -39,17 +39,17 @@ class GetJavascripts:
 				
 			
 			#result = GetUrlsBySession(workshop,domain,no_save)
-			result = GetUrlsBySession(workshop, domain, ["script"], no_save, not not_strict, ig_list)
+			result = GetUrlsBySession(workshop, domain, ["all"], no_save, not not_strict, ig_list)
 			#(workshop, domain, look_for=['all'], no_save=True, strict=True, ignore_those=[])
 			match result:
-				case "error": pp("Can't get this domain's js files")
+				case "error": pp("Can't get this domain's paths")
 				case _  :		 pp("done")
 	
 			return result
 	@staticmethod
 	def help():
 		pp("""
-	command: get js
+	command: get paths
 	option			required	Description
 
 	-d <domain>		  YES		insert a domain to get its javascripts
@@ -58,7 +58,7 @@ class GetJavascripts:
 	-w <workshop>		  Y/N		select a workshop to add the domain in it
 						required when there is no workshop setted
 
-	-no			  NO		do NOT save the js files we got.
+	-no			  NO		do NOT save the paths we got.
 
 	-ig			  NO		give it a list of words/domains to ignore
 						you can also give it the word disable , to 
