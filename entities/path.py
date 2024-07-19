@@ -49,9 +49,13 @@ class Path:
 			os.mknod(json_path)
 			del self.domain
 			del self.path
-			with open(json_path,'w') as json_file:
-				json.dump(self.toJson(), json_file)
-			return "PathAdded"
+			try:
+				with open(json_path,'w') as json_file:
+					json.dump(self.toJson(), json_file)
+				return "PathAdded"
+			except Exception as e:
+				print(e)
+				return 
 
 	@staticmethod
 	def exist(ID, domain, path):

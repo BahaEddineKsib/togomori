@@ -1,1 +1,186 @@
+✅ Workshop shopify Setted
+session is OPEN.
+main: shopify
+GET www.shopify.com
+waiting for the site to fully load...
+GET       text/html; charset=utf-8             200 https://www.shopify.com/
+GET       font/woff2             200 https://cdn.shopify.com/static/fonts/ShopifySans--medium.woff2
+GET       text/css             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/home-C4Xd6kgh.css
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/d6b0f1bf898eb9c237be5736edcf5c81.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/68a396597aff07c2aa75e1c96a7b99c1.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/7513d2889de95ef0e01a95d970c4ec41.svgz
+GET       font/woff2             200 https://cdn.shopify.com/static/fonts/ShopifySans--regular.woff2
+GET       font/woff2             200 https://cdn.shopify.com/static/fonts/ShopifySans--bold.woff2
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/588ae6c3404d22f5a482edf04c053aa6.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/88903dcc49157f65e0c11dd1bbab1042.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/99655287608ae75a0afc5b3cf27ace73.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/d7c2832fee460b4e7b90d2620f0149e6.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/a5338c3f79a6e291b743e0149035a5fa.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/671c798183eab1529bbc4abb287fa2b3.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/2106514f331beeeae3475bfb029d3330.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/4a49a74df0056108b39f9f8657ed3a85.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/80f475ddd49655a5fbbb3ca479c78213.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/fa87c2035b450b03766d25537d3056ed.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/45f080d8ca27225884ba1714123870c3.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/de19891ee27475ae8f8880223ef1ac4a.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/62c82332fcc9e4df60ff570deb675d3e.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/6a1ff42b8323326c31f69e7559a7bd14.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/b19e0c0d8f45827afd3a9b73f8a145a0.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/cf717a7b1fbd3b1f4160cf39a1c96e19.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/21927a034afd34391db39cf2b7ecf709.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/f5d0030128dfafb20b4b20353078a461.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/icons/infinity-ea665cc8ef4b2379465495ba43cd5cdbba88cd70dd51c6fa59aec331fd2336be.svg
+GET       image/svg+xml             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/icons/layers-75e27771a1461d41eeea6d3776873fcf0dca705afb334adadb0c7dc0a20b0404.svg
+GET       image/svg+xml             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/icons/partners-d453b53d9ff10a630080d24563478935f3d1b10de8eb15bef9f13fe58be3f8de.svg
+GET       image/svg+xml             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/icons/dev-82bdbe630a35ca679000d2177f4e32d44b5455e906f0a7ff628c3eadbee38c8e.svg
+GET       image/webp             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/carousel-2-mobile-small-b3fd61960ed47643ca39fc0fc54d435f77369ddadc3f163ec91fc5a806b33ace.png
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/fc4cebbadfd9af383ccd031219260b7d.svg
+GET       image/webp             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/carousel-1-mobile-small-21ae4e287eb9c87f9eeca84adbc0c9aaf8fd13ff6cce71c01f0202aabba27b92.png
+GET       image/webp             200 https://cdn.shopify.com/shopifycloud/brochure/assets/home/redesign2022/carousel-3-mobile-small-f586e6a7e1563512c0524687fe15f2f748c8849992c080de3ae60365d9b5d211.png
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/68388f12ce9faef230ada91e20f69cc2.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/c99f9bb49ec7dec96678765339586edc.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/1d6091ce14b313a3c9a19f237df898bb.svgz
+GET       image/webp             200 https://cdn.shopify.com/b/shopify-brochure2-assets/9aa3451db73307334c3e1dab51741ed1.png?width=636&height=636,%20https://cdn.shopify.com/b/shopify-brochure2-assets/9aa3451db73307334c3e1dab51741ed1.png%20x2
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/29a20784f322b566e3f71ebb2bf9d6bb.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/40a70b395afc3c391953470089e1f58a.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/d8428f5c0d6ecc96260b1eafaf173341.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/04f205245f06d35f87b53d2ee1ba5969.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/6ba4ddb8ff7a023fc6b50baae7545327.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/b450e474f3bfd464cfe5b6fcd8898c0b.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/cd55dad309f3f66eb1b1fd5d6642e0f5.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/cf32724c718f09d23eef5489f79bf6b9.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/417301e08872b3bb26b3eb9f66a1be15.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/f3ed9ee7ea392d376acc1508613c45fc.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/de31ef32fb09a2d9f77119fd110ea6c6.svgz
+GET       image/webp             200 https://cdn.shopify.com/b/shopify-brochure2-assets/339113bc828c2c7ab760a434e1703b93.webp?originalWidth=3840&originalHeight=2160&width=1920&height=1080
+GET       image/svg+xml             200 https://cdn.shopify.com/b/shopify-brochure2-assets/702bc0fe7229acdef65d55f7ae1422ab.svgz
+GET       image/svg+xml             200 https://cdn.shopify.com/shopifycloud/brochure2/staging/assets/link-arrow.e34cea4d.svg
+GET       font/woff2             200 https://cdn.shopify.com/shopifycloud/brochure2/production/fonts/IBMPlexMono--semibold.woff2
+GET       image/avif             200 https://cdn.shopify.com/b/shopify-brochure2-assets/288aa2d76b4e7aaff082af1eb4279091.avif
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/root-DgRN9b6l.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/layout-RhQPIjda.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/route-Rc4NqRyZ.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/components-CMu8bckq.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/I18N-CnEEkiWE.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/Provider-CTthYl7p.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/Wrapper-BUZ1dczV.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/route-SyLABgOU.js
+GET       image/avif             200 https://cdn.shopify.com/b/shopify-brochure2-assets/b13486e5693b246af63c66ab047a6b6b.png
+GET       image/vnd.microsoft.icon             200 https://cdn.shopify.com/shopifycloud/web/assets/v1/favicon-default-6cbad9de243dbae3.ico
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/entry.client-DMCrOrjK.js
+POST       None             200 https://www.shopify.com/__dux
+POST       None             200 https://www.shopify.com/__dux
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/Next-BpnRvVdI.js
+POST       None             200 https://www.shopify.com/__dux
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/GlobeGL-Cxf7L8mb.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/three.module-B9yhIzby.js
+GET       text/javascript             200 https://cdn.shopify.com/shopifycloud/brochure-iii/production/assets/react-globe.gl-CBhuUGoP.js
+GET       image/gif             200 https://cdn.bizible.com/ipv?_biz_r=&_biz_h=-884118237&_biz_u=6492c5d5c7d94a53ff703117f50150f9&_biz_l=https%3A%2F%2Fwww.shopify.com%2F&_biz_t=1720812706104&_biz_i=Start%20and%20grow%20your%20e-commerce%20business%20-%203-Day%20Free%20Trial%20-%20Shopify%20USA&_biz_n=0&rnd=133048&cdn_o=a&_biz_z=1720812706109
+GET       image/gif             200 https://gtm.shopify.com/_set_cookie?val=4doggyHCxWg07pIalug6duMgFDBnRzafQQ9OJySzjdYm1TkjPVEgwade2kSS%2FbPnIsATQvBHpNWAZQbx9kUAZfH%2FqtXdgWUQsu1aI1hMdKqWH9i27Jo5YjGlhvAWr%2FsZZFu3yMx6bC2HUxYlV0Mr6A3w5JtqzUZ14fs7Y7Jrok1vz36osnwWUXPmEvT4QZiADRutxSk9VN%2Fcpzikclc%2FnwdGIHkTmbVqQrNI%2F1R6tIXD%2BHT3VT0Stv5dpCa1sNM64zwuwN%2BDViNV%2F898otBbChfgPQ%3D%3D
+GET       image/gif             200 https://cdn.bizibly.com/u?_biz_u=6492c5d5c7d94a53ff703117f50150f9&_biz_l=https%3A%2F%2Fwww.shopify.com%2F&_biz_t=1720812706121&_biz_i=Start%20and%20grow%20your%20e-commerce%20business%20-%203-Day%20Free%20Trial%20-%20Shopify%20USA&rnd=42688&cdn_o=a&_biz_z=1720812706121
+GET       image/gif             200 https://gtm.shopify.com/_set_cookie?val=UnlMladnQ7zkORb5OXdF7%2B6PMaqSxu5XC%2BcC8EROSUB7ZKiOQIxLvPrPMgSlzN2JaQWO86O%2FSpBZnGAGfUr3Y0UE8EBuqr%2BZv8%2FwX%2B42yupvg2ATqMx71F%2FmUesgmB40vfey3fip5w5YR5eqU3lr9NvkIYCV3p65fJcHUlwUpWzlfaZ23sAfiuFCFAFM%2B7mYFKB5fkin65%2F7r%2BeXWoqqwjqS%2F7J5lwOZPaN9%2BrPFia%2Bj%2F5fewBjK8unyOGGI60z6PqLgyVbzhNW8qaVyBQRfdwmX7g%3D%3D
+GET       image/webp             200 https://cdn.shopify.com/b/shopify-brochure2-assets/176f438c4b249c6debf31888970bb504.png?width=1131&height=566,%20https://cdn.shopify.com/b/shopify-brochure2-assets/176f438c4b249c6debf31888970bb504.png%20x2
+GET       text/html; charset=UTF-8             302 https://ad.doubleclick.net/activity;src=9321158;type=shopi0;cat=shopi0;ord=1358892152;gtm=45j91e47a0v877474166z89102563954z9862613069za200zb9102563954;dc_pre=1;u6=component_viewability;u7=main%7Chero;match_id=842a49ff-aaf5-4723-a3b7-5c2a7dbab7c4;dma=0;npa=0;gcs=G1--;gcd=13l3l3l3l5;pscdl=noapi;auiddc=312349471.1720812704;em=tv.1;s3p=1;~oref=https%3A%2F%2Fwww.shopify.com%2F?
+GET       text/html; charset=UTF-8             302 https://ad.doubleclick.net/activity;src=9321158;type=shopi0;cat=shopi0;ord=1788823860;gtm=45j91e47a0v877474166z89102563954z9862613069za200zb9102563954;dc_pre=1;u6=component_viewability;u7=main%7Chero;match_id=842a49ff-aaf5-4723-a3b7-5c2a7dbab7c4;dma=0;npa=0;gcs=G1--;gcd=13l3l3l3l5;pscdl=noapi;auiddc=312349471.1720812704;em=tv.1;s3p=1;~oref=https%3A%2F%2Fwww.shopify.com%2F?
+GET       text/html; charset=UTF-8             302 https://ad.doubleclick.net/activity;src=9321158;type=shopi0;cat=shopi0;ord=1184803624;gtm=45j91e47a0v877474166z89102563954z9862613069za200zb9102563954;dc_pre=1;match_id=842a49ff-aaf5-4723-a3b7-5c2a7dbab7c4;dma=0;npa=0;gcs=G1--;gcd=13l3l3l3l5;pscdl=noapi;auiddc=312349471.1720812704;em=tv.1;s3p=1;~oref=https%3A%2F%2Fwww.shopify.com%2F?
+GET       text/html; charset=UTF-8             302 https://ad.doubleclick.net/activity;src=9321158;type=shopi0;cat=shopi0;ord=933560745;gtm=45j91e47a0v877474166z89102563954z9862613069za200zb9102563954;dc_pre=1;u6=component_viewability;u7=main%7Chero;match_id=842a49ff-aaf5-4723-a3b7-5c2a7dbab7c4;dma=0;npa=0;gcs=G1--;gcd=13l3l3l3l5;pscdl=noapi;auiddc=312349471.1720812704;em=tv.1;s3p=1;~oref=https%3A%2F%2Fwww.shopify.com%2F?
+session is OPEN.
+✅ Workshop amazon Setted
 
+	command: get paths
+	option			required	Description
+
+	-d <domain>		  Y/N		insert a domain to get its javascripts
+						required when there is no domain setted
+
+	-a			  NO		get paths of all the domains in the workshop
+
+	-l			  NO		insert a list of domain to get their paths
+
+	-w <workshop>		  Y/N		select a workshop to add the domain in it
+						required when there is no workshop setted
+
+	-no			  NO		do NOT save the paths we got.
+
+	-ig			  NO		give it a list of words/domains to ignore
+						you can also give it the word disable , to 
+						disable the default ignoring list
+						
+	-ns			  NO		ns for not stricted , it doesn't get only 
+						the urls with the word you provide in the domain
+						EX: default mode: for ex.com, it takes only urls
+						with ex in it.
+		
+session is OPEN.
+main: amazon
+GET www.amazon.com
+waiting for the site to fully load...
+GET       text/html             200 https://www.amazon.com/
+GET       text/css             200 https://images-na.ssl-images-amazon.com/images/G/01/AUIClients/AmazonUI-3c913031596ca78a3768f4e934b1cc02ce238101.secure.min._V1_.css
+GET       image/jpeg             200 https://images-na.ssl-images-amazon.com/captcha/ahkfsmoa/Captcha_axgwidvrjl.jpg
+GET       application/x-javascript             200 https://images-na.ssl-images-amazon.com/images/G/01/csminstrumentation/csm-captcha-instrumentation.min.js
+GET       application/x-javascript             200 https://images-na.ssl-images-amazon.com/images/G/01/csminstrumentation/rd-script-6d68177fa6061598e9509dc4b5bdd08d.js
+GET       image/png             200 https://images-na.ssl-images-amazon.com/images/G/01/amazonui/sprites/aui_sprite_0007-1x._V383827579_.png
+GET       application/x-javascript             200 https://images-na.ssl-images-amazon.com/images/G/01/csminstrumentation/ue-base-1c399ad9886cab69575e1e5ee15c61a1._V313498596_.js
+GET       application/x-javascript             200 https://images-na.ssl-images-amazon.com/images/G/01/AUIClients/ClientSideMetricsAUIJavascript-51171fbdd28e1a7a61e922e8f0272af8bc74d37b.secure.variant-desktop-session-snapshot-keypress.min._V2_.js
+GET       image/gif             200 https://fls-na.amazon.com/1/oc-csi/1/OP/requestId=7ZB8WJ9ATHKPFREGCQ3V&js=1
+GET       image/x-icon             200 https://www.amazon.com/favicon.ico
+POST       None             204 https://fls-na.amazon.com/1/batch/1/OE/
+session is OPEN.
+✅ Workshop is [tiktok] Added
+✅ Workshop tiktok Setted
+session is OPEN.
+main: tiktok
+GET www.tiktok.com
+waiting for the site to fully load...
+GET       text/html; charset=utf-8             302 https://www.tiktok.com/
+GET       text/html; charset=utf-8             200 https://www.tiktok.com/explore
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/es-polyfill.cd5c9807ecf919d15db9.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-rxjs.9f3cf66a7bc106fb7bda.js
+GET       text/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/slardar/sdk-pre/browser.web.pre.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-xg-plugin.cb2c7d760f8607cc33d5.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/runtime.b5e56e4393658fb00f55.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-react.269305cd68a1fb514a9f.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/crypto-js.d477b946afec8954b644.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-sigi.8998647bf0b87379e36a.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-async-focus-lock.b8ce06a8fc42b42ee48c.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-lottie.b351f7389c18f50c1734.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok_privacy_protection_framework/loader/1.0.0.800/index.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-dp-byted-tea-sdk-oversea.91b9cb872889bfc9e9e7.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-byted-web-privacy-sdk.b6ad24378ed4bb3e2a4d.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-596046b7.b01849df86c4ab3f7294.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-d801507b.fc21ddd4ffaece702a3c.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-74d9c565.72bff09cdff4f6f114aa.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/vendor.c3de6acefc2aafcd89bd.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/webapp-desktop.99bc974100fb30b9ae4a.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-byted-tiktok-icons.b6947a17a39ead490a27.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/tux-h5-icons.9c6aace806397960ab11.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/npm-xgplayer.c556f7b1dd8189a676ef.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/slardar/fe/sdk-web/browser.sg.js?bid=tiktok_webapp&globalName=SlardarClient
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok_privacy_protection_framework/loader/1.0.0.800/core.js?globalName=__PNS_RUNTIME__
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok_privacy_protection_framework/loader/1.0.0.800/devtools.js?globalName=__PNS_RUNTIME__&__PNS_SW_CACHE__=1&__PNS_SW_CACHE_KEY__=to-json-schema
+GET       application/javascript             200 https://www.tiktok.com/sw.js
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/pns/runtime-worker/1.0.0.64/pns-runtime-sw.js
+GET       image/x-icon             200 https://www.tiktok.com/favicon.ico
+POST       application/json; charset=utf-8             204 https://mon.tiktokv.com/monitor_browser/collect/batch/?bid=tiktok_pns_web_runtime
+GET       application/json             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok_privacy_protection_framework/config/network.json
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_1536x2048.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_2048x2732.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/pwa/icon_128x128.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/pwa/icon_256x256.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/pwa/icon_384x384.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/pwa/icon_192x192.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/pwa/icon_512x512.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/amp/1x1.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/amp/3x4.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/amp/4x3.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/amp/m-hashtag-default.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/amp/amp_tiktok_cover.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_640x1136.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_1668x2224.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_1242x2148.png
+GET       application/javascript             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/ads-statics/omweb-v1.js
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_1125x2436.png
+GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_750x1294.png
+GET       image/png             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/8152caf0c8e8bc67ae0d.png
+session is CLOSED

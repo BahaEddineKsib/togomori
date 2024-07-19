@@ -2,6 +2,7 @@ import re
 from urllib.parse import urlparse
 import io
 import sys
+import os
 from personalizedPrint import pp
 # DRYFFC : DON'T REPEAT YOURSELF FUNCTIONS FOR COMMANDS
 
@@ -166,6 +167,13 @@ def capture_prints(func):
 	return wrapper
 
 
+def count_open_fds():
+	pid = os.getpid()
+	fd_dir = f"/proc/{pid}/fd"
+	try:
+		return len(os.listdir(fd_dir))
+	except FileNotFoundError:
+		return 0
 
 
 

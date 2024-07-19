@@ -13,80 +13,92 @@ import tldextract	 as domain_parts
 import requests
 import os
 import time
+import datetime
 
 def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=True, ignore_those=[]):
-	if ignore_those == []:
-		ignore_those = ["mozilla", "google", "facebook", "weglot", "polyfill.io", "fonts.gstatic.com"]
-	elif "disable" in ignore_those:
-		ignore_those = []
+	try:
+		if ignore_those == []:
+			ignore_those = ["mozilla", "google", "facebook", "weglot", "polyfill.io", "fonts.gstatic.com"]
+		elif "disable" in ignore_those:
+			ignore_those = []
+	
+		#look_for = ["all"]
+		print("looking for :")
+		print(look_for)
+		# Path to your GeckoDriver executable
+		geckodriver_path = '/home/kali/Desktop/geckodriver'  # Adjust path as per your installation
 
-	#look_for = ["all"]
-	print("looking for :")
-	print(look_for)
-	# Path to your GeckoDriver executable
-	geckodriver_path = '/home/kali/Desktop/geckodriver'  # Adjust path as per your installation
 
+		# Configure Firefox options
+		firefox_options = webdriver.FirefoxOptions()
+		firefox_options.headless = True  # Run Firefox in headless mode
 
-	# Configure Firefox options
-	firefox_options = webdriver.FirefoxOptions()
-	firefox_options.headless = True  # Run Firefox in headless mode
+		service = FirefoxService(executable_path=geckodriver_path)
+		driver = webdriver.Firefox(service=service, options=firefox_options)
 
-	service = FirefoxService(executable_path=geckodriver_path)
-	driver = webdriver.Firefox(service=service, options=firefox_options)
-
-	is_session_closed(driver)
-	main    = domain_parts.extract(domain).domain
-	pp("main: "+main)
-	pp("GET "+domain)
-	driver.get("https://"+domain)
-	WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
-	pp("waiting for the site to fully load...")
-	#time.sleep(10)
-	reqs = []
-	len_reqs = 0
-	keep_wait = 0
-	while keep_wait != 4:
-		len_urls = len(reqs)
-		start_from = len_reqs
-		len_reqs = len(driver.requests)
-		for r in range(start_from,len_reqs):
-			wait_res = 3
-			while not driver.requests[r].response and wait_res >0:
-				time.sleep(0.5)
-				wait_res = wait_res - 0.5
-
-			if driver.requests[r].response:
-				ignore = url_is_ignored(main, driver.requests[r].url, ignore_those, strict)
-				if not ignore :
-					if 'all' in look_for:
-						pp(
-							str(driver.requests[r].method)+"       "+
-							str(driver.requests[r].response.headers['Content-Type'])+"             "+
-							str(driver.requests[r].response.status_code)+" "+
-							str(driver.requests[r].url)
-						)
-						reqs.append(driver.requests[r])
-					else:
-						get_it = to_look_for(str(driver.requests[r].response.headers['Content-Type']), look_for)
-						if ( get_it ):
+		is_session_closed(driver)
+		main    = domain_parts.extract(domain).domain
+		pp("main: "+main)
+		pp("GET "+domain)
+		driver.get("https://"+domain)
+		starting_time = datetime.datetime.now()
+		WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+		pp("waiting for the site to fully load...")
+		#time.sleep(10)
+		reqs = []
+		len_reqs  = 0
+		keep_wait = 0
+		total_time_waiting= 0
+		while keep_wait != 4:
+			len_urls = len(reqs)
+			start_from = len_reqs
+			len_reqs = len(driver.requests)
+			for r in range(start_from,len_reqs):
+				#print("_____________________________________________________"+ str(c.count_open_fds()))
+				wait_res = 3
+				while not driver.requests[r].response and wait_res >0:
+					time.sleep(0.5)
+					wait_res = wait_res - 0.5
+	
+				if driver.requests[r].response:
+					ignore = url_is_ignored(main, driver.requests[r].url, ignore_those, strict)
+					if not ignore :
+						if 'all' in look_for:
 							pp(
-							str(driver.requests[r].method)+"       "+
-							str(driver.requests[r].response.headers['Content-Type'])+"             "+
-							str(driver.requests[r].response.status_code)+" "+
-							str(driver.requests[r].url)
+								str(driver.requests[r].method)+"       "+
+								str(driver.requests[r].response.headers['Content-Type'])+"             "+
+								str(driver.requests[r].response.status_code)+" "+
+								str(driver.requests[r].url)
 							)
 							reqs.append(driver.requests[r])
-		#print("wait")
-		time.sleep(1)
-		if len_urls != len(reqs):
-			keep_wait = 0
-		else:
-			keep_wait = keep_wait + 1
+						else:
+							get_it = to_look_for(str(driver.requests[r].response.headers['Content-Type']), look_for)
+							if ( get_it ):
+								pp(
+								str(driver.requests[r].method)+"       "+
+								str(driver.requests[r].response.headers['Content-Type'])+"             "+
+								str(driver.requests[r].response.status_code)+" "+
+								str(driver.requests[r].url)
+								)
+								reqs.append(driver.requests[r])
+				current_time = datetime.datetime.now()
+				if (current_time - starting_time).seconds > 60:
+					print("exceed 150 second")
+					driver.quit()
+					break
+			#print("wait")
+			time.sleep(1)
+			if len_urls != len(reqs):
+				keep_wait = 0
+			else:
+				keep_wait = keep_wait + 1
+	except Exception as e:
+		print(e)
+		print("connexion failed.")
 
-			
 	if not no_save:
 		for req in reqs:
-
+			#print("_____________________________________________________"+ str(c.count_open_fds()))
 			url       = c.segmentUrl(req.url)["domain"]
 			path	  = c.segmentUrl(req.url)["path"]
 			variables = c.segmentUrl(req.url)["variables"]
@@ -106,17 +118,17 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 						dmn.js_files	=['+', url+''+path]
 						r = Domain.update(url, workshop, dmn, False)
 
-			elif path != "InvalidPath" and path != "NoPath":
-				pth = Path(domain=url, path=path)
-				r   = pth.save(workshop)
-				if r == "PathExist":
-					pth.domain = ""
-					pth.path   = ""
-					r = Path.update(workshop, url, path, pth)
+					elif path != "InvalidPath" and path != "NoPath":
+						pth = Path(domain=url, path=path)
+						r   = pth.save(workshop)
+						if r == "PathExist":
+							pth.domain = ""
+							pth.path   = ""
+							r = Path.update(workshop, url, path, pth)
+		if not is_session_closed(driver):
+			driver.quit()
+		return reqs
 
-	driver.quit()
-	is_session_closed(driver)
-	return reqs
 
 def to_look_for(res_type, look_for):
 	for t in look_for:

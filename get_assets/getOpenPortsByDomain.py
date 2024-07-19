@@ -14,11 +14,13 @@ def scan_port(domain, port_name, port, open_ports):
 		sock.close()
 		if result == 0:
 			open_ports[port_name] = port
-			pp(""+port_name+":"+str(port)+" ✅",end='\n')
+			pp("[+] "+domain+"	"+port_name+":"+str(port)+" ✅",end='\n')
+		'''
 		else:
 
 			#pp("|",end='')
 			pp("\n"+port_name+":"+str(port)+" ❌",end='')
+		'''
 	except Exception as e:
 		#pp(port_name+":"+str(port)+" ❌",end='')
 		#pp("error: ")
@@ -32,6 +34,9 @@ def GetOpenPortsByDomain(workshop, domain, no_save,top_20=True, top_web=False, b
 	ports_to_scan	 = {}
 	threads		 = []
 	threads_interval = []
+
+	if( not top_20 and not top_web and not by_ports and not interval):
+		top_20 = True
 
 	if interval:
 		try:

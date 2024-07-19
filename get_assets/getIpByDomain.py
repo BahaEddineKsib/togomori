@@ -1,10 +1,13 @@
 from entities.domain import Domain
 import socket
+from personalizedPrint import pp
 
 def GetIpByDomain(workshop, domain, no_save):
 	try:
 		ip = socket.gethostbyname(domain)
+		pp("[+]  "+ip+"	"+domain)
 	except:
+		pp("can't get	"+domain)
 		return "NoIp" 
 		
 	if not no_save:

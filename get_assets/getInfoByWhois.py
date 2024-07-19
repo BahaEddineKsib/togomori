@@ -3,7 +3,7 @@ import whois
 import json
 from personalizedPrint import pp
 
-def GetInfoByWhois(workshop, domain,no_save):
+def GetInfoByWhois(workshop, domain, no_save, by_hostname=False):
 	info = whois.whois(domain)
 	json_info = {}
 
@@ -57,15 +57,27 @@ def GetInfoByWhois(workshop, domain,no_save):
 	if info['domain_name'] == None:
 		return 'DomainNotInWhois'
 	if not no_save:
+
+		if by_hostname:
+			dmns = Domain.getAll(workshop)
+			for d in dmns:
+				if domain in d.domain:
+					this_domain = d.domain
+					dmn = d
+					dmn.whois	= json_info
+					dmn.domain	= ''
+					dmn.workshop_id = ''
+					r = Domain.update(this_domain, workshop, dmn, False)
+		else:
 		
-		dmn = Domain(workshop_id=workshop, domain=domain, whois=json_info)
-		r   = dmn.save()
-		if r == 'WorkshopNotFound':
-			return r
-		if r == 'DomainExist':
-			dmn.domain = ''
-			dmn.workshop_id=''
-			r = Domain.update(domain, workshop, dmn, False)
+			dmn = Domain(workshop_id=workshop, domain=domain, whois=json_info)
+			r   = dmn.save()
+			if r == 'WorkshopNotFound':
+				return r
+			if r == 'DomainExist':
+				dmn.domain = ''
+				dmn.workshop_id=''
+				r = Domain.update(domain, workshop, dmn, False)
 
 	return json_info
 
