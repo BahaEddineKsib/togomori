@@ -184,3 +184,47 @@ GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj
 GET       image/png             200 https://lf16-tiktok-common.ibytedtos.com/obj/tiktok-web-common-sg/mtact/static/images/tiktok-logo/launch/splash_750x1294.png
 GET       image/png             200 https://sf16-website-login.neutral.ttwstatic.com/obj/tiktok_web_login_static/tiktok/webapp/main/webapp-desktop/8152caf0c8e8bc67ae0d.png
 session is CLOSED
+╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻
+ ┃ ┃ ┃┃╺┓┃ ┃┃┃┃┃ ┃┣┳┛┃
+ ╹ ┗━┛┗━┛┗━┛╹ ╹┗━┛╹┗╸╹ version 0.0
+
+amazon
+esprit
+shopify
+spotify
+tiktok
+✅ Workshop tiktok Setted
+lf16-tiktok-common.ibytedtos.com
+mon.tiktokv.com
+sf16-website-login.neutral.ttwstatic.com
+www.tiktok.com
+╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻
+ ┃ ┃ ┃┃╺┓┃ ┃┃┃┃┃ ┃┣┳┛┃
+ ╹ ┗━┛┗━┛┗━┛╹ ╹┗━┛╹┗╸╹ version 0.0
+
+✅ Workshop tiktok Setted
+TECHNOLOGIESS: lf16-tiktok-common.ibytedtos.com
+tech1
+tech2
+tech3
+╺┳╸┏━┓┏━╸┏━┓┏┳┓┏━┓┏━┓╻
+ ┃ ┃ ┃┃╺┓┃ ┃┃┃┃┃ ┃┣┳┛┃
+ ╹ ┗━┛┗━┛┗━┛╹ ╹┗━┛╹┗╸╹ version 0.0
+
+✅ Workshop tiktok Setted
+TECHNOLOGIESS: lf16-tiktok-common.ibytedtos.com
+tech1
+tech2
+tech3
+TECHNOLOGIESS: mon.tiktokv.com
+tech1
+tech2
+tech3
+TECHNOLOGIESS: sf16-website-login.neutral.ttwstatic.com
+tech1
+tech2
+tech3
+TECHNOLOGIESS: www.tiktok.com
+tech1
+tech2
+tech3
