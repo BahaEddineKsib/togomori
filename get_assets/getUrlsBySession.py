@@ -119,7 +119,8 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 						r = Domain.update(url, workshop, dmn, False)
 
 					elif path != "InvalidPath" and path != "NoPath":
-						pth = Path(domain=url, path=path)
+						tags = getTags(req)
+						pth = Path(domain=url, path=path, tags=tags)
 						r   = pth.save(workshop)
 						if r == "PathExist":
 							pth.domain = ""
@@ -154,4 +155,11 @@ def is_session_closed(driver):
 		return False  # If no exception is raised, the session is still open
 	except Exception:
 		pp("session is CLOSED")
-		return True  # If an exception is raised, the session is closed
+		return True  # If an exception is raised, the session is closeda
+
+def getTags(req):
+	tags =[]
+	tags.append(req.response.headers['Content-Type'])
+	tags.append(req.response.status_code)
+	tags.append(req.method)
+	return tags

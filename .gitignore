@@ -1,5 +1,6 @@
 __pycache__/
 *.swp
 data/workshops/
-./output.txt
-./geckodriver.log
+output.txt
+geckodriver.log
+configs.json
