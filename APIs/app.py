@@ -12,7 +12,9 @@ def define_apis():
 	
 	CORS(app)
 
-	sys.path.append(sys.argv[0].replace('/APIs/app.py',''))
+	sys.path.append(sys.argv[0].replace('APIs/app.py',''))
+	sys.path.append(os.path.abspath(__file__).replace('/APIs/app.py',''))
+	print(sys.path)
 
 	@app.route('/', methods=['GET','POST','OPTION'])
 	def index():
