@@ -151,6 +151,55 @@ def define_apis():
 
 
 		return rslt
+
+	@app.route('/get_domain_names', methods=['GET','POST','OPTION'])
+	def get_domain_names():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+		import tldextract	as domain_parts
+ 
+		if gv.CURRENT_WORKSHOP == "":
+			return [{"name":"set a workshop","value":0}]
+
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
+		hosts = []
+		for d in domainsList:
+			host = domain_parts.extract(d.domain).domain + '.' + domain_parts.extract(d.domain).suffix
+			names = [i["name"] for i in hosts]
+			if not (host in names):
+				hosts.append({"name":host, "value":0})
+			for h in range(0,len(hosts)):
+				if hosts[h]["name"] == host:
+					hosts[h]["value"] = hosts[h]["value"] + 1
+		return hosts
+	
+	@app.route('/get_portsStat', methods=['GET','POST','OPTION'])
+	def get_portsStat():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+		import tldextract	as domain_parts
+ 
+		if gv.CURRENT_WORKSHOP == "":
+			return [{"name":"set a workshop","value":0}]
+
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
+		ports = []
+		for d in domainsList:
+			for p in d.ports.keys():
+				p = p +":"+str(d.ports[p])
+				ports_names = [i["name"] for i in ports]
+				if not (p in ports_names):
+					ports.append({"name":p, "value":0})
+				for i in range(0,len(ports)):
+					if ports[i]["name"] == p:
+						ports[i]["value"] = ports[i]["value"] + 1
+		return ports
+
+
 	return app
 
 

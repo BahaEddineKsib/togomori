@@ -4,6 +4,9 @@ import pprint
 import json
 import time
 import os
+from personalizedPrint import pp
+
+
 def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 
 	if clear:
@@ -11,10 +14,10 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 			file_path = Workshop.getPath(workshop)+'/github_search'
 			if os.path.isfile(file_path):
 				open(file_path, 'w').close()
-				print("Clear.")
+				pp("Clear.")
 			return 'clear'
 		else:
-			print("workshop don't exist.")
+			pp("workshop don't exist.")
 			return 'WorkshopNotFound'
 
 	time.sleep(5)
@@ -34,11 +37,12 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 		url = f"https://api.github.com/search/code?q={query}&page={page}"
 		headers = {"Authorization": f"token {github_token}"}
 		response = requests.get(url, headers=headers)
-		print('Get: '+url)
+		pp('Get: '+url)
 		#slow_down(github_token)
 		if response.status_code != 200:
-			print(f"Failed to retrieve data: {response.status_code}")
-			print(response.text)
+			pp("F:"+keyword+" page "+str(page))
+			#pp(f"Failed to retrieve data: {response.status_code}")
+			#pp(response.text)
 			break
 
 		result = response.json()
@@ -46,7 +50,7 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 			break
 
 		for item in result['items']:
-			print(f"Repository: {item['repository']['full_name']}")
+			pp(f"Repository: {item['repository']['full_name']}")
 			time.sleep(0.02)
 			#pprint.pp(item)
 			it = {"domain":keyword, "repository":item['repository']['full_name'], "filename":item['name'], "url":"https://github.com/"+item['repository']['full_name']}
@@ -61,10 +65,10 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 
 		page += 1
 	for rep in repositories:
-		print("repository: "+rep['repository'])
-		print("founds    : "+str(rep['founds']))
-		print("domain    : "+rep['domain'])
-		print("url       : "+rep['url']+'\n')
+		pp("repository: "+rep['repository'])
+		pp("founds    : "+str(rep['founds']))
+		pp("domain    : "+rep['domain'])
+		pp("url       : "+rep['url']+'\n')
 	
 	if not no_save:
 		if Workshop.exist(workshop):
@@ -73,13 +77,13 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 	
 			# Check if the file exists
 			if not os.path.isfile(file_path):
-				print("not exist "+file_path)
+				pp("ne: CREATING "+file_path)
 				#Create the file and write the dictionary
 				with open(file_path, 'w') as file:
 					json.dump(repositories, file)  # Serialize the dictionary as JSON and write it to the file
-				print("Saved. in "+ file_path)
+				pp("Saved. in "+ file_path)
 			else:
-				print("exist " +file_path)
+				pp("e: Saving in " +file_path)
 				with open(file_path, 'r') as file:
 					json_list = json.load(file)
 				for rep in repositories:
@@ -94,7 +98,7 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 				with open(file_path, 'w') as file:
 					json.dump(repositories, file)
 		else:
-			print("workshop "+workshop+" not found")
+			pp("workshop "+workshop+" not found")
 
 def slow_down(key):
 	# Your personal access token
@@ -139,8 +143,9 @@ def slow_down(key):
 			#print(f"Waiting {delay_between_requests:.2f} seconds before the next request.")
 			time.sleep(delay_between_requests)
 		else:
-			print(f"Failed to retrieve rate limits: {response.status_code}")
-			print(response.json())  # Print the error message from GitHub
+			#pp(f"Failed to retrieve rate limits: {response.status_code}")
+			#pp(response.json())  # Print the error message from GitHub
+			pp(f"Failed to retrieve rate limits")
 
 
 
