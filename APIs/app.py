@@ -199,6 +199,26 @@ def define_apis():
 						ports[i]["value"] = ports[i]["value"] + 1
 		return ports
 
+	@app.route('/get_pathsStat', methods=['GET','POST','OPTION'])
+	def get_pathsStat():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "":
+			return [{"name":"set a workshop","value":0}]
+
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
+		dd = []
+		for d in domainsList:
+			pathsCount = len(Path.getByDomain(d.domain,gv.CURRENT_WORKSHOP))
+			if pathsCount != 0:
+				dd.append({"name":d.domain,"value":pathsCount})
+		return dd
+
+
+
 
 	return app
 
