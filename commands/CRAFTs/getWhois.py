@@ -74,6 +74,13 @@ class GetWhois:
 	-w <workshop>		  Y/N		select a workshop
 						required when there is no workshop setted
 
+	-a			  NO		get the WHOIS of all the domains 
+						in the workshop that don't have a WHOIS scan yet
+
+	-l			  NO		insert a list of domains to get their WHOIS
+
+
+
 	-no			  NO		do NOT save the ip address we got.
 		""")
 

@@ -83,6 +83,8 @@ class GetGithub:
 	-w <workshop>		  Y/N		select a workshop
 						required when there is no workshop setted
 
+	-c			  NO		clear the search history
+
 	-no			  NO		do NOT save the ip address we got.
 		""")
 

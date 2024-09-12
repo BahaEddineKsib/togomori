@@ -79,7 +79,7 @@ class DisplayPath:
 	@staticmethod
 	def help():
 		pp("""
-	command: addpath | addp | dp
+	command: displaypath | displayp | dp
 	option			required	Description
 
 	-p <path>		  Y/N		insert path to display

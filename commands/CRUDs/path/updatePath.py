@@ -94,6 +94,10 @@ class UpdatePath:
 	-w <workshop>		  Y/N		select a workshop to add the domain in it
 						required when there is no workshop setted
 
+	-p <path>		  NO		insert a new url link
+
+	-D <domain>		  NO		insert a new domain
+
 	--tag  <[tags]>		  NO		Update tags (ERASE all the old tags and replace it with new list.)
 	     + <[tags]>				adding + before the tags list will add to the already existed tags
 	     - <[tags]>				adding _ before the tags list will remove the tags you listed if they exist

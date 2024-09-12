@@ -81,6 +81,11 @@ class GetSubDomains:
 	-w <workshop>		  Y/N		select a workshop
 						required when there is no workshop setted
 
+	-a			  NO		get the subs of all the domains 
+						in the workshop that don't have a sub scan yet
+
+	-l			  NO		insert a list of domains to get their subs
+
 	-W			  NO		scan by the wordlist
 
 	-C			  NO		get subs from crt.sh
