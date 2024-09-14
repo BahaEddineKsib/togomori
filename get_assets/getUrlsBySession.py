@@ -23,6 +23,7 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 			ignore_those = []
 	
 		#look_for = ["all"]
+		reqs = []
 		print("looking for :")
 		print(look_for)
 		# Path to your GeckoDriver executable
@@ -45,7 +46,6 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 		WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 		pp("waiting for the site to fully load...")
 		#time.sleep(10)
-		reqs = []
 		len_reqs  = 0
 		keep_wait = 0
 		total_time_waiting= 0
@@ -93,8 +93,8 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 			else:
 				keep_wait = keep_wait + 1
 	except Exception as e:
-		print(e)
-		print("connexion failed.")
+		#print(e)
+		print("negative connexion.")
 
 	if not no_save:
 		for req in reqs:
@@ -121,7 +121,8 @@ def GetUrlsBySession(workshop, domain, look_for=['all'], no_save=True, strict=Tr
 					elif path != "InvalidPath" and path != "NoPath":
 						tags = getTags(req)
 						pth = Path(domain=url, path=path, tags=tags)
-						r   = pth.save(workshop)
+						if len(path) < 255:
+							r   = pth.save(workshop)
 						if r == "PathExist":
 							pth.domain = ""
 							pth.path   = ""

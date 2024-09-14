@@ -20,7 +20,7 @@ class GetIp:
 
 
 
-		if("UserNeedsHelp" in [ cmnd, domain, no_save, workshop, all_domains, domains_list]):
+		if("UserNeedsHelp" in [ cmnd, domain, no_save, workshop, all_domains, domains_list]): 
 			GetIp.help()
 			return "UserNeedsHelp"
 		elif(not workshop and TopG.CURRENT_WORKSHOP == "" and not no_save):

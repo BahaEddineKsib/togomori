@@ -23,6 +23,7 @@ from commands.CRAFTs.getJavascripts	     import GetJavascripts
 from commands.CRAFTs.getPaths		     import GetPaths
 from commands.CRAFTs.getRobotsTxt	     import GetRobotsTxt
 from commands.CRAFTs.getGithub		     import GetGithub
+from commands.CRAFTs.fullscan		     import Fullscan
 from commands.help			     import Help
 from commands.CRUDs			     import DRY as c
 from personalizedPrint			     import clear
@@ -75,6 +76,7 @@ def execute(IN):
 		case "displaytransaction" | "displayt" | "dt":	pp('EXECUTING display transaction..')
 		case "updatetransaction" | "updatet" | "ut":	pp('EXECUTING update transaction..')
 		case "deletetransaction" | "deletet" | "delt":	pp('EXECUTING delete transaction..')
+		case "fullscan" | "fs" : Fullscan.execute(IN)
 		case "get":
 			asset = ''
 			if len(IN.split()) >= 2:
