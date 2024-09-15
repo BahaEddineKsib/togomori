@@ -72,7 +72,7 @@ def define_apis():
 		import GlobalVars	as     gv
 
 		if gv.CURRENT_WORKSHOP == "":
-			return {'domains':['set a workshop']}
+			return {'data':['set a workshop']}
 		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP)
 		dd = []
 		for d in domainsList:
@@ -88,6 +88,35 @@ def define_apis():
 
 			dd.append({'domain':d.domain, 'ip':ip,'paths':pathsCount, 'js':jsCount, 'ports':portsCount, 'techs':techs,'whois':whois, 'server_file':server_file, 'robots_file':robots_file, 'tags':tags})
 		return {'data':dd}
+	@app.route('/get_github_search', methods=['GET','POST','OPTION'])
+	def get_github_search():
+		import GlobalVars as gv
+
+		if gv.CURRENT_WORKSHOP == "":
+			return {'data':['set a workshop']}
+		with open('data/workshops/'+gv.CURRENT_WORKSHOP+'/github_search') as f:
+			d = json.load(f)
+			
+			return {'data':d}
+
+	@app.route('/get_github_search_stats', methods=['GET','POST','OPTION'])
+	def get_github_search_stats():
+		import GlobalVars as gv
+
+		if gv.CURRENT_WORKSHOP == "":
+			return [{"name":"set a workshop","value":0}]
+
+		res = []
+		with open('data/workshops/'+gv.CURRENT_WORKSHOP+'/github_search') as f:
+			d = json.load(f)
+			
+			for s in d:
+				res.append({"name":s['repository'], "value":s['founds']})
+			
+			return res
+
+
+
 
 	@app.route('/get_numberDomainsByWorkshop', methods=['GET','POST','OPTION'])
 	def get_numberDomainsByWorkshop():
