@@ -88,6 +88,128 @@ def define_apis():
 
 			dd.append({'domain':d.domain, 'ip':ip,'paths':pathsCount, 'js':jsCount, 'ports':portsCount, 'techs':techs,'whois':whois, 'server_file':server_file, 'robots_file':robots_file, 'tags':tags})
 		return {'data':dd}
+
+	@app.route('/get_setted_domain_infos', methods=['GET', 'POST', 'OPTION'])
+	def get_setted_domain_infos():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "" or gv.CURRENT_DOMAIN == "":
+			return {'data':['set a domain']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP, domain=gv.CURRENT_DOMAIN)
+		dd = []
+		for d in domainsList:
+			pathsCount = len(Path.getByDomain(d.domain,gv.CURRENT_WORKSHOP))
+			jsCount	   = len(d.js_files)
+			portsCount = len(list(d.ports.keys()))
+			ip	   = "❌" if d.ip	   == "" else d.ip
+			robots_file= "❌" if d.robots_file == "" else d.robots_file
+			server_file= "❌" if d.server_file == "" else d.server_file
+			tags	   = "❌" if len(d.tags)   == 0  else d.tags
+			techs	   = len(d.techs)
+			whois	   = "❌" if not d.whois         else "✅"
+
+			dd.append({'domain':d.domain, 'ip':ip,'paths':pathsCount, 'js':jsCount, 'ports':portsCount, 'techs':techs,'whois':whois, 'server_file':server_file, 'robots_file':robots_file, 'tags':tags})
+		return {'data':dd}
+
+	@app.route('/get_setted_domain_whois', methods=['GET', 'POST', 'OPTION'])
+	def get_setted_domain_whois():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "" or gv.CURRENT_DOMAIN == "":
+			return {'data':['set a domain']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP, domain=gv.CURRENT_DOMAIN)
+		dd = []
+		for d in domainsList:
+			if not d.whois:
+				whois = "SCAN WHOIS with 'get whois -d <domain> -w <workshop>'"
+			else:
+				whois = d.whois
+				for w in whois.keys():
+					dd.append({"asset":w,"value":whois[w]})
+		return {'data':dd}
+
+
+	@app.route('/get_setted_domain_js_files', methods=['GET', 'POST', 'OPTION'])
+	def get_setted_domain_js_files():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "" or gv.CURRENT_DOMAIN == "":
+			return {'data':['set a domain']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP, domain=gv.CURRENT_DOMAIN)
+		dd = []
+		for d in domainsList:
+			for j in d.js_files:
+				dd.append({'javascript':j})
+		return {'data':dd}
+
+	@app.route('/get_setted_domain_paths', methods=['GET', 'POST', 'OPTION'])
+	def get_setted_domain_paths():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "" or gv.CURRENT_DOMAIN == "":
+			return {'data':['set a domain']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP, domain=gv.CURRENT_DOMAIN)
+		dd = []
+		for d in domainsList:
+			for p in Path.getByDomain(d.domain,gv.CURRENT_WORKSHOP):
+				path = p.path
+				tags = p.tags
+				dd.append({'path':path, 'tags':tags})
+		return {'data':dd}
+
+
+	@app.route('/get_setted_domain_techs', methods=['GET', 'POST', 'OPTION'])
+	def get_setted_domain_techs():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "" or gv.CURRENT_DOMAIN == "":
+			return {'data':['set a domain']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP, domain=gv.CURRENT_DOMAIN)
+		dd = []
+		for d in domainsList:
+			for t in d.techs:
+				dd.append({'technology':t})
+		return {'data':dd}
+
+
+
+
+	@app.route('/get_setted_domain_ports', methods=['GET', 'POST', 'OPTION'])
+	def get_setted_domain_ports():
+		from entities.workshop	import Workshop
+		from entities.domain	import Domain
+		from entities.path	import Path
+		import GlobalVars	as     gv
+
+		if gv.CURRENT_WORKSHOP == "" or gv.CURRENT_DOMAIN == "":
+			return {'data':['set a domain']}
+		domainsList = Domain.searchBy(workshop_id=gv.CURRENT_WORKSHOP, domain=gv.CURRENT_DOMAIN)
+		dd = []
+		for d in domainsList:
+			for p in d.ports.keys():
+				portname   = p
+				portnumber = d.ports[p]
+
+				dd.append({'name':portname,'number':portnumber})
+		return {'data':dd}
+
+
+
 	@app.route('/get_github_search', methods=['GET','POST','OPTION'])
 	def get_github_search():
 		import GlobalVars as gv

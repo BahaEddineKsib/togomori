@@ -295,7 +295,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -828,7 +829,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 27
           },
           "id": 8,
           "options": {
@@ -945,7 +946,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -960,7 +962,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 23
+            "y": 35
           },
           "id": 13,
           "options": {
@@ -1037,7 +1039,640 @@
         "y": 3
       },
       "id": 15,
-      "panels": [],
+      "panels": [
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "gridPos": {
+            "h": 3,
+            "w": 24,
+            "x": 0,
+            "y": 43
+          },
+          "id": 16,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<h1 style=\"font-size: 55px\">🔍${CURRENT_DOMAIN}</h1>",
+            "mode": "html"
+          },
+          "pluginVersion": "11.1.3",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byType",
+                  "options": "number"
+                },
+                "properties": [
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "mode": "basic",
+                      "type": "gauge",
+                      "valueDisplayMode": "color"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 4,
+            "w": 24,
+            "x": 0,
+            "y": 46
+          },
+          "id": 17,
+          "options": {
+            "cellHeight": "lg",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "desc": true,
+                "displayName": "paths"
+              }
+            ]
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "cacheDurationSeconds": 300,
+              "datasource": {
+                "type": "marcusolsson-json-datasource",
+                "uid": "${DS_TOGOMORI}"
+              },
+              "fields": [
+                {
+                  "jsonPath": "$.data[*].ip",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].paths",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].ports",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].js",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].techs",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].whois",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].robots_file",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].server_file",
+                  "language": "jsonpath",
+                  "name": ""
+                },
+                {
+                  "jsonPath": "$.data[*].tags",
+                  "language": "jsonpath",
+                  "name": ""
+                }
+              ],
+              "method": "GET",
+              "params": [
+                [
+                  "refresh",
+                  "${refresh}"
+                ]
+              ],
+              "queryParams": "",
+              "refId": "A",
+              "urlPath": "/get_setted_domain_infos"
+            }
+          ],
+          "title": "domains assets",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "center",
+                "cellOptions": {
+                  "type": "auto",
+                  "wrapText": false
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 5,
+            "x": 0,
+            "y": 50
+          },
+          "id": 18,
+          "options": {
+            "cellHeight": "lg",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "cacheDurationSeconds": 300,
+              "datasource": {
+                "type": "marcusolsson-json-datasource",
+                "uid": "${DS_TOGOMORI}"
+              },
+              "fields": [
+                {
+                  "jsonPath": "$.data[*].name"
+                },
+                {
+                  "jsonPath": "$.data[*].number",
+                  "language": "jsonpath",
+                  "name": ""
+                }
+              ],
+              "method": "GET",
+              "params": [
+                [
+                  "refresh",
+                  "${refresh}"
+                ]
+              ],
+              "queryParams": "",
+              "refId": "A",
+              "urlPath": "/get_setted_domain_ports"
+            }
+          ],
+          "title": "Open Ports",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "center",
+                "cellOptions": {
+                  "type": "auto",
+                  "wrapText": false
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 5,
+            "x": 5,
+            "y": 50
+          },
+          "id": 19,
+          "options": {
+            "cellHeight": "lg",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "cacheDurationSeconds": 300,
+              "datasource": {
+                "type": "marcusolsson-json-datasource",
+                "uid": "${DS_TOGOMORI}"
+              },
+              "fields": [
+                {
+                  "jsonPath": "$.data[*].technology"
+                }
+              ],
+              "method": "GET",
+              "params": [
+                [
+                  "refresh",
+                  "${refresh}"
+                ]
+              ],
+              "queryParams": "",
+              "refId": "A",
+              "urlPath": "/get_setted_domain_techs"
+            }
+          ],
+          "title": "Open Ports",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto",
+                  "wrapText": true
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byRegexp",
+                  "options": "*"
+                },
+                "properties": [
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "json-view"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 14,
+            "x": 10,
+            "y": 50
+          },
+          "id": 20,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "cacheDurationSeconds": 300,
+              "datasource": {
+                "type": "marcusolsson-json-datasource",
+                "uid": "${DS_TOGOMORI}"
+              },
+              "fields": [
+                {
+                  "jsonPath": "$.data[*].asset"
+                },
+                {
+                  "jsonPath": "$.data[*].value",
+                  "language": "jsonpath",
+                  "name": ""
+                }
+              ],
+              "method": "GET",
+              "params": [
+                [
+                  "refresh",
+                  "${refresh}"
+                ]
+              ],
+              "queryParams": "",
+              "refId": "A",
+              "urlPath": "/get_setted_domain_whois"
+            }
+          ],
+          "title": "WHOIS scan",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 10,
+            "x": 0,
+            "y": 58
+          },
+          "id": 22,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "cacheDurationSeconds": 300,
+              "datasource": {
+                "type": "marcusolsson-json-datasource",
+                "uid": "${DS_TOGOMORI}"
+              },
+              "fields": [
+                {
+                  "jsonPath": "$.data[*].javascript"
+                }
+              ],
+              "method": "GET",
+              "params": [
+                [
+                  "refresh",
+                  "${refresh}"
+                ]
+              ],
+              "queryParams": "",
+              "refId": "A",
+              "urlPath": "/get_setted_domain_js_files"
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "auto",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 14,
+            "x": 10,
+            "y": 58
+          },
+          "id": 21,
+          "options": {
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "11.1.3",
+          "targets": [
+            {
+              "cacheDurationSeconds": 300,
+              "datasource": {
+                "type": "marcusolsson-json-datasource",
+                "uid": "${DS_TOGOMORI}"
+              },
+              "fields": [
+                {
+                  "jsonPath": "$.data[*].path"
+                },
+                {
+                  "jsonPath": "$.data[*].tags",
+                  "language": "jsonpath",
+                  "name": ""
+                }
+              ],
+              "method": "GET",
+              "params": [
+                [
+                  "refresh",
+                  "${refresh}"
+                ]
+              ],
+              "queryParams": "",
+              "refId": "A",
+              "urlPath": "/get_setted_domain_paths"
+            }
+          ],
+          "title": "domain's urls",
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_TOGOMORI}"
+          },
+          "gridPos": {
+            "h": 11,
+            "w": 24,
+            "x": 0,
+            "y": 67
+          },
+          "id": 23,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<br>\n<br>\n<br>\n<br>\n<br>\n<h1 style=\"font-size: 55px\">✅ end of scan.</h1>",
+            "mode": "html"
+          },
+          "pluginVersion": "11.1.3",
+          "type": "text"
+        }
+      ],
       "title": "Domain information",
       "type": "row"
     }
@@ -1049,66 +1684,70 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "test",
+          "value": "test"
         },
         "hide": 2,
         "name": "CURRENT_WORKSHOP",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "",
             "value": ""
           }
         ],
-        "query": "",
-        "skipUrlSync": false,
-        "type": "textbox"
-      },
-      {
-        "current": {},
-        "hide": 2,
-        "name": "CURRENT_DOMAIN",
-        "options": [],
-        "query": "",
+        "query": "test",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "cdn.overleaf.com",
+          "value": "cdn.overleaf.com"
+        },
+        "hide": 2,
+        "name": "CURRENT_DOMAIN",
+        "options": [],
+        "query": "cdn.overleaf.com",
+        "skipUrlSync": false,
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "10:12:07 AM",
+          "value": "10:12:07 AM"
         },
         "hide": 0,
         "name": "refresh",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "",
             "value": ""
           }
         ],
-        "query": "",
+        "query": "10:12:07 AM",
         "skipUrlSync": false,
         "type": "textbox"
       },
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "tech1\ntech2\ntech3\n",
+          "value": "tech1\ntech2\ntech3\n"
         },
         "hide": 2,
         "name": "LAST_OUTPUT",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "",
             "value": ""
           }
         ],
-        "query": "",
+        "query": "tech1\ntech2\ntech3\n",
         "skipUrlSync": false,
         "type": "textbox"
       }
@@ -1122,6 +1761,6 @@
   "timezone": "browser",
   "title": "New dashboard",
   "uid": "ddutdq076hmv4f",
-  "version": 55,
+  "version": 73,
   "weekStart": ""
 }
