@@ -8,7 +8,7 @@ def GetTechsByWebanalyzer(workshop, domain, no_save, show_balance):
 	api_key = json_configs["webanalyzer_API"]
 	headers = {"x-api-key":api_key}
 	result = {}
-	#res1 = requests.get('https://api.wappalyzer.com/v2/lookup/?urls=https://'+domain,headers=headers)
+	res1 = requests.get('https://api.wappalyzer.com/v2/lookup/?urls=https://'+domain,headers=headers)
 
 	if show_balance:
 		res2    = requests.get('https://api.wappalyzer.com/v2/credits/balance/',headers=headers)
@@ -16,12 +16,12 @@ def GetTechsByWebanalyzer(workshop, domain, no_save, show_balance):
 			return res2.status_code
 		result['balance'] = res2.json()['credits'] 
 
-	#if res1.status_code != 200:
-	#	return res1.status_code
-	#json_res = res1.json()
+	if res1.status_code != 200:
+		return res1.status_code
+	json_res = res1.json()
 
-	#result['techs'] = [tech["name"] for tech in json_res[0]["technologies"]]
-	result['techs'] = ['tech1','tech2','tech3']
+	result['techs'] = [tech["name"] for tech in json_res[0]["technologies"]]
+	#result['techs'] = ['tech1','tech2','tech3']
 	#result['techs'] = []
 	if not no_save:
 		dmn = Domain(workshop_id=workshop, domain=domain, techs=result['techs'])

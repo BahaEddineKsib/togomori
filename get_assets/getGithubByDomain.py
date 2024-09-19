@@ -69,6 +69,7 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 		pp("founds    : "+str(rep['founds']))
 		pp("domain    : "+rep['domain'])
 		pp("url       : "+rep['url']+'\n')
+
 	
 	if not no_save:
 		if Workshop.exist(workshop):
@@ -90,13 +91,14 @@ def GetGithubByDomain(workshop, keyword, no_save, clear=False):
 					in_search = False
 					for i in range(0, len(json_list)):
 						if json_list[i]['repository'] == rep['repository'] and json_list[i]['domain'] == rep['domain']:
+							print(json_list[i]['repository'] +"=="+ rep['repository']+" and "+json_list[i]['domain']+" == "+rep['domain'])
 							json_list[i]['founds'] = rep['founds']
 							in_search = True
 							break
 					if not in_search:
 						json_list.append(rep)
 				with open(file_path, 'w') as file:
-					json.dump(repositories, file)
+					json.dump(json_list, file)
 		else:
 			pp("workshop "+workshop+" not found")
 
