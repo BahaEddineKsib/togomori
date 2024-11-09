@@ -65,7 +65,7 @@ class GetSubDomains:
 				result = GetSubDomainsByHostname(workshop,domain,no_save, by_wordlist)
 
 			match result:
-				case {} : pp("No subdomains are found.")
+				case {} : pp("...")
 				case _  : pp(result)
 	
 			return result
